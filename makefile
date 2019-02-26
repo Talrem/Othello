@@ -7,5 +7,6 @@ aff.o : ./Aff/aff.c
 init.o : ./Init/init.c
 	gcc ./Init/init.c -c
 
+
 clean:
 	rm *.o
