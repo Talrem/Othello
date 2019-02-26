@@ -1,2 +1,2 @@
 # Othello
-Projet de L2 avec Nathan MANSON et Samuel DURAN
+Projet de L2 avec David MERLAT, Nathan MANSON et Samuel DURAN
