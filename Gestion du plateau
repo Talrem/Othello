@@ -5,17 +5,17 @@ MOYEN DE GESTION DU PLATEAU :
   
 MATRICE DE CHAR :
   PROS :
-    -
+    - Représentation rapide via terminal
   CONS :
-    -
+    - Tests sur des chars a chaque utilisation de case (switch case de 20km)
 MATRICE DE ENUM :
   PROS :
-    -
+    - Certitude des réstriction des valeurs
   CONS :
-    -
+    - On maitrise pas trop
 
 MATRICE D'ENTIER :
   PROS :
-    -
+    - Simple a utiliser (?)
   CONS :
-    -
+    - Tres peu visuel
