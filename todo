@@ -10,10 +10,10 @@ COUP VALIDE :
   -dans le plateau
 
 INTERFACE GRAPHIQUE
-  -sdl2
+  -SDL2
   
 JEU EN RESEAU
-  -socket
+  -Socket
   
 JEU CONTRE L'ORDINATEUR
   -arbre de points
