@@ -6,3 +6,9 @@ JEU CONTRE L'ORDINATEUR
   -arbre de points
   -si égalité de gain potentiel : coup aléatoire
   
+Le jeu :
+  - Plateau de 8 par 8
+  - Chaque case est vide/blanche/noir
+  - le noir joue en premier
+  - coup en alternance entre les deux joueur
+  - le tour passe si le joueur ne peux pas jouer
