@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "aff.h"
+#include "../Aff/aff.h"
 
 void initPlateau(char * plat[TAILLE][TAILLE]){
    for(int i = 0; i < TAILLE;i++){
