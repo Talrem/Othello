@@ -1,3 +1,8 @@
 INTERFACE GRAPHIQUE
+
 JEU EN RESEAU
-là c'est l'endroit où on devrait réfléchir à ce qu'on fera dans le projet...
+
+JEU CONTRE L'ORDINATEUR
+  -arbre de points
+  -si égalité de gain potentiel : coup aléatoire
+  
