@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "aff.h"
-#include "init.h"
+#include "./aff.h"
+#include "./init.h"
 
 int main() {
    system("clear");
