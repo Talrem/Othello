@@ -1,15 +1,19 @@
-  LE JEU :
+LE JEU :
   - Plateau de 8 par 8
   - Chaque case est vide/blanche/noir
   - le noir joue en premier
   - coup en alternance entre les deux joueur
   - le tour passe si le joueur ne peux pas jouer
+  
+COUP VALIDE :
+  -au moins un pion de l'adversaire est retourné
+  -dans le plateau
 
 INTERFACE GRAPHIQUE
-  -?
+  -sdl2
   
 JEU EN RESEAU
-  -?
+  -socket
   
 JEU CONTRE L'ORDINATEUR
   -arbre de points
