@@ -74,6 +74,8 @@ int main(int argc, char const *argv[]) {
    }
    SDL_FreeSurface(image); /* on a la texture , plus besoin de l ’ image */
 
+   int i, j;
+   char truc[10];
    //CREATION DE LA FENETRE
    if(pWindow){
       int running = 1;
@@ -93,12 +95,16 @@ int main(int argc, char const *argv[]) {
                      SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
                      SDL_RenderClear(renderer);
                      /* Ajout du texte en noir */
+                     SDL_GetWindowSize(pWindow, &i, &j);
+                     sprintf(truc, "%d x %d", i, j);
+                     texte = TTF_RenderUTF8_Blended(police, truc, couleurNoire);
+                     texte_tex = SDL_CreateTextureFromSurface(renderer, texte);
                      SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
                      SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
-                     /* Ajout de la seconde image a une c e r t a i n e p o s i t i o n */
-                     imgDestRect.x = imgDestRect.y = 50;
+                     /* Ajout de l'image a une c e r t a i n e p o s i t i o n */
+                     /*imgDestRect.x = imgDestRect.y = 50;
                      SDL_QueryTexture(image_tex, NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
-                     SDL_RenderCopy(renderer, image_tex, NULL, &imgDestRect);
+                     SDL_RenderCopy(renderer, image_tex, NULL, &imgDestRect);*/
                      /* On fait le rendu ! */
                      SDL_RenderPresent(renderer);
                      break ;
