@@ -61,7 +61,6 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur){
   while(!coupValide){
     printf("Saisissez votre coup (ligne colonne) : ");
     scanf("%c%d",&saisieLigne,&colonne);
-    getchar();
     //Transformation de la lettre en indice de ligne
     if(saisieLigne >= 'A' && saisieLigne <= 'A' + TAILLE){
       ligne = saisieLigne - 'A';
