@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define TAILLE 8
-#define NOIR "●"
-#define BLANC "○"
+#include "../Aff/aff.h"
 
 void afficherPlateau(char * plat[TAILLE][TAILLE]) {
    int i, j;
