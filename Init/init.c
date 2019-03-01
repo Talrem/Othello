@@ -5,7 +5,13 @@
 void initPlateau(char * plat[TAILLE][TAILLE]){
    for(int i = 0; i < TAILLE;i++){
       for(int j = 0; j < TAILLE;j++){
-         plat[i][j] = " ";
+        if(i == 3 && j == 3 || i == 4 && j == 4){
+          plat[i][j] = NOIR;
+        }else if(i == 3 && j == 4 || i == 4 && j == 3){
+          plat[i][j] = BLANC;
+        }else{
+          plat[i][j] = " ";
+        }
       }
    }
 }
