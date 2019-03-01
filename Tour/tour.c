@@ -28,14 +28,46 @@ int estValide(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
   return 1;
 }
 
-void saisieCoup(char * plat[TAILLE][TAILLE], char * couleur){
+//Joueur contre IA difficile
+void saisieCoupJcID(char * plat[TAILLE][TAILLE], char * couleur){
+  printf("Work In Progress\nAu Revoir\n");
+  exit(EXIT_SUCCESS);
+}
+
+//Joueur contre IA intermédiaire
+void saisieCoupJcII(char * plat[TAILLE][TAILLE], char * couleur){
+  printf("Work In Progress\nAu Revoir\n");
+  exit(EXIT_SUCCESS);
+}
+
+//Joueur contre IA facile
+void saisieCoupJcIF(char * plat[TAILLE][TAILLE], char * couleur){
+  printf("Work In Progress\nAu Revoir\n");
+  exit(EXIT_SUCCESS);
+}
+
+//Joueur contre Joueur distant
+void saisieCoupJcJD(char * plat[TAILLE][TAILLE], char * couleur){
+  printf("Work In Progress\nAu Revoir\n");
+  exit(EXIT_SUCCESS);
+}
+
+//Joueur contre Joueur local
+void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur){
   int coupValide = 0;
   int colonne = -1,ligne = -1;
+  char saisieLigne = ' ';
   printf("\nJoueur %s\n",couleur);
   while(!coupValide){
     printf("Saisissez votre coup (ligne colonne) : ");
-    scanf("%d %d",&ligne,&colonne);
-    ligne--;
+    scanf("%c%d",&saisieLigne,&colonne);
+    getchar();
+    //Transformation de la lettre en indice de ligne
+    if(saisieLigne >= 'A' && saisieLigne <= 'A' + TAILLE){
+      ligne = saisieLigne - 'A';
+    }else{
+      ligne = saisieLigne - 'a';
+    }
     colonne--;
     coupValide = estValide(plat,ligne,colonne,couleur);
   }
