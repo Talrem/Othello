@@ -7,11 +7,9 @@
 
 void afficherPlateau(char * plat[TAILLE][TAILLE]) {
    int i, j;
-   char lettre = 'A';
-   printf(" |");
+   printf("\n |");
    for(j = 0; j < TAILLE; j++){
-      printf("%c ", lettre);
-      lettre++;
+      printf("%d ", j + 1);
    }
    printf("\n_|");
    for(j = 0; j < TAILLE; j++){
@@ -19,7 +17,7 @@ void afficherPlateau(char * plat[TAILLE][TAILLE]) {
    }
    printf("\n");
    for(i = 0; i < TAILLE; i++){
-      printf("%d|", i + 1);
+      printf("%c|", 'A' + i);
       for(j = 0; j < TAILLE; j++){
          printf("%s ", plat[i][j]);
       }
