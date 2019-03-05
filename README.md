@@ -30,7 +30,7 @@
     <h4>INTERFACE GRAPHIQUE</h4>
     <ul>
       <li>-SDL2</li>
-    <ul>
+    </ul>
     <h4>JEU EN RESEAU</h4>
     <ul>
       <li>-Socketv</li>
