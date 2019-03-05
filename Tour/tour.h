@@ -1,4 +1,4 @@
-#include "../Aff/aff.h"
+#include "../definitions.h"
 
 int estValide(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur);
 void saisieCoupJcID(char * plat[TAILLE][TAILLE], char * couleur);

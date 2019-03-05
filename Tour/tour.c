@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../Aff/aff.h"
+#include "../definitions.h"
 
 /*
 Cette fonction vérifie la validité du coup
