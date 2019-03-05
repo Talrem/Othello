@@ -40,6 +40,7 @@ int main(int argc, char * argv[]) {
   char * plat[TAILLE][TAILLE];
   srand(time(NULL));
   int choixMenu = 0;
+  int cont = 1;
   while(!choixMenu){
     system("clear");
     printf(" 1 - Joueur contre Joueur local\n");
@@ -58,22 +59,27 @@ int main(int argc, char * argv[]) {
   }
   void (*tabFonc[5])(char * (*)[],char *) = {saisieCoupJcJL,saisieCoupJcJD,saisieCoupJcIF,saisieCoupJcII,saisieCoupJcID};
   void (*fonc)(char * (*)[],char *) = tabFonc[choixMenu];
-  initPlat(plat);
-  //initTestVide(plat);
-  //initTestRand(plat);
-  //initTestPlein(plat);
-  //initTestPasDeBlanc(plat);
-  //initTestPasDeNoir(plat);
-  printf("Noir : %s / Blanc : %s",NOIR,BLANC);
-  char * tour = NOIR;
-  while(!estFinie(plat)){
+  while(cont){
     system("clear");
+    initPlat(plat);
+    //initTestVide(plat);
+    //initTestRand(plat);
+    //initTestPlein(plat);
+    //initTestPasDeBlanc(plat);
+    initTestPasDeNoir(plat);
+    printf("Noir : %s / Blanc : %s",NOIR,BLANC);
+    char * tour = NOIR;
+    while(!estFinie(plat)){
+      system("clear");
+      afficherPlateau(plat);
+      if(coupPossible(plat,tour)) fonc(plat,tour);
+      tour = (tour == NOIR ? BLANC : NOIR);
+    }
     afficherPlateau(plat);
-    if(coupPossible(plat,tour)) fonc(plat,tour);
-    tour = (tour == NOIR ? BLANC : NOIR);
+    afficheScore(plat);
+    printf("continuer (0/1) ? : ");
+    scanf("%d",&cont);
   }
-  afficherPlateau(plat);
-  afficheScore(plat);
-  system("PAUSE");
+  system("clear");
   return 0;
 }
