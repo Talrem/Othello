@@ -66,7 +66,7 @@ int main(int argc, char * argv[]) {
     //initTestRand(plat);
     //initTestPlein(plat);
     //initTestPasDeBlanc(plat);
-    initTestPasDeNoir(plat);
+    //initTestPasDeNoir(plat);
     printf("Noir : %s / Blanc : %s",NOIR,BLANC);
     char * tour = NOIR;
     while(!estFinie(plat)){

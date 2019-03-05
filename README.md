@@ -23,22 +23,22 @@
     </ul>
     <h4>COUP VALIDE :</h4>
     <ul>
-      <li>*dans le plateau</li>
-      <li>*coup dans une case vide</li>
-      <li>-au moins un pion de l'adversaire est retourné</li>
+      <li>* dans le plateau</li>
+      <li>* coup dans une case vide</li>
+      <li>- au moins un pion de l'adversaire est retourné</li>
     </ul>
     <h4>INTERFACE GRAPHIQUE</h4>
     <ul>
-      <li>-SDL2</li>
+      <li>- SDL2</li>
     </ul>
     <h4>JEU EN RESEAU</h4>
     <ul>
-      <li>-Socket</li>
+      <li>- Socketv</li>
     </ul>
     <h4>JEU CONTRE L'ORDINATEUR</h4>
     <ul>
-      <li>-arbre de points</li>
-      <li>-si égalité de gain potentiel : coup aléatoire</li>
+      <li>- arbre de points</li>
+      <li>- si égalité de gain potentiel : coup aléatoire</li>
     </ul>
   </body>
 </html>
