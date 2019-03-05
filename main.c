@@ -5,6 +5,7 @@
 #include "./Aff/aff.h"
 #include "./Init/init.h"
 #include "./Tour/tour.h"
+#include "./definitions.h"
 
 int estFinie(char * plat[TAILLE][TAILLE]){
   int done = 0;
@@ -57,15 +58,16 @@ int main(int argc, char * argv[]) {
   }
   void (*tabFonc[5])(char * (*)[],char *) = {saisieCoupJcJL,saisieCoupJcJD,saisieCoupJcIF,saisieCoupJcII,saisieCoupJcID};
   void (*fonc)(char * (*)[],char *) = tabFonc[choixMenu];
-  initTestVide(plat);
-  initPlateau(plat);
-  //initTestRandPlat(plat);
+  initPlat(plat);
+  //initTestVide(plat);
+  //initTestRand(plat);
   //initTestPlein(plat);
   //initTestPasDeBlanc(plat);
   //initTestPasDeNoir(plat);
   printf("Noir : %s / Blanc : %s",NOIR,BLANC);
   char * tour = NOIR;
   while(!estFinie(plat)){
+    system("clear");
     afficherPlateau(plat);
     if(coupPossible(plat,tour)) fonc(plat,tour);
     tour = (tour == NOIR ? BLANC : NOIR);
