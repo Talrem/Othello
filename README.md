@@ -8,31 +8,33 @@
 /- = fait
 
 LE JEU :
-  /- Plateau de 8 par 8
-  /- Chaque case est vide/blanche/noir
-  /- le noir joue en premier
-  /- coup en alternance entre les deux joueur
-  - le tour passe si le joueur ne peux pas jouer
-  /- les cases du plateau doivent etre référencées par des coordoné type B5
-  /- la partie se termine quand :
-    /- le plateau est plein
-    /- il n'y a plus de pions noirs sur le plateau
-    /- il n'y a plus de pions blancs sur le plateau
+  /- Plateau de 8 par 8\n
+  /- Chaque case est vide/blanche/noir\n
+  /- le noir joue en premier\n
+  /- coup en alternance entre les deux joueur\n
+  - le tour passe si le joueur ne peux pas jouer\n
+  /- les cases du plateau doivent etre référencées par des coordoné type B5\n
+  /- la partie se termine quand :\n
+    <ul>
+  <li>/- le plateau est plein</li>
+    <li>/- il n'y a plus de pions noirs sur le plateau</li>
+    <li>/- il n'y a plus de pions blancs sur le plateau</li>
+    </ul>
+\n
+COUP VALIDE :\n
+ /-dans le plateau\n
+ /-coup dans une case vide\n
+  -au moins un pion de l'adversaire est retourné\n
 
-COUP VALIDE :
- /-dans le plateau
- /-coup dans une case vide
-  -au moins un pion de l'adversaire est retourné
 
+INTERFACE GRAPHIQUE\n
+  -SDL2\n
+\n
+JEU EN RESEAU\n
+  -Socketv
 
-INTERFACE GRAPHIQUE
-  -SDL2
-
-JEU EN RESEAU
-  -Socket
-
-JEU CONTRE L'ORDINATEUR
-  -arbre de points
--si égalité de gain potentiel : coup aléatoire</p>
+JEU CONTRE L'ORDINATEUR\n
+  -arbre de points\n
+-si égalité de gain potentiel : coup aléatoire</p>\n
 </body>
 </html>
