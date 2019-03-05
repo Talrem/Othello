@@ -1,7 +1,7 @@
-#include "../Aff/aff.h"
+#include "../definitions.h"
 
-void initPlateau(char * plat[TAILLE][TAILLE]);
-void initTestRandPlat(char * plat[TAILLE][TAILLE]);
+void initPlat(char * plat[TAILLE][TAILLE]);
+void initTestRand(char * plat[TAILLE][TAILLE]);
 void initTestVide(char * plat[TAILLE][TAILLE]);
 void initTestPasDeNoir(char * plat[TAILLE][TAILLE]);
 void initTestPasDeBlanc(char * plat[TAILLE][TAILLE]);

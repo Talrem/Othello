@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../Aff/aff.h"
+#include "../definitions.h"
 
-void initPlateau(char * plat[TAILLE][TAILLE]){
+void initPlat(char * plat[TAILLE][TAILLE]){
    for(int i = 0; i < TAILLE;i++){
       for(int j = 0; j < TAILLE;j++){
-        if(i == 3 && j == 3 || i == 4 && j == 4){
+        if((i == 3 && j == 3) || (i == 4 && j == 4)){
           plat[i][j] = NOIR;
-        }else if(i == 3 && j == 4 || i == 4 && j == 3){
+        }else if((i == 3 && j == 4) || (i == 4 && j == 3)){
           plat[i][j] = BLANC;
         }else{
           plat[i][j] = " ";
@@ -25,6 +25,7 @@ void initTestVide(char * plat[TAILLE][TAILLE]){
 }
 
 void initTestPasDeNoir(char * plat[TAILLE][TAILLE]){
+  initTestVide(plat);
   for(int i = 0; i < TAILLE;i++){
      for(int j = 0; j < TAILLE;j++){
        switch(rand()%2){
@@ -36,6 +37,7 @@ void initTestPasDeNoir(char * plat[TAILLE][TAILLE]){
 }
 
 void initTestPasDeBlanc(char * plat[TAILLE][TAILLE]){
+  initTestVide(plat);
   for(int i = 0; i < TAILLE;i++){
      for(int j = 0; j < TAILLE;j++){
        switch(rand()%2){
@@ -58,7 +60,7 @@ void initTestPlein(char * plat[TAILLE][TAILLE]){
   }
 }
 
-void initTestRandPlat(char * plat[TAILLE][TAILLE]){
+void initTestRand(char * plat[TAILLE][TAILLE]){
    for(int i = 0; i < TAILLE;i++){
       for(int j = 0; j < TAILLE;j++){
          switch(rand()%3){
