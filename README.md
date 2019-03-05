@@ -33,7 +33,7 @@
     </ul>
     <h4>JEU EN RESEAU</h4>
     <ul>
-      <li>-Socketv</li>
+      <li>-Socket</li>
     </ul>
     <h4>JEU CONTRE L'ORDINATEUR</h4>
     <ul>
