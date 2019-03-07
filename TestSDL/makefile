@@ -1,16 +1,25 @@
 CC=gcc
-FLAGS=-Wall -g -Wno-unused-variable
-SDL_DIR=${HOME}/SDL2
+FLAGS=-Wall -g
+MOREFLAGS=-Wno-unused-variable
+SDL_DIR=${HOME}/SDLMAC
 SDL_LIB_DIR=${SDL_DIR}/lib
 SDL_INC_DIR=${SDL_DIR}/include
 LIBS=-L${SDL_LIB_DIR} -lSDL2 -lSDL2_image -lSDL2_ttf
 INCS=-I${SDL_INC_DIR}
 PROG=sdl_test
+DEPENDANCE=init.o
 
 all: sdl_text
 
-sdl_text: sdl_test.c
-	${CC} sdl_test.c -o ${PROG} ${LIBS} ${INCS} ${FLAGS}
+sdl_text: testSDL.o ${DEPENDANCE}
+	${CC} testSDL.o ${DEPENDANCE} -o ${PROG} ${LIBS} ${INCS} ${FLAGS} ${MOREFLAGS}
+
+testSDL.o: testSDL.c
+	${CC} testSDL.c -c ${LIBS} ${INCS} ${FLAGS} ${MOREFLAGS}
+
+init.o: ../Init/init.c
+	${CC} ../Init/init.c -c
+
 
 clear:
 	clear ; clear

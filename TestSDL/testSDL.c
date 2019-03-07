@@ -3,7 +3,12 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
+#include "../Init/init.h"
+#include "../definitions.h"
 #define COULEUR_NOIR 255, 255, 255, 255
+#define HEXA_NOIR 0x00, 0x00, 0x00, 0x00
+#define COULEUR_BLANC 0, 0, 0, 0
+#define HEXA_BLANC 0xFF, 0xFF, 0xFF, 0xFF
 #define COULEUR_VERT 0, 177, 106, 1
 
 
@@ -148,6 +153,12 @@ void fill_circle(SDL_Renderer *surface, int cx, int cy, int radius, Uint8 r, Uin
 	}
 }
 
+void placerPion(SDL_Renderer *render, int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+
+void afficherPlateau(SDL_Renderer *render, int posXPlat, int posYPlat);
+
+void afficherMatrice(char * plateau[TAILLE][TAILLE], SDL_Renderer *render);
+
 int main(int argc, char** argv)
 {
 	//Ouvrir la fenêtre et mémoriser son pointeur
@@ -164,7 +175,8 @@ int main(int argc, char** argv)
 	/*Variables contenant la taille de la fenetre*/
 	int window_w, window_h;
 
-
+	char * plateauMat[TAILLE][TAILLE];
+	initTestRand(plateauMat);
 
 
 	if( pWindow )
@@ -217,46 +229,46 @@ int main(int argc, char** argv)
 								int taillePlat;
 								int tailleCase;
 								int posXPlat, posYPlat;
-								if(window_w > window_h){
+								if(window_w >= window_h){
 									taillePlat = window_h * 80 / 100;
 									posXPlat = (window_w - taillePlat) / 2;
 									posYPlat = (window_h - taillePlat) / 2;
 								} else {
 									taillePlat = window_w * 80 / 100;
-									posXPlat = window_w - (taillePlat / 2);
-									posYPlat = window_h - (taillePlat / 2);
+									posXPlat = (window_w - taillePlat) / 2;
+									posYPlat = (window_h - taillePlat) / 2;
 								}
 								tailleCase = taillePlat / 8;
 								SDL_Rect plateau = {posXPlat, posYPlat, taillePlat, taillePlat};
 								SDL_Rect plateau_case = {posXPlat, posYPlat, tailleCase, tailleCase};
-								SDL_SetRenderDrawColor(renderer, COULEUR_NOIR);
-								SDL_RenderDrawRect(renderer, &plateau);
+								SDL_SetRenderDrawColor(renderer, HEXA_NOIR);
 								int n3, n4;
-								for(n3 = 0; n3 < 8; n3++){
-									for(n4 = 0; n4 < 8; n4++){
-
+								int oldXCase = plateau_case.x;
+								int oldYCase = plateau_case.y;
+								for(n3 = 0; n3 <= 8; n3++){
+									for(n4 = 0; n4 <= 8; n4++){
+										SDL_RenderDrawRect(renderer, &plateau_case);
+										plateau_case.x = oldXCase + n4 * tailleCase;
 									}
+									plateau_case.x = oldXCase;
+									plateau_case.y = oldYCase + n3 * tailleCase;
 								}
-								SDL_RenderDrawRect(renderer, &plateau_case);
-
 
 								int radius, posXCircle, posYCircle;
-								int coinZoneX = 0;
-								int coinZoneY = 0;
-								radius = window_w * 2 / 100;	//le rayon du pion représente un % de la taille de la fenetre
-								posXCircle = coinZoneX + radius + 1;	//on crée les positions X et Y a partir du radius,
-								posYCircle = coinZoneY + radius + 1;	//(en haut a gauche)
-								fill_circle(renderer, posXCircle, posYCircle, radius, 0x00, 0x00, 0x00, 0x00);
+								radius = tailleCase * 33 / 100;
+								posXCircle = posXPlat + (tailleCase / 2);	//on crée les positions X et Y a partir du radius,
+								posYCircle = posYPlat + (tailleCase / 2);	//(en haut a gauche)
 
+								/*REMPLIR LE TABLEAU
 								int n1, n2;
 								for(n1 = 0; n1 < 8; n1++){
 									for(n2 = 0; n2 < 8; n2++){
-										fill_circle(renderer, posXCircle, posYCircle, radius, 0x00, 0x00, 0x00, 0x00);
-										posXCircle = posXCircle + 2 * radius + 10;
+										fill_circle(renderer, posXCircle, posYCircle, radius, HEXA_NOIR);
+										posXCircle = posXCircle + tailleCase;
 									}
-									posXCircle = radius + 1;
-									posYCircle = posYCircle + 2 * radius + 10;
-								}
+									posXCircle = posXPlat + (tailleCase / 2);
+									posYCircle = posYCircle + tailleCase;
+								}*/
 
                         SDL_RenderPresent(renderer);
 							break;
