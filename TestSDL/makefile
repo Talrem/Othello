@@ -2,6 +2,7 @@ CC=gcc
 FLAGS=-Wall -g
 MOREFLAGS=-Wno-unused-variable
 SDL_DIR=${HOME}/SDLMAC
+#SDL2 pour linux SDLMAC pour mac (pour Nathan)
 SDL_LIB_DIR=${SDL_DIR}/lib
 SDL_INC_DIR=${SDL_DIR}/include
 LIBS=-L${SDL_LIB_DIR} -lSDL2 -lSDL2_image -lSDL2_ttf
