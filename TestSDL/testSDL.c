@@ -1,7 +1,10 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
+#define COULEUR_NOIR 255, 255, 255, 255
+#define COULEUR_VERT 0, 177, 106, 1
 
 
 void drawText (SDL_Renderer * renderer, int x, int y, char * string){
@@ -40,14 +43,14 @@ SDL_Window* showWindow(){
 	/* Initialisation TTF */
 	TTF_Init();
 	/* Création de la fenêtre */
-	return SDL_CreateWindow("AAAAA",SDL_WINDOWPOS_UNDEFINED,
+	return SDL_CreateWindow("Othello",SDL_WINDOWPOS_UNDEFINED,
 													SDL_WINDOWPOS_UNDEFINED,
 													1680,
 													1050,
 													SDL_WINDOW_SHOWN|SDL_WINDOW_RESIZABLE);
 }
 
-/*Renvoie 1 si le click est dans les coordonées rentrées. 0 sinon*/
+/*Renvoie 1 si le clic est dans les coordonées rentrées. 0 sinon*/
 int posClick(SDL_MouseButtonEvent b, int posA_x, int posA_y, int posB_x, int posB_y){
    int x = b.x;
    int y = b.y;
@@ -55,6 +58,94 @@ int posClick(SDL_MouseButtonEvent b, int posA_x, int posA_y, int posB_x, int pos
    if((x > posA_x && y > posA_y) && (x < posB_x && y < posB_y))
       in++;
    return in;
+}
+
+/*https://gist.github.com/derofim/912cfc9161269336f722*/
+void set_pixel(SDL_Renderer *rend, int x, int y, Uint8 r, Uint8 g, Uint8 b, Uint8 a){
+	SDL_SetRenderDrawColor(rend, r,g,b,a);
+	SDL_RenderDrawPoint(rend, x, y);
+}
+void draw_circle(SDL_Renderer *surface, int n_cx, int n_cy, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a){
+	// if the first pixel in the screen is represented by (0,0) (which is in sdl)
+	// remember that the beginning of the circle is not in the middle of the pixel
+	// but to the left-top from it:
+
+	double error = (double)-radius;
+	double x = (double)radius - 0.5;
+	double y = (double)0.5;
+	double cx = n_cx - 0.5;
+	double cy = n_cy - 0.5;
+
+	while (x >= y){
+		set_pixel(surface, (int)(cx + x), (int)(cy + y), r, g, b, a);
+		set_pixel(surface, (int)(cx + y), (int)(cy + x), r, g, b, a);
+
+		if (x != 0){
+			set_pixel(surface, (int)(cx - x), (int)(cy + y), r, g, b, a);
+			set_pixel(surface, (int)(cx + y), (int)(cy - x), r, g, b, a);
+		}
+
+		if (y != 0){
+			set_pixel(surface, (int)(cx + x), (int)(cy - y), r, g, b, a);
+			set_pixel(surface, (int)(cx - y), (int)(cy + x), r, g, b, a);
+		}
+
+		if (x != 0 && y != 0){
+			set_pixel(surface, (int)(cx - x), (int)(cy - y), r, g, b, a);
+			set_pixel(surface, (int)(cx - y), (int)(cy - x), r, g, b, a);
+		}
+
+		error += y;
+		++y;
+		error += y;
+
+		if (error >= 0){
+			--x;
+			error -= x;
+			error -= x;
+		}
+	}
+}
+void fill_circle(SDL_Renderer *surface, int cx, int cy, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a){
+	// Note that there is more to altering the bitrate of this
+	// method than just changing this value.  See how pixels are
+	// altered at the following web page for tips:
+	//   http://www.libsdl.org/intro.en/usingvideo.html
+	//static const int BPP = 4;
+	SDL_Renderer *gRenderer = surface;
+	//double ra = (double)radius;
+
+	for (double dy = 1; dy <= radius; dy += 1.0){
+		// This loop is unrolled a bit, only iterating through half of the
+		// height of the circle.  The result is used to draw a scan line and
+		// its mirror image below it.
+
+		// The following formula has been simplified from our original.  We
+		// are using half of the width of the circle because we are provided
+		// with a center and we need left/right coordinates.
+
+		double dx = floor(sqrt((2.0 * radius * dy) - (dy * dy)));
+		//int x = cx - dx;
+		SDL_SetRenderDrawColor(gRenderer, r, g, b, a);
+		SDL_RenderDrawLine(gRenderer, cx - dx, cy + dy - radius, cx + dx, cy + dy - radius);
+		SDL_RenderDrawLine(gRenderer, cx - dx, cy - dy + radius, cx + dx, cy - dy + radius);
+
+		// Grab a pointer to the left-most pixel for each half of the circle
+		/*Uint8 *target_pixel_a = (Uint8 *)surface->pixels + ((int)(cy + r - dy)) * surface->pitch + x * BPP;
+		Uint8 *target_pixel_b = (Uint8 *)surface->pixels + ((int)(cy - r + dy)) * surface->pitch + x * BPP;
+		for (; x <= cx + dx; x++)
+		{
+			*(Uint32 *)target_pixel_a = pixel;
+			*(Uint32 *)target_pixel_b = pixel;
+			target_pixel_a += BPP;
+			target_pixel_b += BPP;
+		}*/
+		/*
+		// sleep for debug
+		SDL_RenderPresent(gRenderer);
+		std::this_thread::sleep_for(std::chrono::milliseconds{ 100 });
+		*/
+	}
 }
 
 int main(int argc, char** argv)
@@ -67,7 +158,11 @@ int main(int argc, char** argv)
    renderer = SDL_CreateRenderer(pWindow, -1, SDL_RENDERER_ACCELERATED);
 	// Le pointeur vers notre police
 
-   int x, y;
+	/*Variables contenant la position d'un clic*/
+   int posClicX, posClicY;
+
+	/*Variables contenant la taille de la fenetre*/
+	int window_w, window_h;
 
 
 
@@ -87,11 +182,18 @@ int main(int argc, char** argv)
 							case SDL_WINDOWEVENT_SIZE_CHANGED:
 							case SDL_WINDOWEVENT_RESIZED:
 							case SDL_WINDOWEVENT_SHOWN:
-								/* Le fond de la fenêtre sera blanc */
-                        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-								SDL_RenderClear(renderer);
-								//si on met du texte sur des image il faut juste mettre les images avant
 
+								/*Si la fenetre est redimensionnée, on récupère la nouvelle taille*/
+								SDL_GetWindowSize(pWindow, &window_w, &window_h);
+
+								/* Le fond de la fenêtre sera
+								vert : rgba(0, 177, 106, 1) */
+                        SDL_SetRenderDrawColor(renderer, COULEUR_VERT);
+								SDL_RenderClear(renderer);
+
+
+								/*{IMAGE
+								si on met du texte sur des image il faut juste mettre les images avant
 								drawImage(renderer, 500, 150, "Umaru.png");
 								drawImage(renderer, 500, 300, "Umaru.png");
 								drawImage(renderer, 500, 450, "Umaru.png");
@@ -99,30 +201,74 @@ int main(int argc, char** argv)
 								drawText(renderer, 525, 175, "Texte");
 								drawText(renderer, 525, 325, "Texte");
 								drawText(renderer, 525, 475, "Texte");
+								}*/
 
-
-                        /* On fait le rendu ! */
-                        SDL_Rect rect;
+                        /*{RECTANGLE
+								SDL_Rect rect;
                         rect.x = 50;
                         rect.y = 50;
                         rect.w = 50;
                         rect.h = 50;
                         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
                         SDL_RenderFillRect(renderer, &rect);
+								}*/
+
+								/*Définition de la taille du plateau*/
+								int taillePlat;
+								int tailleCase;
+								int posXPlat, posYPlat;
+								if(window_w > window_h){
+									taillePlat = window_h * 80 / 100;
+									posXPlat = (window_w - taillePlat) / 2;
+									posYPlat = (window_h - taillePlat) / 2;
+								} else {
+									taillePlat = window_w * 80 / 100;
+									posXPlat = window_w - (taillePlat / 2);
+									posYPlat = window_h - (taillePlat / 2);
+								}
+								tailleCase = taillePlat / 8;
+								SDL_Rect plateau = {posXPlat, posYPlat, taillePlat, taillePlat};
+								SDL_Rect plateau_case = {posXPlat, posYPlat, tailleCase, tailleCase};
+								SDL_SetRenderDrawColor(renderer, COULEUR_NOIR);
+								SDL_RenderDrawRect(renderer, &plateau);
+								int n3, n4;
+								for(n3 = 0; n3 < 8; n3++){
+									for(n4 = 0; n4 < 8; n4++){
+
+									}
+								}
+								SDL_RenderDrawRect(renderer, &plateau_case);
+
+
+								int radius, posXCircle, posYCircle;
+								int coinZoneX = 0;
+								int coinZoneY = 0;
+								radius = window_w * 2 / 100;	//le rayon du pion représente un % de la taille de la fenetre
+								posXCircle = coinZoneX + radius + 1;	//on crée les positions X et Y a partir du radius,
+								posYCircle = coinZoneY + radius + 1;	//(en haut a gauche)
+								fill_circle(renderer, posXCircle, posYCircle, radius, 0x00, 0x00, 0x00, 0x00);
+
+								int n1, n2;
+								for(n1 = 0; n1 < 8; n1++){
+									for(n2 = 0; n2 < 8; n2++){
+										fill_circle(renderer, posXCircle, posYCircle, radius, 0x00, 0x00, 0x00, 0x00);
+										posXCircle = posXCircle + 2 * radius + 10;
+									}
+									posXCircle = radius + 1;
+									posYCircle = posYCircle + 2 * radius + 10;
+								}
+
                         SDL_RenderPresent(renderer);
 							break;
 						}
 					break;
 					case SDL_MOUSEBUTTONDOWN:
-                  x = e.button.x;
-                  y = e.button.y;
+                  posClicX = e.button.x;
+                  posClicY = e.button.y;
                   if(posClick(e.button, 50, 50, 100, 100)){
                      drawText(renderer, 60, 60, "GG");
                      SDL_RenderPresent(renderer);
                   }
-
-						/*drawText(renderer, 50, 50, "Je détecte les clicks, sa mère");
-						SDL_RenderPresent(renderer);*/
 					break;
 				}
 			}
