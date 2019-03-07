@@ -20,12 +20,13 @@
           <li>* il n'y a plus de pions blancs sur le plateau</li>
         </ul>
       </li>
+      <li>- les pions sont retournés quand ils sont pris</li>
     </ul>
     <h4>COUP VALIDE :</h4>
     <ul>
       <li>* dans le plateau</li>
       <li>* coup dans une case vide</li>
-      <li>- au moins un pion de l'adversaire est retourné</li>
+      <li>* au moins un pion de l'adversaire est retourné</li>
     </ul>
     <h4>INTERFACE GRAPHIQUE</h4>
     <ul>
