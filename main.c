@@ -30,6 +30,8 @@ int estFinie(char * plat[TAILLE][TAILLE]){
 
 int coupPossible(char * plat[TAILLE][TAILLE],char * tour){
   int possible = 1;
+  /*Si aucune pièce ne peut être prise lors de ce tour, renvoit 0
+  Sinon, renvoit 1*/
   /*
   A FAIRE
   */

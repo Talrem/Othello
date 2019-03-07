@@ -1,5 +1,5 @@
 out : main.o aff.o init.o tour.o
-	gcc main.o aff.o init.o tour.o -o out.exe
+	gcc main.o aff.o init.o tour.o -o Othello.exe
 main.o : main.c
 	gcc main.c -c
 aff.o : ./Aff/aff.c
