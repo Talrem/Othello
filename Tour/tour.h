@@ -1,6 +1,6 @@
 #include "../definitions.h"
 
-int checkTableau(int tab[]);
+int checkTableau(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur,int direction);
 int initTableau(int tab[]);
 int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur);
 int estValide(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur);
