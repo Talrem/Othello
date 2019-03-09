@@ -2,7 +2,16 @@
 #include <stdlib.h>
 #include "../definitions.h"
 
+void initTestVide(char * plat[TAILLE][TAILLE]){
+  for(int i = 0; i < TAILLE;i++){
+     for(int j = 0; j < TAILLE;j++){
+       plat[i][j] = " ";
+     }
+  }
+}
+
 void initPlat(char * plat[TAILLE][TAILLE]){
+  initTestVide(plat);
    for(int i = 0; i < TAILLE;i++){
       for(int j = 0; j < TAILLE;j++){
         if((i == 3 && j == 3) || (i == 4 && j == 4)){
@@ -14,14 +23,6 @@ void initPlat(char * plat[TAILLE][TAILLE]){
         }
       }
    }
-}
-
-void initTestVide(char * plat[TAILLE][TAILLE]){
-  for(int i = 0; i < TAILLE;i++){
-     for(int j = 0; j < TAILLE;j++){
-       plat[i][j] = " ";
-     }
-  }
 }
 
 void initTestPasDeNoir(char * plat[TAILLE][TAILLE]){
@@ -49,6 +50,7 @@ void initTestPasDeBlanc(char * plat[TAILLE][TAILLE]){
 }
 
 void initTestPlein(char * plat[TAILLE][TAILLE]){
+  initTestVide(plat);
   for(int i = 0; i < TAILLE;i++){
      for(int j = 0; j < TAILLE;j++){
         switch(rand()%2){
@@ -61,6 +63,7 @@ void initTestPlein(char * plat[TAILLE][TAILLE]){
 }
 
 void initTestRand(char * plat[TAILLE][TAILLE]){
+  initTestVide(plat);
    for(int i = 0; i < TAILLE;i++){
       for(int j = 0; j < TAILLE;j++){
          switch(rand()%3){
