@@ -3,16 +3,18 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
+#include <string.h>
 #include "../Init/init.h"
 #include "../definitions.h"
+#include "../Aff/aff.h"
 #define HEXA_POURPRE 0x93, 0x00, 0x18, 0xFF
 #define HEXA_NOIR 0x00, 0x00, 0x00, 0xFF
 #define HEXA_BLANC 0xFF, 0xFF, 0xFF, 0xFF
 #define COULEUR_VERT 0, 177, 106, 1
 
 
-void drawText (SDL_Renderer * renderer, int x, int y, char * string){
-	TTF_Font *police = TTF_OpenFont("Minecraft.ttf", 20);
+void drawText (SDL_Renderer * renderer, int x, int y, char * string, int policeSize){
+	TTF_Font *police = TTF_OpenFont("Minecraft.ttf", policeSize);
 	SDL_Color couleur = {0, 0, 0};
 	SDL_Surface *texte = TTF_RenderUTF8_Blended(police, string, couleur);
 
@@ -43,14 +45,20 @@ void drawImage (SDL_Renderer * renderer, int x, int y, char * string){
 SDL_Window* showWindow(){
 
 	/* Initialisation simple */
-	SDL_Init(SDL_INIT_VIDEO);
+	if(SDL_Init(SDL_INIT_VIDEO)){
+		fprintf(stdout, "Echec de l'initialisation de SDL (%s)\n", SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
 	/* Initialisation TTF */
-	TTF_Init();
+	if(TTF_Init()){
+		fprintf(stderr, "Erreur d'initialisation de TTF (%s)\n", TTF_GetError());
+		exit(EXIT_FAILURE);
+	}
 	/* Création de la fenêtre */
 	return SDL_CreateWindow("Othello",SDL_WINDOWPOS_UNDEFINED,
 													SDL_WINDOWPOS_UNDEFINED,
-													1680,
-													1050,
+													800,
+													600,
 													SDL_WINDOW_SHOWN|SDL_WINDOW_RESIZABLE);
 }
 
@@ -167,7 +175,7 @@ void calculVarPlat(SDL_Window *pWindow, int *taillePlat, int *tailleCase, int *p
 	*tailleCase = *taillePlat / 8;
 }
 
-void afficherPlateau(SDL_Renderer *renderer, int posXPlat, int posYPlat, SDL_Rect plateau_case, int tailleCase){
+void SDL_afficherPlateau(SDL_Renderer *renderer, int posXPlat, int posYPlat, SDL_Rect plateau_case, int tailleCase){
 	SDL_SetRenderDrawColor(renderer, HEXA_POURPRE);
 	int i, j;
 	for(i = 0; i <= 8; i++){
@@ -188,12 +196,25 @@ void afficherPion(SDL_Renderer *renderer, int x, int y, int radius, Uint8 r, Uin
 	fill_circle(renderer, x, y, radius, r, g, b, a);
 };
 
-void afficherMatrice(char * plateau[TAILLE][TAILLE], SDL_Renderer *render, int posXPlat, int posYPlat, ){
-
+void afficherMatrice(char * plateau[TAILLE][TAILLE], SDL_Renderer *render, int posXPlat, int posYPlat, int tailleCase, int radius){
+	int i, j;
+	int posXpion, posYpion;
+	for(i = 0; i < TAILLE; i++){
+		for(j = 0; j < TAILLE; j++){
+			if(!strcmp(plateau[i][j], NOIR)){
+				posXpion = posXPlat + (tailleCase * (j + 1)) - tailleCase / 2;
+				posYpion = posYPlat + (tailleCase * (i + 1)) - tailleCase / 2;
+				afficherPion(render, posXpion, posYpion, radius, HEXA_NOIR);
+			} else if(!strcmp(plateau[i][j], BLANC)){
+				posXpion = posXPlat + (tailleCase * (j + 1)) - tailleCase / 2;
+				posYpion = posYPlat + (tailleCase * (i + 1)) - tailleCase / 2;
+				afficherPion(render, posXpion, posYpion, radius, HEXA_BLANC);
+			}
+		}
+	}
 };
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv){
 	//Ouvrir la fenêtre et mémoriser son pointeur
 	SDL_Window* pWindow = NULL;
    pWindow = showWindow();
@@ -209,18 +230,19 @@ int main(int argc, char** argv)
 	int window_w, window_h;
 
 	char * plateauMat[TAILLE][TAILLE];
+	initTestVide(plateauMat);
 	initTestRand(plateauMat);
+	afficherPlateau(plateauMat);
 
+	if(pWindow){
 
-	if( pWindow )
-	{
 		int running = 1;
-		while(running) {
+		while(running){
 			SDL_Event e;
-			while(SDL_PollEvent(&e)) {
-				switch(e.type) {
+			while(SDL_PollEvent(&e)){
+				switch(e.type){
 					case SDL_QUIT: running = 0;
-					break;
+						break;
 					case SDL_WINDOWEVENT:
 						switch(e.window.event){
 							case SDL_WINDOWEVENT_EXPOSED:
@@ -233,7 +255,7 @@ int main(int argc, char** argv)
 
 								/* Le fond de la fenêtre sera
 								vert : rgba(0, 177, 106, 1) */
-                        SDL_SetRenderDrawColor(renderer, COULEUR_VERT);
+								SDL_SetRenderDrawColor(renderer, COULEUR_VERT);
 								SDL_RenderClear(renderer);
 
 								/*{IMAGE
@@ -247,14 +269,14 @@ int main(int argc, char** argv)
 								drawText(renderer, 525, 475, "Texte");
 								}*/
 
-                        /*{RECTANGLE
+								/*{RECTANGLE
 								SDL_Rect rect;
-                        rect.x = 50;
-                        rect.y = 50;
-                        rect.w = 50;
-                        rect.h = 50;
-                        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-                        SDL_RenderFillRect(renderer, &rect);
+								rect.x = 50;
+								rect.y = 50;
+								rect.w = 50;
+								rect.h = 50;
+								SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+								SDL_RenderFillRect(renderer, &rect);
 								}*/
 
 								/*Définition de la taille du plateau*/
@@ -264,36 +286,53 @@ int main(int argc, char** argv)
 								SDL_Rect plateau = {posXPlat, posYPlat, taillePlat, taillePlat};
 								SDL_Rect plateau_case = {posXPlat, posYPlat, tailleCase, tailleCase};
 								SDL_SetRenderDrawColor(renderer, HEXA_NOIR);
-								afficherPlateau(renderer, posXPlat, posYPlat, plateau_case, tailleCase);
+								SDL_afficherPlateau(renderer, posXPlat, posYPlat, plateau_case, tailleCase);
 
 								int radius, posXCircle, posYCircle;
 								radius = tailleCase * 33 / 100;
 								posXCircle = posXPlat + (tailleCase / 2);	//on crée les positions X et Y a partir du radius,
 								posYCircle = posYPlat + (tailleCase / 2);	//(en haut a gauche)
 
-								//REMPLIR LE TABLEAU
-								int n1, n2;
-								for(n1 = 0; n1 < 8; n1++){
-									for(n2 = 0; n2 < 8; n2++){
-										afficherPion(renderer, posXCircle, posYCircle, radius, HEXA_NOIR);
-										posXCircle = posXCircle + tailleCase;
-									}
-									posXCircle = posXPlat + (tailleCase / 2);
-									posYCircle = posYCircle + tailleCase;
-								}
+								afficherMatrice(plateauMat, renderer, posXPlat, posYPlat, tailleCase, radius);
 
-                        SDL_RenderPresent(renderer);
-							break;
+								//REMPLIR LE TABLEAU
+								/*int n1, n2;
+								for(n1 = 0; n1 < 8; n1++){
+								for(n2 = 0; n2 < 8; n2++){
+								afficherPion(renderer, posXCircle, posYCircle, radius, HEXA_NOIR);
+								posXCircle = posXCircle + tailleCase;
+								}
+								posXCircle = posXPlat + (tailleCase / 2);
+								posYCircle = posYCircle + tailleCase;
+								}*/
+
+								SDL_Rect bouton_quit;
+								bouton_quit.x = 0;
+								bouton_quit.y = 0;
+								bouton_quit.w = window_w * 5 / 100;
+								bouton_quit.h = window_h * 4 / 100;
+								SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+								SDL_RenderFillRect(renderer, &bouton_quit);
+
+								SDL_RenderPresent(renderer);
+								break;
 						}
-					break;
+						break;
 					case SDL_MOUSEBUTTONDOWN:
-                  posClicX = e.button.x;
-                  posClicY = e.button.y;
-                  if(posClick(e.button, 50, 50, 100, 100)){
-                     drawText(renderer, 60, 60, "GG");
-                     SDL_RenderPresent(renderer);
-                  }
-					break;
+						posClicX = e.button.x;
+						posClicY = e.button.y;
+						int x, y;
+						SDL_GetWindowSize(pWindow, &x, &y);
+						if(posClick(e.button, 0, 0,  window_w * 5 / 100, window_h * 4 / 100)){
+							printf("LE QUIT\n");
+							SDL_DestroyWindow(pWindow);
+							TTF_Quit();
+							SDL_Quit();
+							return 0;
+						} else if(posClick(e.button, 0, 0, x, y)){
+							printf("LE CLIC\n");
+						}
+						break;
 				}
 			}
 		}
@@ -301,7 +340,6 @@ int main(int argc, char** argv)
 
 	//Destruction de la fenetre
 	SDL_DestroyWindow(pWindow);
-
 
 	TTF_Quit();
     SDL_Quit();

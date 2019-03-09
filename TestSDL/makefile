@@ -1,14 +1,14 @@
 CC=gcc
 FLAGS=-Wall -g
-MOREFLAGS=-Wno-unused-variable
-SDL_DIR=${HOME}/SDLMAC
+MOREFLAGS=-Wno-unused-variable -Wno-unused-but-set-variable
+SDL_DIR=/mnt/c/Bash/SDL2
 #SDL2 pour linux SDLMAC pour mac (pour Nathan)
 SDL_LIB_DIR=${SDL_DIR}/lib
 SDL_INC_DIR=${SDL_DIR}/include
-LIBS=-L${SDL_LIB_DIR} -lSDL2 -lSDL2_image -lSDL2_ttf
+LIBS=-L${SDL_LIB_DIR} -lSDL2 -lSDL2_image -L/usr/lib/x86_64-linux-gnu/ -lSDL2_ttf -lm
 INCS=-I${SDL_INC_DIR}
 PROG=sdl_test
-DEPENDANCE=init.o
+DEPENDANCE=init.o aff.o
 
 all: sdl_text
 
@@ -21,6 +21,14 @@ testSDL.o: testSDL.c
 init.o: ../Init/init.c
 	${CC} ../Init/init.c -c
 
+aff.o: ../Aff/aff.c
+	${CC} ../Aff/aff.c -c
+
+test: testSDL.c
+	gcc -c `sdl-config --cflags --libs` -lSDL_image -lSDL_ttf testSDL.c
+
+test2: testSDL.o
+	gcc -o sdl_test testSDL.o `sdl-config --libs` -lSDL_ttf
 
 clear:
 	clear ; clear
