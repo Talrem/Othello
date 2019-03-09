@@ -105,9 +105,9 @@ int main(int argc, char * argv[]) {
   }
   while(cont){
     //system("clear");
-    initPlat(plat);
+    //initPlat(plat);
     //initTestVide(plat);
-    //initTestRand(plat);
+    initTestRand(plat);
     //initTestPlein(plat);
     //initTestPasDeBlanc(plat);
     //initTestPasDeNoir(plat);
