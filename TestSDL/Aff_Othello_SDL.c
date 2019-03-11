@@ -7,6 +7,7 @@
 #include "../Init/init.h"
 #include "../definitions.h"
 #include "../Aff/aff.h"
+#include "../Tour/tour.h"
 #include "SDL_Othello.h"
 
 int main(int argc, char** argv){
@@ -30,6 +31,8 @@ int main(int argc, char** argv){
 	initPlat(plateauMat);
 	//afficherPlateau(plateauMat);
 
+	/*On défini le jouer qui commence*/
+	char * joueur = NOIR;
 
 	if(pWindow){
 
@@ -72,18 +75,11 @@ int main(int argc, char** argv){
 							case SDL_WINDOWEVENT_RESIZED:
 							case SDL_WINDOWEVENT_SHOWN:
 
-								/*Si la fenetre est redimensionnée, on récupère la nouvelle taille*/
-								SDL_GetWindowSize(pWindow, &window_w, &window_h);
-								/* Le fond de la fenêtre sera
-								vert : rgba(0, 177, 106, 1) */
-								SDL_SetRenderDrawColor(renderer, COULEUR_VERT);
-								SDL_RenderClear(renderer);
-								/*Et on reload le plateau*/
-								calculVarPlat(pWindow, &taillePlat, &tailleCase, &posXPlat, &posYPlat, &plateau, &plateau_case);
-								radius = tailleCase * 33 / 100;
-								SDL_SetRenderDrawColor(renderer, HEXA_NOIR);
-								SDL_afficherPlateau(renderer, posXPlat, posYPlat, plateau_case, tailleCase);
-								afficherMatrice(plateauMat, renderer, posXPlat, posYPlat, tailleCase, radius);
+								LOAD_PLAT;
+								/*Permet de Load le plateau, dynamiquement par rapport
+								a la taille de la fenetre
+								Calcul de la taille du plateau, sa position
+								la taille d'une case et le rayon des pions*/
 
 								/*{IMAGE
 								si on met du texte sur des image il faut juste mettre les images avant
@@ -106,14 +102,8 @@ int main(int argc, char** argv){
 								SDL_RenderFillRect(renderer, &rect);
 								}*/
 
-
-
-								SDL_SetRenderDrawColor(renderer, HEXA_NOIR);
-								SDL_afficherPlateau(renderer, posXPlat, posYPlat, plateau_case, tailleCase);
-								afficherMatrice(plateauMat, renderer, posXPlat, posYPlat, tailleCase, radius);
-
-								//REMPLIR LE TABLEAU
-								/*int n1, n2;
+								/*{REMPLIR LE TABLEAU
+								int n1, n2;
 								for(n1 = 0; n1 < 8; n1++){
 								for(n2 = 0; n2 < 8; n2++){
 								int posXCircle, posYCircle;
@@ -148,12 +138,16 @@ int main(int argc, char** argv){
 							int caseX;
 							int caseY;
 							coordCaseClic(posClicX, posClicY, &caseX, &caseY, posXPlat, posYPlat, tailleCase);
-							printf("DANS LE PLATEAU\n");
+							/*{printf("DANS LE PLATEAU\n");
 							printf("%d : %d\n", posClicX, posClicY);
 							printf("%d : %c\n", caseX + 1, caseY + 'A');
 							printf("%d\n", tailleCase);
-
-							placerPion(plateauMat, caseX, caseY, 1);
+							}*/
+							if(estValide(plateauMat, caseY, caseX, joueur)){
+								placerPion(plateauMat, caseY, caseX, joueur);
+								joueur = strcmp(joueur, NOIR) ? NOIR : BLANC;
+							}
+							LOAD_PLAT;
 						}
 						break;
 				}

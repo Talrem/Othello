@@ -7,6 +7,7 @@
 #include "../Init/init.h"
 #include "../definitions.h"
 #include "../Aff/aff.h"
+#include "../Tour/tour.h"
 #include "SDL_Othello.h"
 
 void drawText (SDL_Renderer * renderer, int x, int y, char * string, int policeSize){
@@ -221,12 +222,8 @@ void afficherMatrice(char * plateau[TAILLE][TAILLE], SDL_Renderer *render, int p
 	}
 };
 
-void placerPion(char *plateau[TAILLE][TAILLE], int x, int y, int joueur){
-    if(joueur){
-        *plateau[x][y] = NOIR;
-    } else {
-        *plateau[x][y] = BLANC;
-    }
+void placerPion(char *plateau[TAILLE][TAILLE], int x, int y, char * joueur){
+    plateau[x][y] = joueur;
 }
 
 void coordCaseClic(int clicX, int clicY, int *caseX, int *caseY, int posXPlat, int posYPlat, int tailleCase){
