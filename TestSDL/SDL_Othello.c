@@ -221,6 +221,17 @@ void afficherMatrice(char * plateau[TAILLE][TAILLE], SDL_Renderer *render, int p
 	}
 };
 
-void coordCaseClic(){
+void placerPion(char *plateau[TAILLE][TAILLE], int x, int y, int joueur){
+    if(joueur){
+        *plateau[x][y] = NOIR;
+    } else {
+        *plateau[x][y] = BLANC;
+    }
+}
 
+void coordCaseClic(int clicX, int clicY, int *caseX, int *caseY, int posXPlat, int posYPlat, int tailleCase){
+    *caseX = clicX - posXPlat;
+    *caseY = clicY - posYPlat;
+    *caseX = (*caseX / tailleCase);
+    *caseY = (*caseY / tailleCase);
 }

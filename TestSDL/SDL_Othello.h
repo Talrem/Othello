@@ -23,4 +23,5 @@ void calculVarPlat(SDL_Window *pWindow, int *taillePlat, int *tailleCase, int *p
 void SDL_afficherPlateau(SDL_Renderer *renderer, int posXPlat, int posYPlat, SDL_Rect plateau_case, int tailleCase);
 void afficherPion(SDL_Renderer *renderer, int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 void afficherMatrice(char * plateau[TAILLE][TAILLE], SDL_Renderer *render, int posXPlat, int posYPlat, int tailleCase, int radius);
-void coordCaseClic();
+void placerPion(char *plateau[TAILLE][TAILLE], int x, int y);
+void coordCaseClic(int clicX, int clicY, int *caseX, int *caseY, int posXPlat, int posYPlat, int tailleCase);

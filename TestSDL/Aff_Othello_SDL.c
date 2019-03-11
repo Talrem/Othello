@@ -145,8 +145,15 @@ int main(int argc, char** argv){
 							SDL_Quit();
 							return 0;
 						} else if(posClick(e.button, posXPlat, posYPlat, (posXPlat + taillePlat), (posYPlat + taillePlat))){
-							//coordCaseClic();
+							int caseX;
+							int caseY;
+							coordCaseClic(posClicX, posClicY, &caseX, &caseY, posXPlat, posYPlat, tailleCase);
 							printf("DANS LE PLATEAU\n");
+							printf("%d : %d\n", posClicX, posClicY);
+							printf("%d : %c\n", caseX + 1, caseY + 'A');
+							printf("%d\n", tailleCase);
+
+							placerPion(plateauMat, caseX, caseY, 1);
 						}
 						break;
 				}
