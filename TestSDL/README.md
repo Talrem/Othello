@@ -2,9 +2,9 @@
   <head>
   </head>
   <body>
-    <p>
+    <h1>
       Test d'affichage avec SDL
       ATTENTION : IL FAUT AVOIR SDL D'INSTALLÉ POUR POUVOIR COMPILER ET EXECUTER, SINON IL NE PEUT PAS IMPORTER LES LIBRAIRIES
-    </p>
+    </h1>
   </body>
 </html>
