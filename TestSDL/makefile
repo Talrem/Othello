@@ -2,27 +2,31 @@ CC=gcc
 FLAGS=-Wall -g
 MOREFLAGS=-Wno-unused-variable -Wno-unused-but-set-variable
 SDL_DIR=/mnt/c/Bash/SDL2
-#$HOME/SDL2 pour linux $HOME/SDLMAC pour mac /mnt/c/Bash/SDL2 pour PC perso (pour Nathan)
+#$HOME/SDL2 pour linux; $HOME/SDLMAC pour mac; /mnt/c/Bash/SDL2 pour PC perso (pour Nathan)
 SDL_LIB_DIR=${SDL_DIR}/lib
 SDL_INC_DIR=${SDL_DIR}/include
 LIBS=-L${SDL_LIB_DIR} -lSDL2 -lSDL2_image -L/usr/lib/x86_64-linux-gnu/ -lSDL2_ttf -lm
 INCS=-I${SDL_INC_DIR}
-PROG=sdl_test
-DEPENDANCE=init.o aff.o
+PROG=othelloSDL
+DEPENDANCE=init.o aff.o SDL_Othello.o
 
 all: sdl_text
+delete: clean phony
 
-sdl_text: testSDL.o ${DEPENDANCE}
-	${CC} testSDL.o ${DEPENDANCE} -o ${PROG} ${LIBS} ${INCS} ${FLAGS} ${MOREFLAGS}
+sdl_text: Aff_Othello_SDL.o ${DEPENDANCE}
+	${CC} Aff_Othello_SDL.o ${DEPENDANCE} -o ${PROG} ${LIBS} ${INCS} ${FLAGS}
 
-testSDL.o: testSDL.c
-	${CC} testSDL.c -c ${LIBS} ${INCS} ${FLAGS} ${MOREFLAGS}
+Aff_Othello_SDL.o: Aff_Othello_SDL.c
+	${CC} Aff_Othello_SDL.c -c ${LIBS} ${INCS} ${FLAGS} ${MOREFLAGS}
 
 init.o: ../Init/init.c
 	${CC} ../Init/init.c -c
 
 aff.o: ../Aff/aff.c
 	${CC} ../Aff/aff.c -c
+
+SDL_Othello.o : SDL_Othello.c
+	${CC} SDL_Othello.c -c ${LIBS} ${INCS}
 
 test: testSDL.c
 	gcc -c `sdl-config --cflags --libs` -lSDL_image -lSDL_ttf testSDL.c
@@ -34,8 +38,10 @@ clear:
 	clear ; clear
 
 clean:
-	rm -f ${PROG}
 	rm -f *.o
+
+phony:
+	rm -f ${PROG}
 
 #Explications :
 #. -L : permet de spécifier où trouver la bibliothèque libSDL2.so
