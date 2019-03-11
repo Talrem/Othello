@@ -17,9 +17,9 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
         printf("Haut\n");
         j = colonne;
         for(i = ligne - 1 ; i > 0 ; i--){
-          afficherPlateau(plat);
+          //afficherPlateau(plat);
           if(tab[compteur++]==0) plat[i][j] = couleur;
-          afficherPlateau(plat);
+          //afficherPlateau(plat);
         }
       }
       break;
@@ -29,9 +29,9 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
         for(i = ligne - 1 ; i >= 0 ; i--){
           j = colonne + 1 + i;
           if(j >= 0){
-            afficherPlateau(plat);
+            //afficherPlateau(plat);
             if(tab[compteur++]==0) plat[i][j] = couleur;
-            afficherPlateau(plat);
+            //afficherPlateau(plat);
           }
         }}
       break;
@@ -40,9 +40,9 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
         printf("Droite\n");
         i = ligne;
         for(j = colonne + 1; j < TAILLE ; j++){
-          afficherPlateau(plat);
+          //afficherPlateau(plat);
           if(tab[compteur++]==0) plat[i][j] = couleur;
-          afficherPlateau(plat);
+          //afficherPlateau(plat);
         }
       }
       break;
@@ -52,9 +52,9 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
         for(i = ligne + 1 ; i < TAILLE ; i++){
           j = ligne + 1 + i;
           if(j <= TAILLE - 1){
-            afficherPlateau(plat);
+            //afficherPlateau(plat);
             if(tab[compteur++]==0) plat[i][j] = couleur;
-            afficherPlateau(plat);
+            //afficherPlateau(plat);
           }
         }
       }
@@ -64,9 +64,9 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
         printf("Bas\n");
         j = colonne;
         for(i = ligne + 1 ; i < TAILLE ; i++){
-          afficherPlateau(plat);
+          //afficherPlateau(plat);
           if(tab[compteur++]==0) plat[i][j] = couleur;
-          afficherPlateau(plat);
+          //afficherPlateau(plat);
         }
       }
       break;
@@ -76,9 +76,9 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
         for(i = ligne + 1 ; i < TAILLE ; i++){
           j = ligne + 1 + i;
           if(j <= TAILLE - 1){
-            afficherPlateau(plat);
+            //afficherPlateau(plat);
             if(tab[compteur++]==0) plat[i][j] = couleur;
-            afficherPlateau(plat);
+            //afficherPlateau(plat);
           }
         }
       }
@@ -88,9 +88,9 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
         printf("Gauche\n");
         i = ligne;
         for(j = colonne - 1; j >= 0 ; j--){
-          afficherPlateau(plat);
+          //afficherPlateau(plat);
           if(tab[compteur++]==0) plat[i][j] = couleur;
-          afficherPlateau(plat);
+          //afficherPlateau(plat);
         }
       }
       break;
@@ -100,9 +100,9 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
         for(i = ligne - 1 ; i >= 0 ; i--){
           j = colonne - 1 - i;
           if(j >= 0){
-            afficherPlateau(plat);
+            //afficherPlateau(plat);
             if(tab[compteur++]==0) plat[i][j] = couleur;
-            afficherPlateau(plat);
+            //afficherPlateau(plat);
           }
         }
       }
