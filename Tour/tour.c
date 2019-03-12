@@ -297,6 +297,44 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
   return aPris;
 }
 
+/*Cette fonction regarde dans toutes les positions possibles si la case a au moins un voisin de la couleur adverse*/
+int aVoisins(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur){
+  int nbVoisinsDiff = 0;
+  if(ligne > 0){
+    //haut gauche
+    if(colonne > 0){
+      if(strcmp(plat[ligne-1][colonne-1],couleur) && strcmp(plat[ligne-1][colonne-1],VIDE)) nbVoisinsDiff++;
+    }
+    //haut
+    if(strcmp(plat[ligne-1][colonne],couleur) && strcmp(plat[ligne-1][colonne],VIDE)) nbVoisinsDiff++;
+    //haut gauche
+    if(colonne < TAILLE - 1){
+      if(strcmp(plat[ligne-1][colonne+1],couleur) && strcmp(plat[ligne-1][colonne+1],VIDE)) nbVoisinsDiff++;
+    }
+  }
+  if(colonne > 0){
+    //gauche
+    if(strcmp(plat[ligne][colonne-1],couleur) && strcmp(plat[ligne][colonne-1],VIDE)) nbVoisinsDiff++;
+  }
+  if(colonne < TAILLE - 1){
+    //gauche
+    if(strcmp(plat[ligne][colonne+1],couleur) && strcmp(plat[ligne][colonne+1],VIDE)) nbVoisinsDiff++;
+  }
+  if(ligne < TAILLE - 1){
+    //bas gauche
+    if(colonne > 0){
+      if(strcmp(plat[ligne+1][colonne-1],couleur) && strcmp(plat[ligne+1][colonne-1],VIDE)) nbVoisinsDiff++;
+    }
+    //bas
+    if(strcmp(plat[ligne+1][colonne],couleur) && strcmp(plat[ligne+1][colonne],VIDE)) nbVoisinsDiff++;
+    //bas gauche
+    if(colonne < TAILLE - 1){
+      if(strcmp(plat[ligne+1][colonne+1],couleur) && strcmp(plat[ligne+1][colonne+1],VIDE)) nbVoisinsDiff++;
+    }
+  }
+  return nbVoisinsDiff;
+}
+
 /*
 Cette fonction vérifie la validité du coup
 Et renvoit un code d'erreur ou 0 si tout s'est bien passé.
@@ -306,8 +344,10 @@ int estInvalide(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleu
   if(ligne >= TAILLE || ligne < 0 || colonne >= TAILLE || colonne < 0) return 1;
   //coup dans une case vide.
   if((strcmp(plat[ligne][colonne], VIDE))) return 2;
+  //coup à côté d'une case adversaire
+  if(!aVoisins(plat,ligne,colonne,couleur)) return 3;
   //coup prend un pion adverse.
-  if(!prendPion(plat,ligne,colonne,couleur)) return 3;
+  if(!prendPion(plat,ligne,colonne,couleur)) return 4;
   return 0;
 }
 
@@ -353,7 +393,8 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
     switch(coupInvalide){
       case 1:printf("\n\nLe coup est en dehors du plateau.\n");break;
       case 2:printf("\n\nLe coup est n'est pas dans une case vide.\n");break;
-      case 3:printf("\n\nLe coup ne prend pas de pion adverse.\n");break;
+      case 3:printf("\n\nLe coup n'est pas à côté d'une case adverse.\n");break;
+      case 4:printf("\n\nLe coup ne prend pas de pion adverse.\n");break;
     }
   }
   plat[ligne][colonne] = couleur;
