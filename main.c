@@ -48,13 +48,15 @@ int main(int argc, char * argv[]) {
   int cont = 1;
   int nbTours = 1;
   while(choixMenu <= 0 || choixMenu > 3){
-    //system("clear");
+    system("clear");
     printf(" 1 - Joueur contre Joueur\n");
     printf(" 2 - Joueur contre IA\n");
     printf(" 3 - Quitter\n");
     printf("A quoi voulez vous jouer ? : ");
     scanf("%i",&choixMenu);
+    getchar();
   }
+  system("clear");
   choixMenu--;
   if(choixMenu == 2){
     printf("\nAu revoir !\n\n");
@@ -62,12 +64,12 @@ int main(int argc, char * argv[]) {
   }
   if(choixMenu == 0){
     while(choixMenuJ <= 0 || choixMenu > 3){
-      //system("clear");
       printf(" 1 - Joueur Local\n");
       printf(" 2 - Joueur Distant\n");
       printf(" 3 - Quitter\n");
       printf("Quel mode de jeu choisissez vous ? : ");
       scanf("%i",&choixMenuJ);
+      getchar();
     }
     choixMenuJ--;
     if(choixMenuJ == 2){
@@ -76,13 +78,13 @@ int main(int argc, char * argv[]) {
     }
   }else{
     while(choixMenuIA <= 0 || choixMenuIA > 3){
-      //system("clear");
       printf(" 1 - IA facile\n");
       printf(" 2 - IA intermédiaire\n");
       printf(" 3 - IA difficile\n");
       printf(" 4 - Quitter\n");
       printf("Quel mode de jeu choisissez vous ? : ");
       scanf("%i",&choixMenuIA);
+      getchar();
     }
     choixMenuIA--;
     if(choixMenuIA == 3){
@@ -98,22 +100,21 @@ int main(int argc, char * argv[]) {
       default: printf("Une erreur est survenue...");
     }
   }
+  system("clear");
   void (*tabFoncJ[2])(char * (*)[],char *,int) = {saisieCoupJcJL,saisieCoupJcJD};
   void (*fonc)(char * (*)[],char *,int) = tabFoncJ[0]; // par défaut on est en mode joueur local
   if(choixMenu == 0){
     void (*fonc)(char * (*)[],char *,int) = tabFoncJ[choixMenuJ];
   }
   while(cont){
-    //system("clear");
-    //initPlat(plat);
+    initPlat(plat);
     //initTestVide(plat);
-    initTestRand(plat);
+    //initTestRand(plat);
     //initTestPlein(plat);
     //initTestPasDeBlanc(plat);
     //initTestPasDeNoir(plat);
     printf("Noir : %s / Blanc : %s",NOIR,BLANC);
     char * tour = NOIR;
-    //system("clear");
     while(!estFinie(plat)){
       afficherPlateau(plat);
       if(coupPossible(plat,tour)){
@@ -130,7 +131,7 @@ int main(int argc, char * argv[]) {
     afficheScore(plat);
     printf("continuer (0/1) ? : ");
     scanf("%d",&cont);
+    getchar();
   }
-  //system("clear");
   return 0;
 }

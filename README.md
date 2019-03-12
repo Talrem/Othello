@@ -3,9 +3,9 @@
   </head>
   <body>
     <h1>Othello</h1>
-    <h3>Projet de L2 avec David MERLAT, Nathan MANSON et Samuel DURAN</h3>
-    <h5>"-" -> à faire et "*" -> fait</h5>
-    <h4>LE JEU :</h4>
+    <h2>Projet de L2 avec David MERLAT, Nathan MANSON et Samuel DURAN</h2>
+    <h3>"-" -> à faire et "*" -> fait</h3>
+    <h2>- LE JEU :</h2>
     <ul>
       <li>* Plateau de 8 par 8</li>
       <li>* Chaque case est vide/blanche/noir</li>
@@ -20,23 +20,23 @@
           <li>* il n'y a plus de pions blancs sur le plateau</li>
         </ul>
       </li>
-      <li>- les pions sont retournés quand ils sont pris</li>
+      <li>* les pions sont retournés quand ils sont pris</li>
     </ul>
-    <h4>COUP VALIDE :</h4>
+    <h3>* COUP VALIDE :</h3>
     <ul>
       <li>* dans le plateau</li>
       <li>* coup dans une case vide</li>
       <li>* au moins un pion de l'adversaire est retourné</li>
     </ul>
-    <h4>INTERFACE GRAPHIQUE</h4>
+    <h3>- INTERFACE GRAPHIQUE</h3>
     <ul>
       <li>- SDL2</li>
     </ul>
-    <h4>JEU EN RESEAU</h4>
+    <h3>- JEU EN RESEAU</h3>
     <ul>
       <li>- Socketv</li>
     </ul>
-    <h4>JEU CONTRE L'ORDINATEUR</h4>
+    <h3>- JEU CONTRE L'ORDINATEUR</h3>
     <ul>
       <li>- arbre de points</li>
       <li>- si égalité de gain potentiel : coup aléatoire</li>
