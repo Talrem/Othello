@@ -11,7 +11,7 @@
 #include "SDL_Othello.h"
 
 void drawText (SDL_Renderer * renderer, int x, int y, char * string, int policeSize){
-	TTF_Font *police = TTF_OpenFont("Minecraft.ttf", policeSize);
+	TTF_Font *police = TTF_OpenFont(POLICE, policeSize);
 	SDL_Color couleur = {0, 0, 0};
 	SDL_Surface *texte = TTF_RenderUTF8_Blended(police, string, couleur);
 

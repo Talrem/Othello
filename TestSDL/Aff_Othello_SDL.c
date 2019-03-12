@@ -34,34 +34,21 @@ int main(int argc, char** argv){
 	/*On défini le jouer qui commence*/
 	char * joueur = NOIR;
 
+	/*Creation des variables du plateau : */
+	int taillePlat, tailleCase, posXPlat, posYPlat;
+	SDL_Rect plateau;
+	SDL_Rect plateau_case;
+	int radius;
+	SDL_Rect bouton_quit;
+
 	if(pWindow){
 
 		int running = 1;
 		while(running){
-
+			SDL_Delay(1);
 			/*On récupère la taille de la fenetre*/
 			SDL_GetWindowSize(pWindow, &window_w, &window_h);
-			/* Le fond de la fenêtre sera
-			vert : rgba(0, 177, 106, 1) */
-			SDL_SetRenderDrawColor(renderer, COULEUR_VERT);
-			SDL_RenderClear(renderer);
-
-			/*Creation des variables du plateau : */
-				/*Définition de la taille du plateau*/
-				int taillePlat, tailleCase, posXPlat, posYPlat;
-				SDL_Rect plateau;
-				SDL_Rect plateau_case;
-				calculVarPlat(pWindow, &taillePlat, &tailleCase, &posXPlat, &posYPlat, &plateau, &plateau_case);
-
-				/*Creation des dimensions des pions*/
-				int radius;
-				radius = tailleCase * 33 / 100; //Les pions seront toujours placés au centre des cases (tailleCase / 2)
-
-				/*Bouton pour quitter*/
-				SDL_Rect bouton_quit;
-				bouton_quit.x = 0;
-				bouton_quit.y = 0;
-				bouton_quit.w = bouton_quit.h = window_w * 3 / 100;
+			LOAD_PLAT
 
 			SDL_Event e;
 			while(SDL_PollEvent(&e)){
@@ -129,7 +116,7 @@ int main(int argc, char** argv){
 						posClicY = e.button.y;
 						int x, y;
 						SDL_GetWindowSize(pWindow, &x, &y);
-						if(posClick(e.button, 0, 0,  bouton_quit.w, bouton_quit.h)){
+						if(posClick(e.button, bouton_quit.x, bouton_quit.y,  bouton_quit.x + bouton_quit.w, bouton_quit.y + bouton_quit.h)){
 							SDL_DestroyWindow(pWindow);
 							TTF_Quit();
 							SDL_Quit();
@@ -143,7 +130,8 @@ int main(int argc, char** argv){
 							printf("%d : %c\n", caseX + 1, caseY + 'A');
 							printf("%d\n", tailleCase);
 							}*/
-							if(estValide(plateauMat, caseY, caseX, joueur)){
+							int valide = estInvalide(plateauMat, caseY, caseX, joueur);
+							if(valide == 0){
 								placerPion(plateauMat, caseY, caseX, joueur);
 								joueur = strcmp(joueur, NOIR) ? NOIR : BLANC;
 							}
