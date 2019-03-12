@@ -17,7 +17,7 @@ sdl_text: Aff_Othello_SDL.o ${DEPENDANCE}
 	${CC} Aff_Othello_SDL.o ${DEPENDANCE} -o ${PROG} ${LIBS} ${INCS} ${FLAGS}
 
 Aff_Othello_SDL.o: Aff_Othello_SDL.c
-	${CC} Aff_Othello_SDL.c -c ${LIBS} ${INCS} ${FLAGS} ${MOREFLAGS}
+	${CC} Aff_Othello_SDL.c -c ${LIBS} ${INCS} ${FLAGS}
 
 init.o: ../Init/init.c
 	${CC} ../Init/init.c -c
