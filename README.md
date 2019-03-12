@@ -5,7 +5,7 @@
     <h1>Othello</h1>
     <h2>Projet de L2 avec David MERLAT, Nathan MANSON et Samuel DURAN</h2>
     <h3>"-" -> à faire et "*" -> fait</h3>
-    <h2>- LE JEU :</h2>
+    <h2>* LE JEU :</h2>
     <ul>
       <li>* Plateau de 8 par 8</li>
       <li>* Chaque case est vide/blanche/noir</li>
