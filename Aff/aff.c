@@ -7,7 +7,7 @@ void afficherPlateau(char * plat[TAILLE][TAILLE]) {
     int i, j;
     char a = 'A';
     printf("\n");
-    for(i = 1;i<=TAILLE+1;i++){
+    for(i = 1;i<=TAILLE+2;i++){
       printf("o~~~");
     }
     /* Affichage des absices */
@@ -15,20 +15,30 @@ void afficherPlateau(char * plat[TAILLE][TAILLE]) {
     for (i=1; i<=TAILLE; i++) {
         printf (" %d |", i);
     }
+    printf("   |");
     /* Affichage de la grille */
     printf ("\no");
-    for (i=0; i<TAILLE+1; i++)
+    for (i=0; i<TAILLE+2; i++)
         printf ("~~~o");
     printf ("\n");
     for (i=0; i<TAILLE; i++) {
-        printf ("| %c ", a++);
+        printf ("| %c ", a);
         for (j=0; j<TAILLE; j++)
                 printf ("| %s ", plat[i][j]);
-        printf ("|\no");
-        for (j=0; j<=TAILLE; j++)
+        printf ("| %c |\no",a++);
+        for (j=0; j<=TAILLE+1; j++)
             printf ("~~~o");
         printf ("\n");
     }
+    printf ("|   |");
+    for (i=1; i<=TAILLE; i++) {
+        printf (" %d |", i);
+    }
+    printf("   |\n");
+    for(i = 1;i<=TAILLE+2;i++){
+      printf("o~~~");
+    }
+    printf("o\n\n");
 }
 
 void afficheScore(char * plat[TAILLE][TAILLE]){
