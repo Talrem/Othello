@@ -11,7 +11,7 @@
       <li>* Chaque case est vide/blanche/noir</li>
       <li>* le noir joue en premier</li>
       <li>* coup en alternance entre les deux joueur</li>
-      <li>- le tour passe si le joueur ne peux pas jouer</li>
+      <li>* le tour passe si le joueur ne peux pas jouer</li>
       <li>* les cases du plateau doivent etre référencées par des coordoné type B5</li>
       <li>* la partie se termine quand :
         <ul>
