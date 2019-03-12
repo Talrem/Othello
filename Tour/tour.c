@@ -113,7 +113,7 @@ Cette fonction regarde dans le tableau si on a une suite de 0 puis un 1 et si c'
 elle retourne 1 car ça veut dire qu'un pion peut être pris. Si un -1 est trouvé, c'est qu'il y a un espace
 donc inutile de continuer.
 */
-int checkTableau(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur,int direction){
+int checkTableau(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur,int direction, int estTest){
   int i;
   int suite = 0;
   int prend = 0;
@@ -133,7 +133,7 @@ int checkTableau(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne,ch
       }
     }
   }
-  if(prend) prise(tab,plat,ligne,colonne,couleur,direction);
+  if(prend && !estTest) prise(tab,plat,ligne,colonne,couleur,direction);
   return prend;
 }
 
@@ -150,7 +150,7 @@ Elle parcourt le terrain dans chaque direction en partant du point et met les co
 Puis après chaque direction, le tableau est vérifié puis les modifications au plateau sont effectuées,
 Si ne serait-ce qu'un pion a été pris, la fonction renvoit 1. 0 sinon.
 */
-int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur){
+int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur, int estTest){
   int aPris = 0;
   int points[TAILLE - 1];
   initTableau(points);
@@ -169,7 +169,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
           points[compteur++] = 1;
         }
       }
-      aPris = checkTableau(points,plat,ligne,colonne,couleur,0);
+      aPris = checkTableau(points,plat,ligne,colonne,couleur,0,estTest);
     }
     compteur = 0;
     initTableau(points);
@@ -185,8 +185,8 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
           points[compteur++] = 1;
         }
       }
-      if(!aPris) aPris = checkTableau(points,plat,ligne,colonne,couleur,6);
-      else checkTableau(points,plat,ligne,colonne,couleur,6);
+      if(!aPris) aPris = checkTableau(points,plat,ligne,colonne,couleur,6,estTest);
+      else checkTableau(points,plat,ligne,colonne,couleur,6,estTest);
     }
     compteur = 0;
     initTableau(points);
@@ -202,8 +202,8 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
           points[compteur++] = 1;
         }
       }
-      if(!aPris) aPris = checkTableau(points,plat,ligne,colonne,couleur,9);
-      else checkTableau(points,plat,ligne,colonne,couleur,9);
+      if(!aPris) aPris = checkTableau(points,plat,ligne,colonne,couleur,9,estTest);
+      else checkTableau(points,plat,ligne,colonne,couleur,9,estTest);
     }
     compteur = 0;
     initTableau(points);
@@ -219,8 +219,8 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
           points[compteur++] = 1;
         }
       }
-      if(!aPris) aPris = checkTableau(points,plat,ligne,colonne,couleur,3);
-      else checkTableau(points,plat,ligne,colonne,couleur,3);
+      if(!aPris) aPris = checkTableau(points,plat,ligne,colonne,couleur,3,estTest);
+      else checkTableau(points,plat,ligne,colonne,couleur,3,estTest);
     }
     compteur = 0;
     initTableau(points);
@@ -239,8 +239,8 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
           points[compteur++] = 1;
         }
       }
-      if(!aPris) aPris = checkTableau(points,plat,ligne,colonne,couleur,11);
-      else checkTableau(points,plat,ligne,colonne,couleur,11);
+      if(!aPris) aPris = checkTableau(points,plat,ligne,colonne,couleur,11,estTest);
+      else checkTableau(points,plat,ligne,colonne,couleur,11,estTest);
     }
     compteur = 0;
     initTableau(points);
@@ -257,8 +257,8 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
           }
         }
       }
-      if(!aPris) aPris = checkTableau(points,plat,ligne,colonne,couleur,1);
-      else checkTableau(points,plat,ligne,colonne,couleur,1);
+      if(!aPris) aPris = checkTableau(points,plat,ligne,colonne,couleur,1,estTest);
+      else checkTableau(points,plat,ligne,colonne,couleur,1,estTest);
     }
     compteur = 0;
     initTableau(points);
@@ -274,8 +274,8 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
           points[compteur++] = 1;
         }
       }
-      if(!aPris) aPris = checkTableau(points,plat,ligne,colonne,couleur,5);
-      else checkTableau(points,plat,ligne,colonne,couleur,5);
+      if(!aPris) aPris = checkTableau(points,plat,ligne,colonne,couleur,5,estTest);
+      else checkTableau(points,plat,ligne,colonne,couleur,5,estTest);
     }
     compteur = 0;
     initTableau(points);
@@ -291,8 +291,8 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
           points[compteur++] = 1;
         }
       }
-      if(!aPris) aPris = checkTableau(points,plat,ligne,colonne,couleur,7);
-      else checkTableau(points,plat,ligne,colonne,couleur,7);
+      if(!aPris) aPris = checkTableau(points,plat,ligne,colonne,couleur,7,estTest);
+      else checkTableau(points,plat,ligne,colonne,couleur,7,estTest);
     }
   return aPris;
 }
@@ -339,7 +339,7 @@ int aVoisins(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur){
 Cette fonction vérifie la validité du coup
 Et renvoit un code d'erreur ou 0 si tout s'est bien passé.
 */
-int estInvalide(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur){
+int estInvalide(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur, int estTest){
   //coup dans le plateau.estInvalide
   if(ligne >= TAILLE || ligne < 0 || colonne >= TAILLE || colonne < 0) return 1;
   //coup dans une case vide.
@@ -347,7 +347,7 @@ int estInvalide(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleu
   //coup à côté d'une case adversaire
   if(!aVoisins(plat,ligne,colonne,couleur)) return 3;
   //coup prend un pion adverse.
-  if(!prendPion(plat,ligne,colonne,couleur)) return 4;
+  if(!prendPion(plat,ligne,colonne,couleur,estTest)) return 4;
   return 0;
 }
 
@@ -389,7 +389,7 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
       ligne = saisieLigne - 'a';
     }
     colonne--;
-    coupInvalide = estInvalide(plat,ligne,colonne,couleur);
+    coupInvalide = estInvalide(plat,ligne,colonne,couleur,0);
     switch(coupInvalide){
       case 1:printf("\n\nLe coup est en dehors du plateau.\n");break;
       case 2:printf("\n\nLe coup est n'est pas dans une case vide.\n");break;
