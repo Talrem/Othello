@@ -120,7 +120,7 @@ int checkTableau(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne,ch
   int espaces = 0;
   for(i = 0 ; i < TAILLE - 1; i++){
     if(espaces == 0){
-      printf("\ntab[%d] : %d ",i,tab[i]);
+      //printf("\ntab[%d] : %d ",i,tab[i]);
       if(tab[i] == 0){
         suite = 1;
       }else if(tab[i] == -1){
@@ -159,7 +159,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
   {
     /*vers le haut*/
     if(ligne >= 2){
-      printf("\n\n\nhaut :");
+      //printf("\n\n\nhaut :");
       for(i = ligne - 1, j = colonne; i > 0 ; i--){
         if(!strcmp(plat[i][j],VIDE)){
           points[compteur++] = -1;
@@ -175,7 +175,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
     initTableau(points);
     /*vers le bas*/
     if(ligne < TAILLE){
-      printf("\n\n\nbas :");
+      //printf("\n\n\nbas :");
       for(i = ligne + 1, j = colonne; i < TAILLE ; i++){
         if(!strcmp(plat[i][j],VIDE)){
           points[compteur++] = -1;
@@ -192,7 +192,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
     initTableau(points);
     /*vers la gauche*/
     if(colonne >= 2){
-      printf("\n\n\ngauche :");
+      //printf("\n\n\ngauche :");
       for(j = colonne - 1, i = ligne; j >= 0 ; j--){
         if(!strcmp(plat[i][j],VIDE)){
           points[compteur++] = -1;
@@ -209,7 +209,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
     initTableau(points);
     /*vers la droite*/
     if(colonne < TAILLE){
-      printf("\n\n\ndroite :");
+      //printf("\n\n\ndroite :");
       for(j = colonne + 1, i = ligne; j < TAILLE ; j++){
         if(!strcmp(plat[i][j],VIDE)){
           points[compteur++] = -1;
@@ -229,7 +229,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
   {
     /*diagonale HG*/
     if(ligne >= 2 && colonne >= 2 ){
-      printf("\n\n\nhaut - gauche :");
+      //printf("\n\n\nhaut - gauche :");
       for(i = ligne - 1, j = colonne - 1 ; i >= 0 && j >= 0 ; i--, j--){
         if(!strcmp(plat[i][j],VIDE)){
           points[compteur++] = -1;
@@ -246,7 +246,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
     initTableau(points);
     /*diagonale HD*/
     if(ligne >= 2 && colonne < TAILLE ){
-      printf("\n\n\nhaut - droite :");
+      //printf("\n\n\nhaut - droite :");
       for(i = ligne - 1, j = colonne + 1 ; i >= 0 && j < TAILLE ; i--, j++){
           if(!strcmp(plat[i][j],VIDE)){
             points[compteur++] = -1;
@@ -264,7 +264,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
     initTableau(points);
     /*diagonale BD*/
     if(ligne < TAILLE && colonne < TAILLE ){
-      printf("\n\n\nbas - droite :");
+      //printf("\n\n\nbas - droite :");
       for(i = ligne + 1, j = colonne + 1 ; i < TAILLE && j < TAILLE ; i++, j++){
         if(!strcmp(plat[i][j],VIDE)){
           points[compteur++] = -1;
@@ -281,7 +281,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur)
     initTableau(points);
     /*diagonale BG*/
     if(ligne < TAILLE && colonne >= 2 ){
-      printf("\n\n\nbas - gauche :");
+      //printf("\n\n\nbas - gauche :");
       for(i = ligne + 1, j = colonne - 1 ; i < TAILLE && j >= 0 ; i++, j--){
         if(!strcmp(plat[i][j],VIDE)){
           points[compteur++] = -1;
