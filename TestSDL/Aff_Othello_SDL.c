@@ -48,9 +48,10 @@ int main(int argc, char** argv){
 	/*Initialisation du tableau d'erreur*/
 	char * coupOk = "";
 	char * errorOut = "est en dehors du plateau.";
-	char * errorNotEmpty = "Le coup est n'est pas dans une case vide.";
-	char * errorDontTake = "Le coup ne prend pas de pion adverse.";
-	char * error[4] = {coupOk, errorOut, errorNotEmpty, errorDontTake};
+	char * errorNotEmpty = "n'est pas dans une case vide.";
+	char * errorNotNear = "n'est pas a cote d'une case adverse.";
+	char * errorDontTake = "ne prend pas de pion adverse.";
+	char * error[5] = {coupOk, errorOut, errorNotEmpty, errorNotNear, errorDontTake};
 
 
 	if(pWindow){
