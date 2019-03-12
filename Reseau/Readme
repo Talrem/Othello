@@ -1,0 +1,7 @@
+Les codes dans les fichiers test-serveur et test-client fonctionne.
+
+Ces codes permettent uniquement la connexion entre client et serveur par TCP.
+
+Pour la transmission des données, il faut attendre que les règles du jeu et l'interface soit fait.
+
+Supposition: Utilisation de thread ? Ou bien un While(partiefini) -> Stop.
