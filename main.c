@@ -28,13 +28,14 @@ int estFinie(char * plat[TAILLE][TAILLE]){
   return done;
 }
 
-int coupPossible(char * plat[TAILLE][TAILLE],char * tour){
-  int possible = 1;
-  /*Si aucune pièce ne peut être prise lors de ce tour, renvoit 0
-  Sinon, renvoit 1*/
-  /*
-  A FAIRE
-  */
+int coupPossible(char * plat[TAILLE][TAILLE] ,char * couleur){
+  int possible = 0;
+  int i, j;
+  for(i = 0; i < TAILLE ; i++){
+    for(j = 0; j < TAILLE ; j++){
+      if(!estInvalide(plat,i,j,couleur,1)) possible = 1;
+    }
+  }
   return possible;
 }
 
