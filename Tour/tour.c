@@ -309,25 +309,25 @@ Cette fonction vérifie la validité du coup
 Applique les changements au plateau
 Renvoit si oui ou non il y a eu une modification
 */
-int estValide(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur){
+int estInvalide(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur){
   int coupValide = 0;
-  //coup dans le plateau.
+  //coup dans le plateau.estInvalide
   if(ligne >= TAILLE || ligne < 0 || colonne >= TAILLE || colonne < 0){
-    printf("\nLe coup que vous avez voulu jouer est en dehors du plateau...\n");
-    return 0;
+    //printf("\nLe coup que vous avez voulu jouer est en dehors du plateau...\n");
+    return 1;
   }
   //coup dans une case vide.
   if((strcmp(plat[ligne][colonne], VIDE))){
-    printf("\nLe coup que vous avez voulu jouer n'est pas une case vide...\n");
-    return 0;
+    //printf("\nLe coup que vous avez voulu jouer n'est pas une case vide...\n");
+    return 2;
   }
   //coup prend un pion adverse.
   if(!prendPion(plat,ligne,colonne,couleur)){
-    printf("\nLe coup que vous avez voulu jouer ne prend pas de pion adverse...\n");
-    return 0;
+    //printf("\nLe coup que vous avez voulu jouer ne prend pas de pion adverse...\n");
+    return 3;
   }
   plat[ligne][colonne] = couleur;
-  return 1;
+  return 0;
 }
 
 //Joueur contre IA
@@ -367,6 +367,7 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
       ligne = saisieLigne - 'a';
     }
     colonne--;
-    coupValide = estValide(plat,ligne,colonne,couleur);
+    coupValide = estInvalide(plat,ligne,colonne,couleur);
+    coupValide = coupValide == 0 ? 1 : 0;
   }
 }
