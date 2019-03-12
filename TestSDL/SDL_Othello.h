@@ -13,16 +13,10 @@
 #define HEXA_BLANC 0xFF, 0xFF, 0xFF, 0xFF
 #define COULEUR_VERT 0, 177, 106, 1
 #define COULEUR_NOIR 0, 0, 0, 0
-#define POLICE "police.ttf"
+#define COULEUR_ROUGE 255, 0, 0, 255
+#define POLICE "BEBAS.ttf"
 
-#define LOAD_PLAT SDL_SetRenderDrawColor(renderer, COULEUR_VERT); SDL_RenderClear(renderer); calculVarPlat(pWindow, &taillePlat, &tailleCase, &posXPlat, &posYPlat, &plateau, &plateau_case); radius = tailleCase * 33 / 100; SDL_SetRenderDrawColor(renderer, HEXA_NOIR); SDL_afficherPlateau(renderer, posXPlat, posYPlat, plateau_case, tailleCase); afficherMatrice(plateauMat, renderer, posXPlat, posYPlat, tailleCase, radius); bouton_quit.w = bouton_quit.h = window_w * 2 / 100; 	bouton_quit.x = window_w - bouton_quit.w; bouton_quit.y = 0; SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); SDL_RenderFillRect(renderer, &bouton_quit); SDL_RenderPresent(renderer);
-/*Permet de Load le plateau, dynamiquement par rapport
-a la taille de la fenetre
-Affiche le fond en vert,
-Calcul de la taille du plateau, sa position
-la taille d'une case et le rayon des pions*/
-
-void drawText (SDL_Renderer * renderer, int x, int y, char * string, int policeSize);
+void drawText (SDL_Renderer * renderer, int x, int y, char * string, int policeSize, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 void drawImage (SDL_Renderer * renderer, int x, int y, char * string);
 SDL_Window* showWindow();
 int posClick(SDL_MouseButtonEvent b, int posA_x, int posA_y, int posB_x, int posB_y);

@@ -10,12 +10,12 @@
 #include "../Tour/tour.h"
 #include "SDL_Othello.h"
 
-void drawText (SDL_Renderer * renderer, int x, int y, char * string, int policeSize){
+void drawText (SDL_Renderer * renderer, int x, int y, char * string, int policeSize, Uint8 r, Uint8 g, Uint8 b, Uint8 a){
 	TTF_Font *police = TTF_OpenFont(POLICE, policeSize);
-	SDL_Color couleur = {0, 0, 0};
+	SDL_Color couleur = {r, g, b};
 	SDL_Surface *texte = TTF_RenderUTF8_Blended(police, string, couleur);
 
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 	SDL_Texture *texte_tex = SDL_CreateTextureFromSurface(renderer, texte);
 	SDL_FreeSurface(texte); /* on a la texture, plus besoin du texte */
 	/* Position ou sera mis le texte dans la fenêtre */
@@ -62,7 +62,6 @@ SDL_Window* showWindow(){
 	return pWindow;
 }
 
-/*Renvoie 1 si le clic est dans les coordonées rentrées. 0 sinon*/
 int posClick(SDL_MouseButtonEvent b, int posA_x, int posA_y, int posB_x, int posB_y){
    int x = b.x;
    int y = b.y;
