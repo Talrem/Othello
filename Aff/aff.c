@@ -8,26 +8,26 @@ void afficherPlateau(char * plat[TAILLE][TAILLE]) {
     char a = 'A';
     printf("\n");
     for(i = 1;i<=TAILLE+2;i++){
-      printf("o~~~");
+      printf("+---");
     }
     /* Affichage des absices */
-    printf ("o\n|   |");
+    printf ("+\n|   |");
     for (i=1; i<=TAILLE; i++) {
         printf (" %d |", i);
     }
     printf("   |");
     /* Affichage de la grille */
-    printf ("\no");
+    printf ("\n+");
     for (i=0; i<TAILLE+2; i++)
-        printf ("~~~o");
+        printf ("---+");
     printf ("\n");
     for (i=0; i<TAILLE; i++) {
         printf ("| %c ", a);
         for (j=0; j<TAILLE; j++)
                 printf ("| %s ", plat[i][j]);
-        printf ("| %c |\no",a++);
+        printf ("| %c |\n+",a++);
         for (j=0; j<=TAILLE+1; j++)
-            printf ("~~~o");
+            printf ("---+");
         printf ("\n");
     }
     printf ("|   |");
@@ -36,9 +36,9 @@ void afficherPlateau(char * plat[TAILLE][TAILLE]) {
     }
     printf("   |\n");
     for(i = 1;i<=TAILLE+2;i++){
-      printf("o~~~");
+      printf("+---");
     }
-    printf("o\n\n");
+    printf("+\n\n");
 }
 
 void afficheScore(char * plat[TAILLE][TAILLE]){
@@ -54,6 +54,6 @@ void afficheScore(char * plat[TAILLE][TAILLE]){
          }
       }
    }
-   printf("\nIl y a %d à %d",scoreB,scoreN);
+   printf("\nIl y a %d a %d",scoreB,scoreN);
    scoreB==scoreN?printf(" Egalite.\n"):scoreB>scoreN?printf(", avec un avantage de %d pour les Blancs\n",abs(scoreB - scoreN)):printf(", avec un avantage de %d pour les Noirs\n",abs(scoreB - scoreN));
 }
