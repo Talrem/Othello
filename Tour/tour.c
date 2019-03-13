@@ -13,91 +13,73 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
   switch (direction) {
     case 0:/*vers le haut*/
       if(ligne >= 2){
-        j = colonne;
-        for(i = ligne - 1 ; i > 0 && notDone; i--){
+        printf("Haut\n");
+        for(i = ligne - 1, j = colonne ; i > 0 && notDone; i--){
+          if(tab[compteur]!=0) notDone = 0;
           if(tab[compteur++]==0) plat[i][j] = couleur;
         }
       }
       break;
     case 1:/*diagonale HD*/
       if(ligne >= 2 && colonne < TAILLE ){
-        //printf("Diagonale Haut Droite\n");
+        printf("Diagonale Haut Droite\n");
         for(i = ligne - 1, j = colonne + 1 ; i >= 0 && j < TAILLE  && notDone; i--, j++){
-          if(j >= 0){
-            //afficherPlateau(plat);
-            if(tab[compteur]!=0) notDone = 0;
-            if(tab[compteur++]==0) plat[i][j] = couleur;
-            //afficherPlateau(plat);
-          }
+          if(tab[compteur]!=0) notDone = 0;
+          if(tab[compteur++]==0) plat[i][j] = couleur;
         }
       }
       break;
     case 3:/*vers la droite*/
-      if(colonne + 1 != TAILLE ){
-        //  printf("Droite\n");
-        i = ligne;
-        for(j = colonne + 1; j < TAILLE  && notDone; j++){
-          //afficherPlateau(plat);
+      if(colonne < TAILLE){
+        printf("Droite\n");
+        for(j = colonne + 1, i = ligne; j < TAILLE  && notDone; j++){
           if(tab[compteur]!=0) notDone = 0;
           if(tab[compteur++]==0) plat[i][j] = couleur;
-          //afficherPlateau(plat);
         }
       }
       break;
     case 5:/*diagonale BD*/
       if(ligne < TAILLE && colonne < TAILLE ){
-        //printf("Diagonale Bas Droite\n");
+        printf("Diagonale Bas Droite\n");
         for(i = ligne + 1, j = colonne + 1 ; i < TAILLE && j < TAILLE  && notDone; i++, j++){
-          //afficherPlateau(plat);
           if(tab[compteur]!=0) notDone = 0;
           if(tab[compteur++]==0) plat[i][j] = couleur;
-          //afficherPlateau(plat);
         }
       }
       break;
     case 6:/*vers le bas*/
-      if(ligne + 1 != TAILLE){
-        //printf("Bas\n");
-        j = colonne;
-        for(i = ligne + 1 ; i < TAILLE  && notDone; i++){
-          //afficherPlateau(plat);
+      if(ligne < TAILLE){
+        printf("Bas\n");
+        for(i = ligne + 1, j = colonne; i < TAILLE  && notDone; i++){
           if(tab[compteur]!=0) notDone = 0;
           if(tab[compteur++]==0) plat[i][j] = couleur;
-          //afficherPlateau(plat);
         }
       }
       break;
     case 7:/*diagonale BG*/
       if(ligne < TAILLE && colonne >= 2 ){
-        //printf("Diagonale Bas Gauche\n");
+        printf("Diagonale Bas Gauche\n");
         for(i = ligne + 1, j = colonne - 1 ; i < TAILLE && j >= 0  && notDone; i++, j--){
-          //afficherPlateau(plat);
           if(tab[compteur]!=0) notDone = 0;
           if(tab[compteur++]==0) plat[i][j] = couleur;
-          //afficherPlateau(plat);
         }
       }
       break;
     case 9:/*vers la gauche*/
-      if(colonne != 0){
-        //printf("Gauche\n");
-        i = ligne;
-        for(j = colonne - 1; j >= 0  && notDone; j--){
-          //afficherPlateau(plat);
+      if(colonne >= 2){
+        printf("Gauche\n");
+        for(j = colonne - 1, i = ligne; j >= 0  && notDone; j--){
           if(tab[compteur]!=0) notDone = 0;
           if(tab[compteur++]==0) plat[i][j] = couleur;
-          //afficherPlateau(plat);
         }
       }
       break;
     case 11:/*diagonale HG*/
       if(ligne >= 2 && colonne >= 2 ){
-        //printf("Diagonale Haut Droite\n");
+        printf("Diagonale Haut Droite\n");
         for(i = ligne - 1, j = colonne - 1 ; i >= 0 && j >= 0  && notDone; i--, j--){
-            //afficherPlateau(plat);
             if(tab[compteur]!=0) notDone = 0;
             if(tab[compteur++]==0) plat[i][j] = couleur;
-            //afficherPlateau(plat);
         }
       }
       break;
@@ -120,16 +102,17 @@ int checkTableau(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne,ch
   int espaces = 0;
   for(i = 0 ; i < TAILLE - 1; i++){
     if(espaces == 0){
-      //printf("\ntab[%d] : %d ",i,tab[i]);
-      if(tab[i] == 0){
+      //if(!estTest) printf("\ntab[%d] : %d \n\n",i,tab[i]);
+      if(tab[i] == 0){ //si la case actuelle est un pion de l'adversaire
         suite = 1;
-      }else if(tab[i] == -1){
+      }else if(tab[i] == -1){ //sinon, si la case actuelle est vide
         espaces = 1;
         suite = 0;
-      }else if(tab[i] == 1 && suite){
+      }else if(tab[i] == 1 && suite){//sinon, si la case actuelle est de la couleur ET qu'il y a suite
         prend = 1;
       }else{
         suite = 0;
+        espaces = 1;
       }
     }
   }
