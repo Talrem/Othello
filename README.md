@@ -26,6 +26,7 @@
     <ul>
       <li>* dans le plateau</li>
       <li>* coup dans une case vide</li>
+      <li>* la case est voisine à une case adverse</li>
       <li>* au moins un pion de l'adversaire est retourné</li>
     </ul>
     <h3>- INTERFACE GRAPHIQUE</h3>
