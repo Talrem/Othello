@@ -117,6 +117,7 @@ int main(int argc, char * argv[]) {
     printf("Noir : %s / Blanc : %s",NOIR,BLANC);
     char * tour = NOIR;
     while(!estFinie(plat)){
+      system("clear");
       afficherPlateau(plat);
       if(coupPossible(plat,tour)){
         if(choixMenu == 0){
@@ -133,6 +134,7 @@ int main(int argc, char * argv[]) {
     printf("continuer (0/1) ? : ");
     scanf("%d",&cont);
     getchar();
+    nbTours = 0;
   }
   return 0;
 }
