@@ -22,8 +22,31 @@ int main(){
    if(pWindow){
       int running = 1;
       while(running){
+         //On attend un peu a chaque tour de boucler pour éviter trop d'execution
+         SDL_Delay(1);
 
-         break;
+         //On dessine le fond de la fenetre, il ne change pas de toute l'execution
+         SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
+         SDL_RenderClear(pRenderer);
+         SDL_RenderPresent(pRenderer);
+
+         SDL_Event e;
+         while(SDL_PollEvent(&e)){
+            switch(e.type){
+               case SDL_QUIT: running = 0;
+						break;
+               case SDL_WINDOWEVENT:
+                  case SDL_WINDOWEVENT_EXPOSED:
+                  case SDL_WINDOWEVENT_SIZE_CHANGED:
+                  case SDL_WINDOWEVENT_RESIZED:
+                     //Si la fenetre est redimensionnée, on réaffiche tout
+                     SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
+                     SDL_RenderClear(pRenderer);
+                     
+                     SDL_RenderPresent(pRenderer);
+                  case SDL_WINDOWEVENT_SHOWN: break;
+            }
+         }
       }
    }
 

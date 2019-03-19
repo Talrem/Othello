@@ -10,3 +10,5 @@
 #include "../Tour/tour.h"
 #include "../TestSDL/SDL_Othello.h"
 #include "../definitions.h"
+
+int SDL_AfficherMenuPrincipal(SDL_Window * pWindow, SDL_Renderer * pRenderer);
