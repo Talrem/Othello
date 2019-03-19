@@ -8,7 +8,7 @@
 #include "../definitions.h"
 #include "../Aff/aff.h"
 #include "../Tour/tour.h"
-#include "../TestSDL/SDL_Othello.h"
+#include "../SDL/SDL_Othello.h"
 #include "../definitions.h"
 
-int SDL_AfficherMenuPrincipal(SDL_Window * pWindow, SDL_Renderer * pRenderer);
+int SDL_AfficherMenu1(SDL_Window * pWindow, SDL_Renderer * pRenderer);
