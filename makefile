@@ -1,5 +1,5 @@
 main:
-	make -f makemain all
+	make -f makeMain all
 
 sdl:
-	make -f makeSDLmain all
+	make -f makeSDL all
