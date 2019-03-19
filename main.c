@@ -22,12 +22,12 @@ int estFinie(char * plat[TAILLE][TAILLE]){
   int ligne,colonne;
   for(ligne = 0; ligne < TAILLE; ligne++){
     for(colonne = 0; colonne < TAILLE; colonne++){
-      //strcmp renvoit 0 en cas d'égalité des deux termes. Donc on cherche à savoir si
-      //Il y a encore au moins une case vide
+      // strcmp renvoit 0 en cas d'égalité des deux termes. Donc on cherche à savoir si
+      // Il y a encore au moins une case vide
       if(!(strcmp(plat[ligne][colonne], VIDE))) plein = 0;
-      //Il y a encore au moins une case noire
+      // Il y a encore au moins une case noire
       if(!(strcmp(plat[ligne][colonne], NOIR))) nbNoirs++;
-      //Il y a encore au moins une case blanche
+      // Il y a encore au moins une case blanche
       if(!(strcmp(plat[ligne][colonne], BLANC))) nbBlancs++;
     }
   }
@@ -49,7 +49,7 @@ int coupPossible(char * plat[TAILLE][TAILLE] ,char * couleur){
   return possible;
 }
 
-int main(int argc, char * argv[]) {
+int main(int argc, char * argv[]){
   char * plat[TAILLE][TAILLE];
   srand(time(NULL));
   int choixMenu = -1;
@@ -58,7 +58,7 @@ int main(int argc, char * argv[]) {
   /*Par défaut, la difficulte est sur facile*/
   int difficulte = 1;
   /*Si la couleur de l'IA est 1 alors elle jouera les noirs, sinon elle jouera les blancs*/
-  int couleurIA = rand()%2 + 1;
+  int couleurIA = rand()%2;
   int cont = 1;
   int nbTours = 1;
   while(choixMenu <= 0 || choixMenu > 3){
@@ -71,12 +71,11 @@ int main(int argc, char * argv[]) {
     getchar();
   }
   system("clear");
-  choixMenu--;
-  if(choixMenu == 2){
+  if(choixMenu == 3){
     printf("\nAu revoir !\n\n");
     return 0;
   }
-  if(choixMenu == 0){
+  if(choixMenu == 1){
     while(choixMenuJ <= 0 || choixMenu > 3){
       printf(" 1 - Joueur Local\n");
       printf(" 2 - Joueur Distant\n");
@@ -85,8 +84,7 @@ int main(int argc, char * argv[]) {
       scanf("%i",&choixMenuJ);
       getchar();
     }
-    choixMenuJ--;
-    if(choixMenuJ == 2){
+    if(choixMenuJ == 3){
       printf("\nAu revoir !\n\n");
       return 0;
     }
@@ -100,8 +98,7 @@ int main(int argc, char * argv[]) {
       scanf("%i",&choixMenuIA);
       getchar();
     }
-    choixMenuIA--;
-    if(choixMenuIA == 3){
+    if(choixMenuIA == 4){
       printf("\nAu revoir !\n\n");
       return 0;
     }
@@ -117,17 +114,17 @@ int main(int argc, char * argv[]) {
   system("clear");
   while(cont){
     initPlat(plat);
-    //initTestVide(plat);
-    //initTestRand(plat);
-    //initTestPlein(plat);
-    //initTestPasDeBlanc(plat);
-    //initTestPasDeNoir(plat);
+    // initTestVide(plat);
+    // initTestRand(plat);
+    // initTestPlein(plat);
+    // initTestPasDeBlanc(plat);
+    // initTestPasDeNoir(plat);
     char * tour = NOIR;
     while(!estFinie(plat)){
       printf("Noir : %s / Blanc : %s",NOIR,BLANC);
       afficherPlateau(plat);
       if(coupPossible(plat,tour)){
-        if(choixMenu == 0){
+        if(choixMenu == 1){
           saisieCoupJcJL(plat,tour,nbTours);
         }else{
           saisieCoupJcIA(plat,tour,nbTours,difficulte,couleurIA);
@@ -144,5 +141,6 @@ int main(int argc, char * argv[]) {
     nbTours = 0;
     couleurIA = (couleurIA == 1 ? 2 : 1);
   }
+  printf("Au revoir.\n");
   return 0;
 }
