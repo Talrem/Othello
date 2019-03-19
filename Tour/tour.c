@@ -367,8 +367,8 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
   int coupInvalide = 1;
   int colonne = -1,ligne = -1;
   char saisieLigne = ' ';
-  printf("\nJoueur %s\n",couleur);
   while(coupInvalide){
+    printf("\nJoueur %s\n",couleur);
     printf("Saisissez votre coup (ligne colonne) : ");
     scanf("%c%d",&saisieLigne,&colonne);
     getchar();
@@ -399,7 +399,7 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
 
 // Joueur contre IA
 void saisieCoupJcIA(char * plat[TAILLE][TAILLE], char * couleur, int nbTours, int difficulte, int couleurIA){
-  if(nbTours % couleurIA != 0){
+  if(nbTours % 2 == couleurIA){
     switch(nbTours % difficulte){
       case 0 :
         coupAleatIA(plat,couleur);
