@@ -12,4 +12,6 @@
 #include "../SDL/definitionsSDL.h"
 
 SDL_Window* showWindow();
-int SDL_AfficherMenu1(SDL_Window * pWindow, SDL_Renderer * pRenderer);
+int SDL_Menu1(SDL_Window * pWindow, SDL_Renderer * pRenderer);
+int creerBoutons(SDL_Window * pWindow, int nbBouton, ...);
+int SDL_AfficherMenu1(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton);
