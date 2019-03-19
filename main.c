@@ -7,11 +7,18 @@
 #include "./Tour/tour.h"
 #include "./definitions.h"
 
+/*
+  Fonction qui renvoit si une partie est fini et qui gagne.
+  0 -> la partie n'est pas encore finie
+  1 -> les blancs
+  2 -> les noirs
+  3 -> égalité
+*/
 int estFinie(char * plat[TAILLE][TAILLE]){
   int done = 0;
   int plein = 1;
-  int noirPresent = 0;
-  int blancPresent = 0;
+  int nbNoirs = 0;
+  int nbBlancs = 0;
   int ligne,colonne;
   for(ligne = 0; ligne < TAILLE; ligne++){
     for(colonne = 0; colonne < TAILLE; colonne++){
@@ -19,15 +26,18 @@ int estFinie(char * plat[TAILLE][TAILLE]){
       //Il y a encore au moins une case vide
       if(!(strcmp(plat[ligne][colonne], VIDE))) plein = 0;
       //Il y a encore au moins une case noire
-      if(!(strcmp(plat[ligne][colonne], NOIR))) noirPresent = 1;
+      if(!(strcmp(plat[ligne][colonne], NOIR))) nbNoirs++;
       //Il y a encore au moins une case blanche
-      if(!(strcmp(plat[ligne][colonne], BLANC))) blancPresent = 1;
+      if(!(strcmp(plat[ligne][colonne], BLANC))) nbBlancs++;
     }
   }
-  if(plein || !noirPresent || !blancPresent) done = 1;
+  if(plein || !nbNoirs || !nbBlancs) done = nbNoirs>nbBlancs?1:nbNoirs<nbBlancs?2:3;
   return done;
 }
 
+/*
+  Fonction qui renvoit si un coup est possible dans une situation donnée et pour un joueur donné
+*/
 int coupPossible(char * plat[TAILLE][TAILLE] ,char * couleur){
   int possible = 0;
   int i, j;
