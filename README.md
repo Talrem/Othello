@@ -21,6 +21,7 @@
         </ul>
       </li>
       <li>* les pions sont retournés quand ils sont pris</li>
+      <li>* On peut choisir de refaire une partie dans le même mode de jeu une fois la partie finie</li>
     </ul>
     <h3>* COUP VALIDE :</h3>
     <ul>
@@ -43,7 +44,7 @@
       <li>* coup aléatoire tout les N tours en fonction de la difficulté</li>
       <li>- arbre de points</li>
       <li>- si égalité de gain potentiel : coup aléatoire</li>
-      <li>* quand la partie est finie, l'IA change de couleur</li>
+      <li>* quand la partie est finie, si on choisit de rejouer, l'IA change de couleur</li>
     </ul>
   </body>
 </html>
