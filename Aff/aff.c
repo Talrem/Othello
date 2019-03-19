@@ -55,5 +55,5 @@ void afficheScore(char * plat[TAILLE][TAILLE]){
       }
    }
    printf("\nIl y a %d a %d",scoreB,scoreN);
-   scoreB==scoreN?printf(" Egalite.\n"):scoreB>scoreN?printf(", avec un avantage de %d pour les Blancs\n",abs(scoreB - scoreN)):printf(", avec un avantage de %d pour les Noirs\n",abs(scoreB - scoreN));
+   scoreB==scoreN?printf(" Egalite.\n"):scoreB>scoreN?printf(", avec un avantage de %d pour les Blancs (%s)\n",abs(scoreB - scoreN), BLANC):printf(", avec un avantage de %d pour les Noirs (%s)\n",abs(scoreB - scoreN),NOIR);
 }
