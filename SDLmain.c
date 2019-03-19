@@ -31,27 +31,7 @@ int main(){
          SDL_RenderClear(pRenderer);
          SDL_RenderPresent(pRenderer);
 
-         SDL_Event e;
-         while(SDL_PollEvent(&e)){
-            switch(e.type){
-               case SDL_QUIT: running = 0;
-						break;
-               case SDL_WINDOWEVENT:
-                  switch(e.window.event){
-                     case SDL_WINDOWEVENT_EXPOSED:
-                     case SDL_WINDOWEVENT_SIZE_CHANGED:
-                     case SDL_WINDOWEVENT_RESIZED:
-                        //Si la fenetre est redimensionnée, on réaffiche tout
-                        SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
-                        SDL_RenderClear(pRenderer);
-
-                        SDL_RenderPresent(pRenderer);
-                     case SDL_WINDOWEVENT_SHOWN:
-                        running = SDL_AfficherMenu1(pWindow, pRenderer);
-                        break;
-                  }
-            }
-         }
+         running = SDL_Menu1(pWindow, pRenderer);
       }
    }
 
