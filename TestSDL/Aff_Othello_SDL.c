@@ -9,6 +9,7 @@
 #include "../Aff/aff.h"
 #include "../Tour/tour.h"
 #include "../SDL/SDL_Othello.h"
+#include "../SDL/SDLinclude.h"
 
 int main(int argc, char** argv){
 	//Ouvrir la fenêtre et mémoriser son pointeur
@@ -183,7 +184,7 @@ int main(int argc, char** argv){
 							printf("%d : %c\n", caseX + 1, caseY + 'A');
 							printf("%d\n", tailleCase);
 							*/
-							int valide = estInvalide(plateauMat, caseY, caseX, joueur);
+							int valide = estInvalide(plateauMat, caseY, caseX, joueur, 0);
 							if(valide == 0){
 								placerPion(plateauMat, caseY, caseX, joueur);
 								joueur = strcmp(joueur, NOIR) ? NOIR : BLANC;

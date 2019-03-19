@@ -1,14 +1,14 @@
 CC=gcc
 FLAGS=-Wall -g
 MOREFLAGS=-Wno-unused-variable -Wno-unused-but-set-variable
-SDL_DIR=/mnt/c/Bash/SDL2
-#$HOME/SDL2 pour linux; $HOME/SDLMAC pour mac; /mnt/c/Bash/SDL2 pour PC perso (pour Nathan)
+SDL_DIR=${HOME}/SDL2
+#${HOME}/SDL2 pour linux; ${HOME}/SDLMAC pour mac; /mnt/c/Bash/SDL2 pour PC perso (pour Nathan)
 SDL_LIB_DIR=${SDL_DIR}/lib
 SDL_INC_DIR=${SDL_DIR}/include
 LIBS=-L${SDL_LIB_DIR} -lSDL2 -lSDL2_image -L/usr/lib/x86_64-linux-gnu/ -lSDL2_ttf -lm
 INCS=-I${SDL_INC_DIR}
 PROG=othelloSDL
-DEPENDANCE=init.o aff.o SDL_Othello.o tour.o
+DEPENDANCE=init.o aff.o SDL_Othello.o tour.o SDLinclude.o
 
 all: sdl_text
 delete: clean phony
@@ -28,8 +28,11 @@ aff.o: ../Aff/aff.c
 tour.o: ../Tour/tour.c
 	${CC} ../Tour/tour.c -c
 
-SDL_Othello.o : ../SDL/SDL_Othello.c
+SDL_Othello.o: ../SDL/SDL_Othello.c
 	${CC} ../SDL/SDL_Othello.c -c ${LIBS} ${INCS}
+
+SDLinclude.o: ../SDL/SDLinclude.c
+	${CC} ../SDL/SDLinclude.c -c ${LIBS} ${INCS}
 
 test: testSDL.c
 	gcc -c `sdl-config --cflags --libs` -lSDL_image -lSDL_ttf testSDL.c
