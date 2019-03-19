@@ -1,3 +1,5 @@
+all: main sdl
+
 main:
 	make -f makeMain all
 
