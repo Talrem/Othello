@@ -55,7 +55,10 @@ int main(int argc, char * argv[]) {
   int choixMenu = -1;
   int choixMenuIA = -1;
   int choixMenuJ = -1;
-  int difficulte = 1; /*Par défaut, la difficulte est sur facile*/
+  /*Par défaut, la difficulte est sur facile*/
+  int difficulte = 1;
+  /*Si la couleur de l'IA est 1 alors elle jouera les noirs, sinon elle jouera les blancs*/
+  int couleurIA = rand()%2 + 1;
   int cont = 1;
   int nbTours = 1;
   while(choixMenu <= 0 || choixMenu > 3){
@@ -112,11 +115,6 @@ int main(int argc, char * argv[]) {
     }
   }
   system("clear");
-  void (*tabFoncJ[2])(char * (*)[],char *,int) = {saisieCoupJcJL,saisieCoupJcJD};
-  void (*fonc)(char * (*)[],char *,int) = tabFoncJ[0]; // par défaut on est en mode joueur local
-  if(choixMenu == 0){
-    void (*fonc)(char * (*)[],char *,int) = tabFoncJ[choixMenuJ];
-  }
   while(cont){
     initPlat(plat);
     //initTestVide(plat);
@@ -124,16 +122,15 @@ int main(int argc, char * argv[]) {
     //initTestPlein(plat);
     //initTestPasDeBlanc(plat);
     //initTestPasDeNoir(plat);
-    printf("Noir : %s / Blanc : %s",NOIR,BLANC);
     char * tour = NOIR;
     while(!estFinie(plat)){
-      system("clear");
+      printf("Noir : %s / Blanc : %s",NOIR,BLANC);
       afficherPlateau(plat);
       if(coupPossible(plat,tour)){
         if(choixMenu == 0){
-          fonc(plat,tour,nbTours);
+          saisieCoupJcJL(plat,tour,nbTours);
         }else{
-          saisieCoupJcIA(plat,tour,nbTours,difficulte);
+          saisieCoupJcIA(plat,tour,nbTours,difficulte,couleurIA);
         }
       }
       tour = (tour == NOIR ? BLANC : NOIR);
@@ -145,6 +142,7 @@ int main(int argc, char * argv[]) {
     scanf("%d",&cont);
     getchar();
     nbTours = 0;
+    couleurIA = (couleurIA == 1 ? 2 : 1);
   }
   return 0;
 }
