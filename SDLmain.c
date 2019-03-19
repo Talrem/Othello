@@ -4,12 +4,12 @@
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
 #include <string.h>
-#include "../Init/init.h"
-#include "../definitions.h"
-#include "../Aff/aff.h"
-#include "../Tour/tour.h"
-#include "../SDL/definitionsSDL.h"
-#include "../SDL/SDLinclude.h"
+#include "Init/init.h"
+#include "definitions.h"
+#include "Aff/aff.h"
+#include "Tour/tour.h"
+#include "SDL/definitionsSDL.h"
+#include "SDL/SDLinclude.h"
 
 int main(){
    //Creation de la fenetre
