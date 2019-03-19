@@ -13,7 +13,7 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
   switch (direction) {
     case 0:/*vers le haut*/
       if(ligne >= 2){
-        //printf("Haut\n");
+        // printf("Haut\n");
         for(i = ligne - 1, j = colonne ; i > 0 && notDone; i--){
           if(tab[compteur]!=0) notDone = 0;
           if(tab[compteur++]==0) plat[i][j] = couleur;
@@ -22,7 +22,7 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
       break;
     case 1:/*diagonale HD*/
       if(ligne >= 2 && colonne < TAILLE ){
-        //printf("Diagonale Haut Droite\n");
+        // printf("Diagonale Haut Droite\n");
         for(i = ligne - 1, j = colonne + 1 ; i >= 0 && j < TAILLE  && notDone; i--, j++){
           if(tab[compteur]!=0) notDone = 0;
           if(tab[compteur++]==0) plat[i][j] = couleur;
@@ -31,7 +31,7 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
       break;
     case 3:/*vers la droite*/
       if(colonne < TAILLE){
-        //printf("Droite\n");
+        // printf("Droite\n");
         for(j = colonne + 1, i = ligne; j < TAILLE  && notDone; j++){
           if(tab[compteur]!=0) notDone = 0;
           if(tab[compteur++]==0) plat[i][j] = couleur;
@@ -40,7 +40,7 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
       break;
     case 5:/*diagonale BD*/
       if(ligne < TAILLE && colonne < TAILLE ){
-        //printf("Diagonale Bas Droite\n");
+        // printf("Diagonale Bas Droite\n");
         for(i = ligne + 1, j = colonne + 1 ; i < TAILLE && j < TAILLE  && notDone; i++, j++){
           if(tab[compteur]!=0) notDone = 0;
           if(tab[compteur++]==0) plat[i][j] = couleur;
@@ -49,7 +49,7 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
       break;
     case 6:/*vers le bas*/
       if(ligne < TAILLE){
-        //printf("Bas\n");
+        // printf("Bas\n");
         for(i = ligne + 1, j = colonne; i < TAILLE  && notDone; i++){
           if(tab[compteur]!=0) notDone = 0;
           if(tab[compteur++]==0) plat[i][j] = couleur;
@@ -58,7 +58,7 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
       break;
     case 7:/*diagonale BG*/
       if(ligne < TAILLE && colonne >= 2 ){
-        //printf("Diagonale Bas Gauche\n");
+        // printf("Diagonale Bas Gauche\n");
         for(i = ligne + 1, j = colonne - 1 ; i < TAILLE && j >= 0  && notDone; i++, j--){
           if(tab[compteur]!=0) notDone = 0;
           if(tab[compteur++]==0) plat[i][j] = couleur;
@@ -67,7 +67,7 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
       break;
     case 9:/*vers la gauche*/
       if(colonne >= 2){
-        //printf("Gauche\n");
+        // printf("Gauche\n");
         for(j = colonne - 1, i = ligne; j >= 0  && notDone; j--){
           if(tab[compteur]!=0) notDone = 0;
           if(tab[compteur++]==0) plat[i][j] = couleur;
@@ -76,7 +76,7 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
       break;
     case 11:/*diagonale HG*/
       if(ligne >= 2 && colonne >= 2 ){
-        //printf("Diagonale Haut Droite\n");
+        // printf("Diagonale Haut Droite\n");
         for(i = ligne - 1, j = colonne - 1 ; i >= 0 && j >= 0  && notDone; i--, j--){
             if(tab[compteur]!=0) notDone = 0;
             if(tab[compteur++]==0) plat[i][j] = couleur;
@@ -102,13 +102,13 @@ int checkTableau(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne,ch
   int espaces = 0;
   for(i = 0 ; i < TAILLE - 1; i++){
     if(espaces == 0){
-      //if(!estTest) printf("\ntab[%d] : %d \n\n",i,tab[i]);
-      if(tab[i] == 0){ //si la case actuelle est un pion de l'adversaire
+      // if(!estTest) printf("\ntab[%d] : %d \n\n",i,tab[i]);
+      if(tab[i] == 0){ // si la case actuelle est un pion de l'adversaire
         suite = 1;
-      }else if(tab[i] == -1){ //sinon, si la case actuelle est vide
+      }else if(tab[i] == -1){ // sinon, si la case actuelle est vide
         espaces = 1;
         suite = 0;
-      }else if(tab[i] == 1 && suite){//sinon, si la case actuelle est de la couleur ET qu'il y a suite
+      }else if(tab[i] == 1 && suite){// sinon, si la case actuelle est de la couleur ET qu'il y a suite
         prend = 1;
       }else{
         suite = 0;
@@ -142,7 +142,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur,
   {
     /*vers le haut*/
     if(ligne >= 2){
-      //printf("\n\n\nhaut :");
+      // printf("\n\n\nhaut :");
       for(i = ligne - 1, j = colonne; i > 0 ; i--){
         if(!strcmp(plat[i][j],VIDE)){
           points[compteur++] = -1;
@@ -158,7 +158,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur,
     initTableau(points);
     /*vers le bas*/
     if(ligne < TAILLE){
-      //printf("\n\n\nbas :");
+      // printf("\n\n\nbas :");
       for(i = ligne + 1, j = colonne; i < TAILLE ; i++){
         if(!strcmp(plat[i][j],VIDE)){
           points[compteur++] = -1;
@@ -175,7 +175,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur,
     initTableau(points);
     /*vers la gauche*/
     if(colonne >= 2){
-      //printf("\n\n\ngauche :");
+      // printf("\n\n\ngauche :");
       for(j = colonne - 1, i = ligne; j >= 0 ; j--){
         if(!strcmp(plat[i][j],VIDE)){
           points[compteur++] = -1;
@@ -192,7 +192,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur,
     initTableau(points);
     /*vers la droite*/
     if(colonne < TAILLE){
-      //printf("\n\n\ndroite :");
+      // printf("\n\n\ndroite :");
       for(j = colonne + 1, i = ligne; j < TAILLE ; j++){
         if(!strcmp(plat[i][j],VIDE)){
           points[compteur++] = -1;
@@ -212,7 +212,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur,
   {
     /*diagonale HG*/
     if(ligne >= 2 && colonne >= 2 ){
-      //printf("\n\n\nhaut - gauche :");
+      // printf("\n\n\nhaut - gauche :");
       for(i = ligne - 1, j = colonne - 1 ; i >= 0 && j >= 0 ; i--, j--){
         if(!strcmp(plat[i][j],VIDE)){
           points[compteur++] = -1;
@@ -229,7 +229,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur,
     initTableau(points);
     /*diagonale HD*/
     if(ligne >= 2 && colonne < TAILLE ){
-      //printf("\n\n\nhaut - droite :");
+      // printf("\n\n\nhaut - droite :");
       for(i = ligne - 1, j = colonne + 1 ; i >= 0 && j < TAILLE ; i--, j++){
           if(!strcmp(plat[i][j],VIDE)){
             points[compteur++] = -1;
@@ -247,7 +247,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur,
     initTableau(points);
     /*diagonale BD*/
     if(ligne < TAILLE && colonne < TAILLE ){
-      //printf("\n\n\nbas - droite :");
+      // printf("\n\n\nbas - droite :");
       for(i = ligne + 1, j = colonne + 1 ; i < TAILLE && j < TAILLE ; i++, j++){
         if(!strcmp(plat[i][j],VIDE)){
           points[compteur++] = -1;
@@ -264,7 +264,7 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur,
     initTableau(points);
     /*diagonale BG*/
     if(ligne < TAILLE && colonne >= 2 ){
-      //printf("\n\n\nbas - gauche :");
+      // printf("\n\n\nbas - gauche :");
       for(i = ligne + 1, j = colonne - 1 ; i < TAILLE && j >= 0 ; i++, j--){
         if(!strcmp(plat[i][j],VIDE)){
           points[compteur++] = -1;
@@ -284,33 +284,33 @@ int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur,
 int aVoisins(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur){
   int nbVoisinsDiff = 0;
   if(ligne > 0){
-    //haut gauche
+    // haut gauche
     if(colonne > 0){
       if(strcmp(plat[ligne-1][colonne-1],couleur) && strcmp(plat[ligne-1][colonne-1],VIDE)) nbVoisinsDiff++;
     }
-    //haut
+    // haut
     if(strcmp(plat[ligne-1][colonne],couleur) && strcmp(plat[ligne-1][colonne],VIDE)) nbVoisinsDiff++;
-    //haut gauche
+    // haut gauche
     if(colonne < TAILLE - 1){
       if(strcmp(plat[ligne-1][colonne+1],couleur) && strcmp(plat[ligne-1][colonne+1],VIDE)) nbVoisinsDiff++;
     }
   }
   if(colonne > 0){
-    //gauche
+    // gauche
     if(strcmp(plat[ligne][colonne-1],couleur) && strcmp(plat[ligne][colonne-1],VIDE)) nbVoisinsDiff++;
   }
   if(colonne < TAILLE - 1){
-    //gauche
+    // gauche
     if(strcmp(plat[ligne][colonne+1],couleur) && strcmp(plat[ligne][colonne+1],VIDE)) nbVoisinsDiff++;
   }
   if(ligne < TAILLE - 1){
-    //bas gauche
+    // bas gauche
     if(colonne > 0){
       if(strcmp(plat[ligne+1][colonne-1],couleur) && strcmp(plat[ligne+1][colonne-1],VIDE)) nbVoisinsDiff++;
     }
-    //bas
+    // bas
     if(strcmp(plat[ligne+1][colonne],couleur) && strcmp(plat[ligne+1][colonne],VIDE)) nbVoisinsDiff++;
-    //bas gauche
+    // bas gauche
     if(colonne < TAILLE - 1){
       if(strcmp(plat[ligne+1][colonne+1],couleur) && strcmp(plat[ligne+1][colonne+1],VIDE)) nbVoisinsDiff++;
     }
@@ -323,29 +323,25 @@ Cette fonction vérifie la validité du coup
 Et renvoit un code d'erreur ou 0 si tout s'est bien passé.
 */
 int estInvalide(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur, int estTest){
-  //coup dans le plateau.estInvalide
+  // coup dans le plateau.estInvalide
   if(ligne >= TAILLE || ligne < 0 || colonne >= TAILLE || colonne < 0) return 1;
-  //coup dans une case vide.
+  // coup dans une case vide.
   if((strcmp(plat[ligne][colonne], VIDE))) return 2;
-  //coup à côté d'une case adversaire
+  // coup à côté d'une case adversaire
   if(!aVoisins(plat,ligne,colonne,couleur)) return 3;
-  //coup prend un pion adverse.
+  // coup prend un pion adverse.
   if(!prendPion(plat,ligne,colonne,couleur,estTest)) return 4;
   return 0;
 }
 
 int coupAleatIA(char * plat[TAILLE][TAILLE],char * couleur);
-/*
-  coup intelligent IA
-*/
+// coup intelligent IA
 int coupIntellIA(char * plat[TAILLE][TAILLE],char * couleur){
   /*En attendant le min max*/
   coupAleatIA(plat,couleur);
 }
 
-/*
-  coup aléatoire IA
-*/
+// coup aléatoire IA
 int coupAleatIA(char * plat[TAILLE][TAILLE],char * couleur){
   int coupInvalide = 1;
   int ligne = 0, colonne = 0;
@@ -360,13 +356,13 @@ int coupAleatIA(char * plat[TAILLE][TAILLE],char * couleur){
   printf("Coup précédent : %c%d\n\n",ligneC + ligne, colonne + 1);
 }
 
-//Joueur contre Joueur distant
+// Joueur contre Joueur distant
 void saisieCoupJcJD(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
   printf("Work In Progress\nAu Revoir\n");
   exit(EXIT_SUCCESS);
 }
 
-//Joueur contre Joueur local (également utilisé pour la saisie des coups d'un joueur quand ce n'est pas le tour de l'IA)
+// Joueur contre Joueur local (également utilisé pour la saisie des coups d'un joueur quand ce n'est pas le tour de l'IA)
 void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
   int coupInvalide = 1;
   int colonne = -1,ligne = -1;
@@ -376,7 +372,7 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
     printf("Saisissez votre coup (ligne colonne) : ");
     scanf("%c%d",&saisieLigne,&colonne);
     getchar();
-    //Transformation de la lettre en indice de ligne
+    // Transformation de la lettre en indice de ligne
     if(saisieLigne >= 'A' && saisieLigne <= 'A' + TAILLE){
       ligne = saisieLigne - 'A';
     }else{
@@ -401,7 +397,7 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
   printf("Coup précédent : %c%d\n\n",ligneC + ligne, colonne + 1);
 }
 
-//Joueur contre IA
+// Joueur contre IA
 void saisieCoupJcIA(char * plat[TAILLE][TAILLE], char * couleur, int nbTours, int difficulte, int couleurIA){
   if(nbTours % couleurIA != 0){
     switch(nbTours % difficulte){
