@@ -28,8 +28,8 @@ aff.o: ../Aff/aff.c
 tour.o: ../Tour/tour.c
 	${CC} ../Tour/tour.c -c
 
-SDL_Othello.o : SDL_Othello.c
-	${CC} SDL_Othello.c -c ${LIBS} ${INCS}
+SDL_Othello.o : ../SDL/SDL_Othello.c
+	${CC} ../SDL/SDL_Othello.c -c ${LIBS} ${INCS}
 
 test: testSDL.c
 	gcc -c `sdl-config --cflags --libs` -lSDL_image -lSDL_ttf testSDL.c

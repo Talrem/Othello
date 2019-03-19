@@ -8,7 +8,7 @@
 #include "../definitions.h"
 #include "../Aff/aff.h"
 #include "../Tour/tour.h"
-#include "SDL_Othello.h"
+#include "../SDL/SDL_Othello.h"
 
 int main(int argc, char** argv){
 	//Ouvrir la fenêtre et mémoriser son pointeur
