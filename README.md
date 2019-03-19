@@ -39,9 +39,11 @@
     </ul>
     <h3>- JEU CONTRE L'ORDINATEUR</h3>
     <ul>
+      <li>* l'IA a une couleur aléatoire</li>
       <li>* coup aléatoire tout les N tours en fonction de la difficulté</li>
       <li>- arbre de points</li>
       <li>- si égalité de gain potentiel : coup aléatoire</li>
+      <li>* quand la partie est finie, l'IA change de couleur</li>
     </ul>
   </body>
 </html>
