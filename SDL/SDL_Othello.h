@@ -8,18 +8,10 @@
 #include "../definitions.h"
 #include "../Aff/aff.h"
 #include "../Tour/tour.h"
-#define HEXA_POURPRE 0x93, 0x00, 0x18, 0xFF
-#define HEXA_NOIR 0x00, 0x00, 0x00, 0xFF
-#define HEXA_BLANC 0xFF, 0xFF, 0xFF, 0xFF
-#define COULEUR_VERT 0, 177, 106, 1
-#define COULEUR_NOIR 0, 0, 0, 0
-#define COULEUR_BLANC 255, 255, 255, 255
-#define COULEUR_ROUGE 255, 0, 0, 255
-#define POLICE "BEBAS.ttf"
+#include "../SDL/definitionsSDL.h"
 
 void drawText (SDL_Renderer * renderer, int x, int y, char * string, int policeSize, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 void drawImage (SDL_Renderer * renderer, int x, int y, char * string);
-SDL_Window* showWindow();
 int posClick(SDL_MouseButtonEvent b, int posA_x, int posA_y, int posB_x, int posB_y);
 void set_pixel(SDL_Renderer *rend, int x, int y, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 void draw_circle(SDL_Renderer *surface, int n_cx, int n_cy, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a);

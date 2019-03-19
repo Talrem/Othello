@@ -8,7 +8,30 @@
 #include "../definitions.h"
 #include "../Aff/aff.h"
 #include "../Tour/tour.h"
-#include "../SDL/SDL_Othello.h"
+#include "../SDL/definitionsSDL.h"
+
+SDL_Window* showWindow(){
+
+	SDL_Window *pWindow = NULL;
+
+	/* Initialisation simple */
+	if(SDL_Init(SDL_INIT_VIDEO)){
+		fprintf(stdout, "Echec de l'initialisation de SDL (%s)\n", SDL_GetError());
+		exit(EXIT_FAILURE);
+	}
+	/* Initialisation TTF */
+	if(TTF_Init()){
+		fprintf(stderr, "Erreur d'initialisation de TTF (%s)\n", TTF_GetError());
+		exit(EXIT_FAILURE);
+	}
+	/* Création de la fenêtre */
+	pWindow = SDL_CreateWindow("Othello",SDL_WINDOWPOS_UNDEFINED,
+													SDL_WINDOWPOS_UNDEFINED,
+													800,
+													600,
+													SDL_WINDOW_SHOWN|SDL_WINDOW_RESIZABLE);
+	return pWindow;
+}
 
 int SDL_AfficherMenu1(SDL_Window * pWindow, SDL_Renderer * pRenderer){
    if(pWindow){

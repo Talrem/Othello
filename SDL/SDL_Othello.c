@@ -39,28 +39,6 @@ void drawImage (SDL_Renderer * renderer, int x, int y, char * string){
 	SDL_RenderCopy(renderer, image_tex, NULL, &imgDestRect);
 }
 
-SDL_Window* showWindow(){
-
-	SDL_Window *pWindow = NULL;
-
-	/* Initialisation simple */
-	if(SDL_Init(SDL_INIT_VIDEO)){
-		fprintf(stdout, "Echec de l'initialisation de SDL (%s)\n", SDL_GetError());
-		exit(EXIT_FAILURE);
-	}
-	/* Initialisation TTF */
-	if(TTF_Init()){
-		fprintf(stderr, "Erreur d'initialisation de TTF (%s)\n", TTF_GetError());
-		exit(EXIT_FAILURE);
-	}
-	/* Création de la fenêtre */
-	pWindow = SDL_CreateWindow("Othello",SDL_WINDOWPOS_UNDEFINED,
-													SDL_WINDOWPOS_UNDEFINED,
-													800,
-													600,
-													SDL_WINDOW_SHOWN|SDL_WINDOW_RESIZABLE);
-	return pWindow;
-}
 
 int posClick(SDL_MouseButtonEvent b, int posA_x, int posA_y, int posB_x, int posB_y){
    int x = b.x;
