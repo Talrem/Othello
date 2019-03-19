@@ -28,8 +28,8 @@ aff.o: ../Aff/aff.c
 tour.o: ../Tour/tour.c
 	${CC} ../Tour/tour.c -c
 
-SDL_Othello.o : ../TestSDL/SDL_Othello.c
-	${CC} ../TestSDL/SDL_Othello.c -c ${LIBS} ${INCS}
+SDL_Othello.o : ../SDL/SDL_Othello.c
+	${CC} ../SDL/SDL_Othello.c -c ${LIBS} ${INCS}
 
 SDLinclude.o: ../SDL/SDLinclude.c
 	${CC} ../SDL/SDLinclude.c -c ${LIBS} ${INCS}

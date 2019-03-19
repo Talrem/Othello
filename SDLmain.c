@@ -8,8 +8,8 @@
 #include "../definitions.h"
 #include "../Aff/aff.h"
 #include "../Tour/tour.h"
-#include "../TestSDL/SDL_Othello.h"
-#include "SDLinclude.h"
+#include "../SDL/definitionsSDL.h"
+#include "../SDL/SDLinclude.h"
 
 int main(){
    //Creation de la fenetre
