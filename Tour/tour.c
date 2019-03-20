@@ -3,6 +3,7 @@
 #include <string.h>
 #include "../definitions.h"
 #include "../Aff/aff.h"
+#include <unistd.h>
 
 /*
 Cette fonction applique la prise des pions détectée par checkTableau.
@@ -400,6 +401,7 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
 // Joueur contre IA
 void saisieCoupJcIA(char * plat[TAILLE][TAILLE], char * couleur, int nbTours, int difficulte, int couleurIA){
   if(nbTours % 2 == couleurIA){
+    sleep(1);
     switch(nbTours % difficulte){
       case 0 :
         coupAleatIA(plat,couleur);
