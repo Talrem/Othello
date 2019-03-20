@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#include <string.h>
 #include "./Aff/aff.h"
 #include "./Init/init.h"
 #include "./Tour/tour.h"
