@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "../Aff/aff.h"
 
 void afficherPlateau(char * plat[TAILLE][TAILLE]) {
