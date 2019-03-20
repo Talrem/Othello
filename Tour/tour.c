@@ -1,9 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "../definitions.h"
+#include "./tour.h"
 #include "../Aff/aff.h"
-#include <unistd.h>
 
 /*
 Cette fonction applique la prise des pions détectée par checkTableau.

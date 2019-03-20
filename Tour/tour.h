@@ -2,7 +2,7 @@
 
 int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * couleur, int direction);
 int checkTableau(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur,int direction, int estTest);
-int initTableau(int tab[]);
+void initTableau(int tab[]);
 int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur, int estTest);
 int aVoisins(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur);
 int estInvalide(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur, int estTest);
