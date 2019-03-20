@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "../definitions.h"
+#include "./init.h"
 
 void initTestVide(char * plat[TAILLE][TAILLE]){
   for(int i = 0; i < TAILLE;i++){
