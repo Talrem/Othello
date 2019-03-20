@@ -331,13 +331,6 @@ int estInvalide(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleu
   return 0;
 }
 
-int coupAleatIA(char * plat[TAILLE][TAILLE],char * couleur);
-// coup intelligent IA
-int coupIntellIA(char * plat[TAILLE][TAILLE],char * couleur){
-  /*En attendant le min max*/
-  coupAleatIA(plat,couleur);
-}
-
 // coup aléatoire IA
 int coupAleatIA(char * plat[TAILLE][TAILLE],char * couleur){
   int coupInvalide = 1;
@@ -351,6 +344,12 @@ int coupAleatIA(char * plat[TAILLE][TAILLE],char * couleur){
   system("clear");
   char ligneC = 'A';
   printf("Coup précédent : %c%d\n\n",ligneC + ligne, colonne + 1);
+}
+
+// coup intelligent IA
+int coupIntellIA(char * plat[TAILLE][TAILLE],char * couleur){
+  /*En attendant le min max*/
+  coupAleatIA(plat,couleur);
 }
 
 // Joueur contre Joueur distant
@@ -397,7 +396,7 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
 // Joueur contre IA
 void saisieCoupJcIA(char * plat[TAILLE][TAILLE], char * couleur, int nbTours, int difficulte, int couleurIA){
   if(nbTours % 2 == couleurIA){
-    sleep(1);
+    sleep(1.5);
     switch(nbTours % difficulte){
       case 0 :
         coupAleatIA(plat,couleur);
