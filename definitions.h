@@ -1,11 +1,11 @@
 #define TAILLE 8
 #define VIDE " "
 
-#define NOIR "●"
-#define BLANC "○"
 
-
-/*
-#define NOIR "@"
-#define BLANC "O"
-*/
+#if defined(WIN32)
+  #define NOIR "@"
+  #define BLANC "O"
+#elif defined (linux)
+  #define NOIR "●"
+  #define BLANC "○"
+#endif
