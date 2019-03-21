@@ -5,4 +5,4 @@
 #define COULEUR_NOIR 0, 0, 0, 0
 #define COULEUR_BLANC 255, 255, 255, 255
 #define COULEUR_ROUGE 255, 0, 0, 255
-#define POLICE "./SDL/BEBAS.ttf"
+#define POLICE "BEBAS.ttf"
