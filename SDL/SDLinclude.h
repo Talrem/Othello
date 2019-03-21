@@ -17,3 +17,5 @@ int creerBoutons(SDL_Window * pWindow, int nbBouton, ...);
 int SDL_AfficherMenu1(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton);
 int SDL_Menu2(SDL_Window * pWindow, SDL_Renderer * pRenderer);
 int SDL_AfficherMenu2(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton);
+int SDL_Menu2a(SDL_Window * pWindow, SDL_Renderer * pRenderer);
+int SDL_AfficherMenu2a(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton);

@@ -139,8 +139,6 @@ int SDL_Menu2(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 
 		int nbBouton = 3;
 		SDL_Rect tabBouton[nbBouton];
-		creerBoutons(pWindow, nbBouton, &(tabBouton[0]), &(tabBouton[1]), &(tabBouton[2]));
-
 		SDL_AfficherMenu2(pWindow, pRenderer, tabBouton, nbBouton);
 
 		int running = 1;
@@ -163,15 +161,15 @@ int SDL_Menu2(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 						//on vérifie sur quel bouton on clique :
 						//puis on appel la fonction qui permet de changer de menu
 						if(posClick(e.button, tabBouton[0].x, tabBouton[0].y, (tabBouton[0].x + tabBouton[0].w), (tabBouton[0].y + tabBouton[0].h))){ //bouton 1
-							printf("Bouton 1\n");
+							SDL_Menu2a(pWindow, pRenderer);
 							//si on reviens ici, c'est que l'utilisateur a fait retour, il faut reafficher le menu
 							SDL_AfficherMenu2(pWindow, pRenderer, tabBouton, nbBouton);
 						} else if(posClick(e.button, tabBouton[1].x, tabBouton[1].y, (tabBouton[1].x + tabBouton[1].w), (tabBouton[1].y + tabBouton[1].h))){ //bouton 2
-							printf("Bouton 2\n");
+							printf("Continuer\n");
 							//si on reviens ici, c'est que l'utilisateur a fait retour, il faut reafficher le menu
 							SDL_AfficherMenu2(pWindow, pRenderer, tabBouton, nbBouton);
 						} else if(posClick(e.button, tabBouton[2].x, tabBouton[2].y, (tabBouton[2].x + tabBouton[2].w), (tabBouton[2].y + tabBouton[2].h))){ //bouton 3
-							printf("Bouton 3\n");
+							printf("Retour\n");
 							//Ce bouton sert a faire retour
 							return 0;
 						}
@@ -196,5 +194,70 @@ int SDL_AfficherMenu2(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect *
 	SDL_RenderPresent(pRenderer);
 
 	return 0;
+}
+
+int SDL_Menu2a(SDL_Window * pWindow, SDL_Renderer * pRenderer){
+	if(pWindow){
+		int nbBouton = 4;
+		SDL_Rect tabBouton[nbBouton];
+		SDL_AfficherMenu2a(pWindow, pRenderer, tabBouton, nbBouton);
+
+		int running = 1;
+		while(running){
+			SDL_Event e;
+         while(SDL_PollEvent(&e)){
+            switch(e.type){
+					case SDL_QUIT: running = 0;
+                  return 0; break;
+					case SDL_WINDOWEVENT:
+                  switch(e.window.event){
+                     case SDL_WINDOWEVENT_EXPOSED:
+                     case SDL_WINDOWEVENT_SIZE_CHANGED:
+                     case SDL_WINDOWEVENT_RESIZED:
+                     case SDL_WINDOWEVENT_SHOWN:
+								SDL_AfficherMenu2a(pWindow, pRenderer, tabBouton, nbBouton);
+                     break;
+                  }
+					case SDL_MOUSEBUTTONDOWN:
+						//on vérifie sur quel bouton on clique :
+						//puis on appel la fonction qui permet de changer de menu
+						if(posClick(e.button, tabBouton[0].x, tabBouton[0].y, (tabBouton[0].x + tabBouton[0].w), (tabBouton[0].y + tabBouton[0].h))){ //bouton 1
+							printf("Facile\n");
+							//Lance l'IA facile. O réaffiche le menu une fois la partie finie
+							SDL_AfficherMenu2a(pWindow, pRenderer, tabBouton, nbBouton);
+						} else if(posClick(e.button, tabBouton[1].x, tabBouton[1].y, (tabBouton[1].x + tabBouton[1].w), (tabBouton[1].y + tabBouton[1].h))){ //bouton 2
+							printf("Moyen\n");
+							//Lance l'IA moyenne. O réaffiche le menu une fois la partie finie
+							SDL_AfficherMenu2a(pWindow, pRenderer, tabBouton, nbBouton);
+						} else if(posClick(e.button, tabBouton[2].x, tabBouton[2].y, (tabBouton[2].x + tabBouton[2].w), (tabBouton[2].y + tabBouton[2].h))){
+							printf("Difficile\n");
+							//Lance l'IA Difficile. O réaffiche le menu une fois la partie finie
+							SDL_AfficherMenu2a(pWindow, pRenderer, tabBouton, nbBouton);
+						}else if(posClick(e.button, tabBouton[3].x, tabBouton[3].y, (tabBouton[3].x + tabBouton[3].w), (tabBouton[3].y + tabBouton[3].h))){ //bouton 3
+							printf("Retour\n");
+							//Ce bouton sert a faire retour
+							return 0;
+						}
+            }
+         }
+		}
+
+		return 0;
+	}
+}
+
+int SDL_AfficherMenu2a(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton){
+	SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
+	SDL_RenderClear(pRenderer);
+	creerBoutons(pWindow, nbBouton, &(tabBouton[0]), &(tabBouton[1]), &(tabBouton[2]), &(tabBouton[3]), &(tabBouton[4]));
+	SDL_SetRenderDrawColor(pRenderer, COULEUR_BLANC);
+	SDL_RenderFillRects(pRenderer, tabBouton, nbBouton);
+	int window_w; SDL_GetWindowSize(pWindow, &window_w, NULL); int policeSize = window_w / 22;
+	drawText(pRenderer, (tabBouton[0].x + tabBouton[0].x / 20), (tabBouton[0].y + tabBouton[0].y / 4), "Facile", policeSize, COULEUR_NOIR);
+	drawText(pRenderer, (tabBouton[1].x + tabBouton[1].x / 20), (tabBouton[1].y + tabBouton[0].y / 4), "Normal", policeSize, COULEUR_NOIR);
+	drawText(pRenderer, (tabBouton[2].x + tabBouton[2].x / 20), (tabBouton[2].y + tabBouton[0].y / 4), "Difficile", policeSize, COULEUR_NOIR);
+	drawText(pRenderer, (tabBouton[3].x + tabBouton[3].x / 20), (tabBouton[3].y + tabBouton[0].y / 4), "Difficile", policeSize, COULEUR_NOIR);
+	SDL_RenderPresent(pRenderer);
+
 	return 0;
 }
