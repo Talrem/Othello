@@ -3,7 +3,7 @@
   </head>
   <body>
     <h1>Othello</h1>
-    <h2>Projet de L2 avec David MERLAT, Nathan MANSON et Samuel DURAN</h2>
+    <h2>Projet de L2 avec David MERLAT (Talrem), Nathan MANSON (Gaiall) et Samuel DURAN (Envyp)</h2>
     <h3>"-" -> à faire et "*" -> fait</h3>
     <h2>* LE JEU :</h2>
     <ul>
