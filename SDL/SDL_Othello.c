@@ -24,6 +24,7 @@ void drawText (SDL_Renderer * renderer, int x, int y, char * string, int policeS
 	txtDestRect.y = y;
 	SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
 	SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
+	TTF_CloseFont(police);
 }
 
 void drawImage (SDL_Renderer * renderer, int x, int y, char * string){
@@ -175,10 +176,12 @@ void SDL_afficherPlateau(SDL_Renderer *renderer, int posXPlat, int posYPlat, SDL
 	plateau_case.y = posYPlat;
 	SDL_Rect rect = {posXPlat-1, posYPlat-1, tailleCase * 8, tailleCase * 8};
 	SDL_RenderDrawRect(renderer, &rect);
+	SDL_SetRenderDrawColor(renderer, COULEUR_VERT);
 }
 
 void afficherPion(SDL_Renderer *renderer, int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a){
 	fill_circle(renderer, x, y, radius, r, g, b, a);
+	SDL_SetRenderDrawColor(renderer, COULEUR_VERT);
 };
 
 void afficherMatrice(char * plateau[TAILLE][TAILLE], SDL_Renderer *render, int posXPlat, int posYPlat, int tailleCase, int radius){
@@ -197,6 +200,7 @@ void afficherMatrice(char * plateau[TAILLE][TAILLE], SDL_Renderer *render, int p
 			}
 		}
 	}
+	SDL_SetRenderDrawColor(render, COULEUR_VERT);
 };
 
 void placerPion(char *plateau[TAILLE][TAILLE], int x, int y, char * joueur){

@@ -79,6 +79,8 @@ int SDL_Menu1(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 		SDL_AfficherMenu1(pWindow, pRenderer, tabBouton, nbBouton);
 
       while(running){
+			SDL_Delay(1);
+
          SDL_Event e;
          while(SDL_PollEvent(&e)){
             switch(e.type){
@@ -97,11 +99,13 @@ int SDL_Menu1(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 						//on vérifie sur quel bouton on clique :
 						//puis on appel la fonction qui permet de changer de menu
 						if(posClick(e.button, tabBouton[0].x, tabBouton[0].y, (tabBouton[0].x + tabBouton[0].w), (tabBouton[0].y + tabBouton[0].h))){ //bouton 1
+							SDL_RenderClear(pRenderer);
 							retour = SDL_Menu2(pWindow, pRenderer);
 							if(retour == -1) return -1;
 							//si on reviens ici, c'est que l'utilisateur a fait retour, il faut reafficher le menu
 							SDL_AfficherMenu1(pWindow, pRenderer, tabBouton, nbBouton);
 						} else if(posClick(e.button, tabBouton[1].x, tabBouton[1].y, (tabBouton[1].x + tabBouton[1].w), (tabBouton[1].y + tabBouton[1].h))){ //bouton 2
+							SDL_RenderClear(pRenderer);
 							retour = SDL_Menu3(pWindow, pRenderer);
 							if(retour == -1) return -1;
 							//si on reviens ici, c'est que l'utilisateur a fait retour, il faut reafficher le menu
@@ -149,6 +153,8 @@ int SDL_Menu2(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 
 		int running = 1;
 		while(running){
+			SDL_Delay(1);
+
 			SDL_Event e;
          while(SDL_PollEvent(&e)){
             switch(e.type){
@@ -167,6 +173,7 @@ int SDL_Menu2(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 						//on vérifie sur quel bouton on clique :
 						//puis on appel la fonction qui permet de changer de menu
 						if(posClick(e.button, tabBouton[0].x, tabBouton[0].y, (tabBouton[0].x + tabBouton[0].w), (tabBouton[0].y + tabBouton[0].h))){ //bouton 1
+							SDL_RenderClear(pRenderer);
 							retour = SDL_Menu2a(pWindow, pRenderer);
 							if(retour == -1) return -1;
 							//si on reviens ici, c'est que l'utilisateur a fait retour, il faut reafficher le menu
@@ -205,6 +212,7 @@ int SDL_AfficherMenu2(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect *
 
 int SDL_Menu2a(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 	if(pWindow){
+
 		int nbBouton = 4;
 		SDL_Rect tabBouton[nbBouton];
 		SDL_AfficherMenu2a(pWindow, pRenderer, tabBouton, nbBouton);
@@ -213,6 +221,8 @@ int SDL_Menu2a(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 
 		int running = 1;
 		while(running){
+			SDL_Delay(1);
+
 			SDL_Event e;
          while(SDL_PollEvent(&e)){
             switch(e.type){
@@ -273,6 +283,7 @@ int SDL_AfficherMenu2a(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect 
 
 int SDL_Menu3(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 	if(pWindow){
+
 		int nbBouton = 3;
 		SDL_Rect tabBouton[nbBouton];
 		SDL_AfficherMenu3(pWindow, pRenderer, tabBouton, nbBouton);
@@ -281,6 +292,8 @@ int SDL_Menu3(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 
 		int running = 1;
 		while(running){
+			SDL_Delay(1);
+
 			SDL_Event e;
          while(SDL_PollEvent(&e)){
             switch(e.type){
@@ -299,6 +312,7 @@ int SDL_Menu3(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 						//on vérifie sur quel bouton on clique :
 						//puis on appel la fonction qui permet de changer de menu
 						if(posClick(e.button, tabBouton[0].x, tabBouton[0].y, (tabBouton[0].x + tabBouton[0].w), (tabBouton[0].y + tabBouton[0].h))){ //bouton 1
+							SDL_RenderClear(pRenderer);
 							retour = jeuJCJ(pWindow, pRenderer);
 							if(retour == -1) return -1; //Retour de quitter
 							SDL_AfficherMenu3(pWindow, pRenderer, tabBouton, nbBouton);
@@ -334,9 +348,22 @@ int SDL_AfficherMenu3(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect *
 	return 0;
 }
 
+int SDL_AfficherErreur(SDL_Renderer * pRenderer, char * error[], int nbErreur, int posXError, int posYError, int taillePolice){
+	if(nbErreur == 0)
+		return 0;
+	if(nbErreur <= 5){
+	  drawText(pRenderer, posXError, posYError, "Le coup que vous avez voulu jouer", taillePolice, COULEUR_NOIR);
+	  drawText(pRenderer, posXError, posYError + taillePolice + 5, error[nbErreur], taillePolice, COULEUR_NOIR);
+  } else {
+	  drawText(pRenderer, posXError, posYError + taillePolice + 5, error[nbErreur], taillePolice, COULEUR_NOIR);
+  }
+	return 0;
+}
+
 //Fonctions de jeu
 int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 	if(pWindow){
+
 		int window_w, window_h;
 
 		/*Creation des variables du plateau : */
@@ -363,9 +390,12 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 		char * errorNotEmpty = "n'est pas dans une case vide."; //dans la pratique, il ne sert pas
 		char * errorNotNear = "n'est pas a cote d'une case adverse.";
 		char * errorDontTake = "ne prend pas de pion adverse.";
-		char * error[5] = {coupOk, errorOut, errorNotEmpty, errorNotNear, errorDontTake};
+		char * cantPlay = "Le joueur ne peut pas jouer";
+		char * error[6] = {coupOk, errorOut, errorNotEmpty, errorNotNear, errorDontTake, cantPlay};
 
 		int posClicX, posClicY;
+
+		int valide = 0;
 
 		/*On affiche le fond de la fenetre*/
 		SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
@@ -374,7 +404,6 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 
 		int running = 1;
 		while(running){
-			SDL_Delay(1);
 
 			/*On récupère la taille de la fenetre*/
 			SDL_GetWindowSize(pWindow, &window_w, &window_h);
@@ -388,11 +417,16 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 			posYError = window_h / 60;
 			taillePolice = window_w / 53;
 
+			SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
+			SDL_RenderClear(pRenderer);
 			/*On affiche la grille du plateau*/
 			SDL_afficherPlateau(pRenderer, posXPlat, posYPlat, casePlateau, tailleCase);
 			/*On affiche la matrice du plateau*/
 			afficherMatrice(plateauMat, pRenderer, posXPlat, posYPlat, tailleCase, radius);
-
+			/*On affiche l'erreur*/
+			SDL_AfficherErreur(pRenderer, error, valide, posXError, posYError, taillePolice);
+			/*On afficher le joueur du tour*/
+			
 			/*On affiche le tout*/
 			SDL_RenderPresent(pRenderer);
 
@@ -423,32 +457,16 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 								break;
 						}
 					case SDL_MOUSEBUTTONDOWN:
-						/*Lorsque l'on clique, on efface les erreurs de coup*/
-						/*Si le coup est valide, suppression des erreurs précedentes*/
-						SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
-						SDL_Rect errorClean = {posXError, posYError, taillePlat, posYError + (taillePolice * 2)};
-						SDL_RenderFillRect(pRenderer, &errorClean);
-						SDL_RenderPresent(pRenderer);
-
 						posClicX = e.button.x;
 						posClicY = e.button.y;
 						if(posClick(e.button, posXPlat, posYPlat, (posXPlat + taillePlat), (posYPlat + taillePlat))){
 							int caseX;
 							int caseY;
 							coordCaseClic(posClicX, posClicY, &caseX, &caseY, posXPlat, posYPlat, tailleCase);
-							/*
-							printf("DANS LE PLATEAU\n");
-							printf("%d : %d\n", posClicX, posClicY);
-							printf("%d : %c\n", caseX + 1, caseY + 'A');
-							printf("%d\n", tailleCase);
-							*/
-							int valide = estInvalide(plateauMat, caseY, caseX, joueur, 0);
+							valide = estInvalide(plateauMat, caseY, caseX, joueur, 0);
 							if(valide == 0){
 								placerPion(plateauMat, caseY, caseX, joueur);
 								joueur = strcmp(joueur, NOIR) ? NOIR : BLANC;
-							} else {
-								drawText(pRenderer, posXError, posYError, "Le coup que vous avez voulu jouer", taillePolice, COULEUR_NOIR);
-								drawText(pRenderer, posXError, posYError + taillePolice + 5, error[valide], taillePolice, COULEUR_NOIR);
 							}
 						}
 						break;

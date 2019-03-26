@@ -25,6 +25,7 @@ int SDL_Menu2a(SDL_Window * pWindow, SDL_Renderer * pRenderer);
 int SDL_AfficherMenu2a(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton);
 int SDL_Menu3(SDL_Window * pWindow, SDL_Renderer * pRenderer);
 int SDL_AfficherMenu3(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton);
+int SDL_AfficherErreur(SDL_Renderer * pRenderer, char * error[], int nbErreur, int posXError, int posYError, int taillePolice);
 
 /*
 *  Fonctions de jeu
