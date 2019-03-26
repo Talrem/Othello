@@ -464,6 +464,9 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 
 		int posXJoueurTour, posYJoueurTour;
 
+		/*Position du bouton du menu*/
+		int posXBoutonMenu, posYBoutonMenu;
+
 		/*On affiche le fond de la fenetre*/
 		SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
 		SDL_RenderClear(pRenderer);
