@@ -11,3 +11,5 @@ int coupIntellIA(char * plat[TAILLE][TAILLE],char * couleur);
 void saisieCoupJcJL(char * plat[TAILLE][TAILLE],char * couleur, int nbTours);
 void saisieCoupJcIA(char * plat[TAILLE][TAILLE], char * couleur, int nbTours, int difficulte, int couleurIA);
 void saisieCoupJcJD(char * plat[TAILLE][TAILLE], char * couleur, int nbTours);
+int estFinie(char * plat[TAILLE][TAILLE]);
+int coupPossible(char * plat[TAILLE][TAILLE] ,char * couleur);
