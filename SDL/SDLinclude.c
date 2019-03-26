@@ -348,6 +348,65 @@ int SDL_AfficherMenu3(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect *
 	return 0;
 }
 
+int SDL_MenuPause(SDL_Window * pWindow, SDL_Renderer * pRenderer){
+	if(pWindow){
+
+		int nbBouton = 3;
+		SDL_Rect tabBouton[nbBouton];
+		SDL_AfficherMenuPause(pWindow, pRenderer, tabBouton, nbBouton);
+
+		int retour = 0;
+
+		int running = 1;
+		while(running){
+			SDL_Delay(1);
+
+			SDL_Event e;
+         while(SDL_PollEvent(&e)){
+            switch(e.type){
+					case SDL_QUIT: running = 0;
+                  return -1; break;
+					case SDL_WINDOWEVENT:
+                  switch(e.window.event){
+                     case SDL_WINDOWEVENT_EXPOSED:
+                     case SDL_WINDOWEVENT_SIZE_CHANGED:
+                     case SDL_WINDOWEVENT_RESIZED:
+                     case SDL_WINDOWEVENT_SHOWN:
+								SDL_AfficherMenuPause(pWindow, pRenderer, tabBouton, nbBouton);
+                     break;
+                  }
+					case SDL_MOUSEBUTTONDOWN:
+						//on vérifie sur quel bouton on clique :
+						//puis on appel la fonction qui permet de changer de menu
+						if(posClick(e.button, tabBouton[0].x, tabBouton[0].y, (tabBouton[0].x + tabBouton[0].w), (tabBouton[0].y + tabBouton[0].h))){ //bouton 1
+							return 1;
+						} else if(posClick(e.button, tabBouton[1].x, tabBouton[1].y, (tabBouton[1].x + tabBouton[1].w), (tabBouton[1].y + tabBouton[1].h))){ //bouton 2
+							printf("Sauvegarder\n");
+							return 1;
+						}else if(posClick(e.button, tabBouton[2].x, tabBouton[2].y, (tabBouton[2].x + tabBouton[2].w), (tabBouton[2].y + tabBouton[2].h))){ //bouton 3
+							return -2;
+						}
+            }
+         }
+		}
+
+		return 0;
+	}
+}
+
+int SDL_AfficherMenuPause(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton){
+	creerBoutons(pWindow, nbBouton, &(tabBouton[0]), &(tabBouton[1]), &(tabBouton[2]));
+	SDL_SetRenderDrawColor(pRenderer, COULEUR_BLANC);
+	SDL_RenderFillRects(pRenderer, tabBouton, nbBouton);
+	int window_w; SDL_GetWindowSize(pWindow, &window_w, NULL); int policeSize = window_w / 22;
+	drawText(pRenderer, (tabBouton[0].x + tabBouton[0].x / 20), (tabBouton[0].y + tabBouton[0].y / 4), "Continuer", policeSize, COULEUR_NOIR);
+	drawText(pRenderer, (tabBouton[1].x + tabBouton[1].x / 20), (tabBouton[1].y + tabBouton[0].y / 4), "Sauvegarder", policeSize, COULEUR_NOIR);
+	drawText(pRenderer, (tabBouton[2].x + tabBouton[2].x / 20), (tabBouton[2].y + tabBouton[0].y / 4), "Quiter", policeSize, COULEUR_NOIR);
+	SDL_RenderPresent(pRenderer);
+
+	return 0;
+}
+
 int SDL_AfficherErreur(SDL_Renderer * pRenderer, char * error[], int nbErreur, int posXError, int posYError, int taillePolice){
 	if(nbErreur == 0)
 		return 0;
@@ -357,6 +416,12 @@ int SDL_AfficherErreur(SDL_Renderer * pRenderer, char * error[], int nbErreur, i
   } else {
 	  drawText(pRenderer, posXError, posYError + taillePolice + 5, error[nbErreur], taillePolice, COULEUR_NOIR);
   }
+	return 0;
+}
+
+int SDL_AfficherJoueurTour(SDL_Renderer * pRenderer, int x, int y, int radius, int taillePolice, Uint8 r, Uint8 g, Uint8 b, Uint8 a){
+	drawText(pRenderer, x, y, "Joueur :", taillePolice, COULEUR_NOIR);
+	afficherPion(pRenderer, x * 6, y * 1.75, radius / 2, r, g, b, a);
 	return 0;
 }
 
@@ -390,20 +455,21 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 		char * errorNotEmpty = "n'est pas dans une case vide."; //dans la pratique, il ne sert pas
 		char * errorNotNear = "n'est pas a cote d'une case adverse.";
 		char * errorDontTake = "ne prend pas de pion adverse.";
-		char * cantPlay = "Le joueur ne peut pas jouer";
+		char * cantPlay = "Le joueur n'a pas pu jouer";
 		char * error[6] = {coupOk, errorOut, errorNotEmpty, errorNotNear, errorDontTake, cantPlay};
 
 		int posClicX, posClicY;
 
 		int valide = 0;
 
+		int posXJoueurTour, posYJoueurTour;
+
 		/*On affiche le fond de la fenetre*/
 		SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
 		SDL_RenderClear(pRenderer);
 		SDL_RenderPresent(pRenderer);
 
-		int running = 1;
-		while(running){
+		while(!estFinie(plateauMat)){
 
 			/*On récupère la taille de la fenetre*/
 			SDL_GetWindowSize(pWindow, &window_w, &window_h);
@@ -417,6 +483,15 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 			posYError = window_h / 60;
 			taillePolice = window_w / 53;
 
+			posXJoueurTour = window_w / 60;
+			posYJoueurTour = window_h / 60;
+
+
+			if(!coupPossible(plateauMat, joueur)){
+				valide = 5;
+				joueur = strcmp(joueur, NOIR) ? NOIR : BLANC;
+			}
+
 			SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
 			SDL_RenderClear(pRenderer);
 			/*On affiche la grille du plateau*/
@@ -426,7 +501,11 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 			/*On affiche l'erreur*/
 			SDL_AfficherErreur(pRenderer, error, valide, posXError, posYError, taillePolice);
 			/*On afficher le joueur du tour*/
-			
+			if(strcmp(joueur, NOIR)){
+				SDL_AfficherJoueurTour(pRenderer, posXJoueurTour, posYJoueurTour, radius, taillePolice, COULEUR_BLANC);
+			} else {
+				SDL_AfficherJoueurTour(pRenderer, posXJoueurTour, posYJoueurTour, radius, taillePolice, COULEUR_NOIR);
+			}
 			/*On affiche le tout*/
 			SDL_RenderPresent(pRenderer);
 
