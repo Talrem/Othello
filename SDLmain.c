@@ -29,6 +29,7 @@ int main(){
          SDL_RenderPresent(pRenderer);
 
          running = SDL_Menu1(pWindow, pRenderer);
+         if(running == -1) return -1;
       }
    }
 
