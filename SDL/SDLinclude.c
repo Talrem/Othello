@@ -420,8 +420,8 @@ int SDL_AfficherErreur(SDL_Renderer * pRenderer, char * error[], int nbErreur, i
 }
 
 int SDL_AfficherJoueurTour(SDL_Renderer * pRenderer, int x, int y, int radius, int taillePolice, Uint8 r, Uint8 g, Uint8 b, Uint8 a){
-	drawText(pRenderer, x, y, "Joueur :", taillePolice, COULEUR_NOIR);
-	afficherPion(pRenderer, x * 6, y * 1.75, radius / 2, r, g, b, a);
+	drawText(pRenderer, x, y, "Joueur :", taillePolice * 2, COULEUR_NOIR);
+	afficherPion(pRenderer, x * 4, y * 7, radius, r, g, b, a);
 	return 0;
 }
 
