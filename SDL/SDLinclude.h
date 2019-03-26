@@ -12,10 +12,24 @@
 #include "../SDL/definitionsSDL.h"
 
 SDL_Window* showWindow();
-int SDL_Menu1(SDL_Window * pWindow, SDL_Renderer * pRenderer);
 int creerBoutons(SDL_Window * pWindow, int nbBouton, ...);
+
+/*
+*  Fonctions d'affichage des menus
+*/
+int SDL_Menu1(SDL_Window * pWindow, SDL_Renderer * pRenderer);
 int SDL_AfficherMenu1(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton);
 int SDL_Menu2(SDL_Window * pWindow, SDL_Renderer * pRenderer);
 int SDL_AfficherMenu2(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton);
 int SDL_Menu2a(SDL_Window * pWindow, SDL_Renderer * pRenderer);
 int SDL_AfficherMenu2a(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton);
+int SDL_Menu3(SDL_Window * pWindow, SDL_Renderer * pRenderer);
+int SDL_AfficherMenu3(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton);
+
+/*
+*  Fonctions de jeu
+*/
+int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * Renderer);
+int jeuJCIAF(SDL_Window * pWindow, SDL_Renderer * Renderer);
+int jeuJCIAM(SDL_Window * pWindow, SDL_Renderer * Renderer);
+int jeuJCIAD(SDL_Window * pWindow, SDL_Renderer * Renderer);
