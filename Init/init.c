@@ -23,6 +23,28 @@ void initPlat(char * plat[TAILLE][TAILLE]){
    }
 }
 
+int initPlatFic(char * plat[TAILLE][TAILLE], FILE * fichier){
+  if(!fichier) return 1;
+  char * val;
+  for(int i = 0; i < TAILLE ; i++){
+    for(int j = 0; j < TAILLE ; j++){
+      fscanf(fichier,"%s",val);
+      plat[i][j] = val;
+    }
+  }
+  return 0;
+}
+
+int savePartie(char * plat[TAILLE][TAILLE], FILE * fichier){
+  if(!fichier) return 1;
+  for(int i = 0; i < TAILLE ; i++){
+    for(int j = 0; j < TAILLE ; j++){
+      fprintf(fichier,"%s ",plat[i][j]);
+    }
+  }
+  return 0;
+}
+
 void initTestPasDeNoir(char * plat[TAILLE][TAILLE]){
   initTestVide(plat);
   for(int i = 0; i < TAILLE;i++){
