@@ -10,7 +10,7 @@ INCS=-I${SDL_INC_DIR}
 PROG=SDL.exe
 DEPENDANCE=init.o aff.o SDL_Othello.o tour.o SDLinclude.o
 
-all: sdl clean
+all: sdl
 delete: clean phony
 
 sdl: SDLmain.o ${DEPENDANCE}
