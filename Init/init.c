@@ -25,21 +25,40 @@ void initPlat(char * plat[TAILLE][TAILLE]){
 
 int initPlatFic(char * plat[TAILLE][TAILLE], FILE * fichier){
   if(!fichier) return 1;
-  char * val;
+  int val;
+  int nbTours;
+  fscanf(fichier,"%d",&nbTours);
   for(int i = 0; i < TAILLE ; i++){
     for(int j = 0; j < TAILLE ; j++){
-      fscanf(fichier,"%s",val);
-      plat[i][j] = val;
+      fscanf(fichier,"%d",&val);
+      switch (val) {
+        case 2:
+          plat[i][j] = NOIR;
+          break;
+        case 1:
+          plat[i][j] = BLANC;
+          break;
+        default:
+          plat[i][j] = VIDE;
+          break;
+      }
     }
   }
-  return 0;
+  return nbTours;
 }
 
-int savePartie(char * plat[TAILLE][TAILLE], FILE * fichier){
+int savePartie(char * plat[TAILLE][TAILLE], FILE * fichier, int nbTours){
   if(!fichier) return 1;
+  fprintf(fichier,"%d ",nbTours);
   for(int i = 0; i < TAILLE ; i++){
     for(int j = 0; j < TAILLE ; j++){
-      fprintf(fichier,"%s ",plat[i][j]);
+      if(!strcmp(plat[i][j],NOIR)){
+        fprintf(fichier,"%d ",2);
+      }else if(!strcmp(plat[i][j],BLANC)){
+        fprintf(fichier,"%d ",1);
+      }else{
+        fprintf(fichier,"%d ",0);
+      }
     }
   }
   return 0;
