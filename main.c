@@ -85,12 +85,38 @@ int main(int argc, char * argv[]){
   }
   system("clear");
   while(cont){
-    initPlat(plat);
-    // initTestVide(plat);
-    // initTestRand(plat);
-    // initTestPlein(plat);
-    // initTestPasDeBlanc(plat);
-    // initTestPasDeNoir(plat);
+    char command, enter;
+    int again;
+    do {
+      printf("Souhaitez vous charger une partie ? (y / n) : ");
+      scanf("%c", &command);
+      again = command != 'y' && command != 'n';
+    } while (again);
+    scanf("%c", &enter); // Enlever la touche 'Enter' du buffer du clavier
+    switch(command){
+      case 'y':
+        system("clear");
+        FILE * fichier;
+        char fileName[30];
+        printf("Saisissez le nom du fichier pour charger la partie : \n");
+        scanf("%s",fileName);
+        fichier = fopen(strcat(fileName,".txt"),"r");
+        printf("Je vais lire\n\n");
+        nbTours = initPlatFic(plat,fichier);
+        fclose(fichier);
+        break;
+      case 'n':
+        initPlat(plat);
+        // initTestVide(plat);
+        // initTestRand(plat);
+        // initTestPlein(plat);
+        // initTestPasDeBlanc(plat);
+        // initTestPasDeNoir(plat);
+        break;
+      default:
+        printf("Une erreur est survenue...");
+        return 0;
+    }
     char * tour = NOIR;
     switch(choixMenuJ){
       case 2:
@@ -124,7 +150,7 @@ int main(int argc, char * argv[]){
     scanf("%d",&cont);
     getchar();
     nbTours = 0;
-    couleurIA = (couleurIA == 1 ? 2 : 1);
+    couleurIA = (couleurIA == 1 ? 0 : 1);
   }
   printf("Au revoir.\n");
   return 0;
