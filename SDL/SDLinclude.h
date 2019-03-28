@@ -13,8 +13,14 @@
 
 #define COULEUR_BOUTON 147, 0, 24, 0
 
+typedef struct s_dimension{
+   char * res;
+   int w, h;
+} t_dimension;
+
 SDL_Window* showWindow();
 int creerBoutons(SDL_Window * pWindow, int nbBouton, ...);
+int getRes(SDL_Window * pWindow, t_dimension resolution[], int nbRes);
 
 /*
 *  Fonctions d'affichage des menus
@@ -27,6 +33,8 @@ int SDL_Menu2a(SDL_Window * pWindow, SDL_Renderer * pRenderer);
 int SDL_AfficherMenu2a(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton);
 int SDL_Menu3(SDL_Window * pWindow, SDL_Renderer * pRenderer);
 int SDL_AfficherMenu3(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton);
+int SDL_Menu4(SDL_Window * pWindow, SDL_Renderer * pRenderer);
+int SDL_AfficherMenu4(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton, t_dimension resolution[], int nbRes, int resAct);
 int SDL_MenuPause(SDL_Window * pWindow, SDL_Renderer * pRenderer);
 int SDL_AfficherMenuPause(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton);
 int SDL_AfficherErreur(SDL_Renderer * pRenderer, char * error[], int nbErreur, int posXError, int posYError, int taillePolice);
@@ -35,7 +43,5 @@ int SDL_AfficherBoutonMenuPause(SDL_Window * pWindow, SDL_Renderer * pRenderer, 
 /*
 *  Fonctions de jeu
 */
-int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * Renderer);
-int jeuJCIAF(SDL_Window * pWindow, SDL_Renderer * Renderer);
-int jeuJCIAM(SDL_Window * pWindow, SDL_Renderer * Renderer);
-int jeuJCIAD(SDL_Window * pWindow, SDL_Renderer * Renderer);
+int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer);
+int jeuJCIA(SDL_Window * pWindow, SDL_Renderer * pRenderer, int difficulte);
