@@ -1,5 +1,6 @@
 #include "./tour.h"
 #include "../Aff/aff.h"
+#include "../Init/init.h"
 
 /*
 Cette fonction applique la prise des pions détectée par checkTableau.
@@ -369,22 +370,33 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
     scanf("%c%d",&saisieLigne,&colonne);
     getchar();
     // Transformation de la lettre en indice de ligne
+  if(saisieLigne != 'S' && saisieLigne != 's'){
     if(saisieLigne >= 'A' && saisieLigne <= 'A' + TAILLE){
-      ligne = saisieLigne - 'A';
-    }else{
-      ligne = saisieLigne - 'a';
-    }
-    colonne--;
-    coupInvalide = estInvalide(plat,ligne,colonne,couleur,0);
-    if(coupInvalide){
-      system("clear");
-      afficherPlateau(plat);
-      switch(coupInvalide){
-        case 1:printf("\n\nLe coup est en dehors du plateau.\n");break;
-        case 2:printf("\n\nLe coup est n'est pas dans une case vide.\n");break;
-        case 3:printf("\n\nLe coup n'est pas à côté d'une case adverse.\n");break;
-        case 4:printf("\n\nLe coup ne prend pas de pion adverse.\n");break;
+        ligne = saisieLigne - 'A';
+      }else{
+        ligne = saisieLigne - 'a';
       }
+      colonne--;
+      coupInvalide = estInvalide(plat,ligne,colonne,couleur,0);
+      if(coupInvalide){
+        system("clear");
+        afficherPlateau(plat);
+        switch(coupInvalide){
+          case 1:printf("\n\nLe coup est en dehors du plateau.\n");break;
+          case 2:printf("\n\nLe coup est n'est pas dans une case vide.\n");break;
+          case 3:printf("\n\nLe coup n'est pas à côté d'une case adverse.\n");break;
+          case 4:printf("\n\nLe coup ne prend pas de pion adverse.\n");break;
+        }
+      }
+    } else {
+      FILE * fichier;
+      char fileName[30];
+      printf("Saisissez le nom du fichier pour enregistrer la partie : \n");
+      scanf("%s",fileName);
+      printf("coucou");
+      fichier = fopen(strcat(fileName,".txt"),"w");
+      savePartie(plat,fichier,nbTours);
+      fclose(fichier);
     }
   }
   plat[ligne][colonne] = couleur;
