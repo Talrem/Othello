@@ -130,7 +130,7 @@ int SDL_AfficherMenu1(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect *
 	SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
 	SDL_RenderClear(pRenderer);
 	creerBoutons(pWindow, nbBouton, &(tabBouton[0]), &(tabBouton[1]), &(tabBouton[2]), &(tabBouton[3]));
-	SDL_SetRenderDrawColor(pRenderer, COULEUR_BLANC);
+	SDL_SetRenderDrawColor(pRenderer, COULEUR_BOUTON);
 	SDL_RenderFillRects(pRenderer, tabBouton, nbBouton);
 	int window_w; SDL_GetWindowSize(pWindow, &window_w, NULL); int policeSize = window_w / 22;
 	drawText(pRenderer, (tabBouton[0].x + tabBouton[0].x / 20), (tabBouton[0].y + tabBouton[0].y / 4), "1 joueur", policeSize, COULEUR_NOIR);
@@ -199,7 +199,7 @@ int SDL_AfficherMenu2(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect *
 	SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
 	SDL_RenderClear(pRenderer);
 	creerBoutons(pWindow, nbBouton, &(tabBouton[0]), &(tabBouton[1]), &(tabBouton[2]), &(tabBouton[3]));
-	SDL_SetRenderDrawColor(pRenderer, COULEUR_BLANC);
+	SDL_SetRenderDrawColor(pRenderer, COULEUR_BOUTON);
 	SDL_RenderFillRects(pRenderer, tabBouton, nbBouton);
 	int window_w; SDL_GetWindowSize(pWindow, &window_w, NULL); int policeSize = window_w / 22;
 	drawText(pRenderer, (tabBouton[0].x + tabBouton[0].x / 20), (tabBouton[0].y + tabBouton[0].y / 4), "Nouvelle Partie", policeSize, COULEUR_NOIR);
@@ -269,7 +269,7 @@ int SDL_AfficherMenu2a(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect 
 	SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
 	SDL_RenderClear(pRenderer);
 	creerBoutons(pWindow, nbBouton, &(tabBouton[0]), &(tabBouton[1]), &(tabBouton[2]), &(tabBouton[3]), &(tabBouton[4]));
-	SDL_SetRenderDrawColor(pRenderer, COULEUR_BLANC);
+	SDL_SetRenderDrawColor(pRenderer, COULEUR_BOUTON);
 	SDL_RenderFillRects(pRenderer, tabBouton, nbBouton);
 	int window_w; SDL_GetWindowSize(pWindow, &window_w, NULL); int policeSize = window_w / 22;
 	drawText(pRenderer, (tabBouton[0].x + tabBouton[0].x / 20), (tabBouton[0].y + tabBouton[0].y / 4), "Facile", policeSize, COULEUR_NOIR);
@@ -337,7 +337,7 @@ int SDL_AfficherMenu3(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect *
 	SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
 	SDL_RenderClear(pRenderer);
 	creerBoutons(pWindow, nbBouton, &(tabBouton[0]), &(tabBouton[1]), &(tabBouton[2]));
-	SDL_SetRenderDrawColor(pRenderer, COULEUR_BLANC);
+	SDL_SetRenderDrawColor(pRenderer, COULEUR_BOUTON);
 	SDL_RenderFillRects(pRenderer, tabBouton, nbBouton);
 	int window_w; SDL_GetWindowSize(pWindow, &window_w, NULL); int policeSize = window_w / 22;
 	drawText(pRenderer, (tabBouton[0].x + tabBouton[0].x / 20), (tabBouton[0].y + tabBouton[0].y / 4), "Nouvelle partie", policeSize, COULEUR_NOIR);
@@ -396,7 +396,7 @@ int SDL_MenuPause(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 
 int SDL_AfficherMenuPause(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton){
 	creerBoutons(pWindow, nbBouton, &(tabBouton[0]), &(tabBouton[1]), &(tabBouton[2]));
-	SDL_SetRenderDrawColor(pRenderer, COULEUR_BLANC);
+	SDL_SetRenderDrawColor(pRenderer, COULEUR_BOUTON);
 	SDL_RenderFillRects(pRenderer, tabBouton, nbBouton);
 	int window_w; SDL_GetWindowSize(pWindow, &window_w, NULL); int policeSize = window_w / 22;
 	drawText(pRenderer, (tabBouton[0].x + tabBouton[0].x / 20), (tabBouton[0].y + tabBouton[0].y / 4), "Continuer", policeSize, COULEUR_NOIR);
@@ -423,6 +423,14 @@ int SDL_AfficherJoueurTour(SDL_Renderer * pRenderer, int x, int y, int radius, i
 	drawText(pRenderer, x, y, "Joueur :", taillePolice * 2, COULEUR_NOIR);
 	afficherPion(pRenderer, x * 4, y * 7, radius, r, g, b, a);
 	return 0;
+}
+
+int SDL_AfficherBoutonMenuPause(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect bouton){
+	SDL_SetRenderDrawColor(pRenderer, COULEUR_BOUTON);
+	SDL_RenderFillRect(pRenderer, &bouton);
+	int window_w; SDL_GetWindowSize(pWindow, &window_w, NULL); int policeSize = window_w / 22;
+	drawText(pRenderer, (bouton.x + bouton.w / 15), (bouton.y + bouton.h / 6), "Menu", policeSize, COULEUR_NOIR);
+
 }
 
 //Fonctions de jeu
@@ -464,15 +472,18 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 
 		int posXJoueurTour, posYJoueurTour;
 
-		/*Position du bouton du menu*/
-		int posXBoutonMenu, posYBoutonMenu;
+		/*Creation du bouton du menu*/
+		SDL_Rect boutonMenuPause;
+
+		/*Variable de test de quit*/
+		int quitter = 0;
 
 		/*On affiche le fond de la fenetre*/
 		SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
 		SDL_RenderClear(pRenderer);
 		SDL_RenderPresent(pRenderer);
 
-		while(!estFinie(plateauMat)){
+		while(!estFinie(plateauMat) && quitter != -2){
 
 			/*On récupère la taille de la fenetre*/
 			SDL_GetWindowSize(pWindow, &window_w, &window_h);
@@ -489,6 +500,10 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 			posXJoueurTour = window_w / 60;
 			posYJoueurTour = window_h / 60;
 
+			boutonMenuPause.x = window_w / 40;
+			boutonMenuPause.y = window_h - window_h / 7;
+			boutonMenuPause.w = window_w / 7;
+			boutonMenuPause.h = window_h / 10;
 
 			if(!coupPossible(plateauMat, joueur)){
 				valide = 5;
@@ -509,6 +524,8 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 			} else {
 				SDL_AfficherJoueurTour(pRenderer, posXJoueurTour, posYJoueurTour, radius, taillePolice, COULEUR_NOIR);
 			}
+			/*On affiche le bouton du menu*/
+			SDL_AfficherBoutonMenuPause(pWindow, pRenderer, boutonMenuPause);
 			/*On affiche le tout*/
 			SDL_RenderPresent(pRenderer);
 
@@ -541,7 +558,10 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 					case SDL_MOUSEBUTTONDOWN:
 						posClicX = e.button.x;
 						posClicY = e.button.y;
-						if(posClick(e.button, posXPlat, posYPlat, (posXPlat + taillePlat), (posYPlat + taillePlat))){
+						/*On teste si le click est sur le bouton du menu*/
+						if(posClick(e.button, boutonMenuPause.x, boutonMenuPause.y, (boutonMenuPause.x + boutonMenuPause.w), (boutonMenuPause.y + boutonMenuPause.h))){
+							quitter = SDL_MenuPause(pWindow, pRenderer);
+						} else if(posClick(e.button, posXPlat, posYPlat, (posXPlat + taillePlat), (posYPlat + taillePlat))){
 							int caseX;
 							int caseY;
 							coordCaseClic(posClicX, posClicY, &caseX, &caseY, posXPlat, posYPlat, tailleCase);

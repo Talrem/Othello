@@ -5,4 +5,5 @@
 #define COULEUR_NOIR 0, 0, 0, 0
 #define COULEUR_BLANC 255, 255, 255, 255
 #define COULEUR_ROUGE 255, 0, 0, 255
+#define COULEUR_POURPRE 147, 0, 24, 0
 #define POLICE "BEBAS.ttf"

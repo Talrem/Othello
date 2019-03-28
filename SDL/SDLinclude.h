@@ -11,6 +11,8 @@
 #include "../definitions.h"
 #include "../SDL/definitionsSDL.h"
 
+#define COULEUR_BOUTON 147, 0, 24, 0
+
 SDL_Window* showWindow();
 int creerBoutons(SDL_Window * pWindow, int nbBouton, ...);
 
@@ -29,7 +31,7 @@ int SDL_MenuPause(SDL_Window * pWindow, SDL_Renderer * pRenderer);
 int SDL_AfficherMenuPause(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect * tabBouton, int nbBouton);
 int SDL_AfficherErreur(SDL_Renderer * pRenderer, char * error[], int nbErreur, int posXError, int posYError, int taillePolice);
 int SDL_AfficherJoueurTour(SDL_Renderer * pRenderer, int x, int y, int radius, int taillePolice, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
-
+int SDL_AfficherBoutonMenuPause(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect bouton);
 /*
 *  Fonctions de jeu
 */
