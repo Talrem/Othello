@@ -3,7 +3,7 @@
 #include "../Init/init.h"
 
 /*
-Cette fonction applique la prise des pions détectée par checkTableau.
+Cette fonction applique la prise des pions detectee par checkTableau.
 */
 int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * couleur, int direction){
   int i,j,compteur = 0;
@@ -90,7 +90,7 @@ int prise(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne, char * c
 
 /*
 Cette fonction regarde dans le tableau si on a une suite de 0 puis un 1 et si c'est le cas
-elle retourne 1 car ça veut dire qu'un pion peut être pris. Si un -1 est trouvé, c'est qu'il y a un espace
+elle retourne 1 car ça veut dire qu'un pion peut être pris. Si un -1 est trouve, c'est qu'il y a un espace
 donc inutile de continuer.
 */
 int checkTableau(int tab[],char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur,int direction, int estTest){
@@ -128,8 +128,8 @@ void initTableau(int tab[]){
 Cette fonction renvoit si des pions vont être pris.
 Elle parcourt le terrain dans chaque direction en partant du point et met les couleurs qu'elle rencontre
 (-1 pour les VIDE, 0 pour la couleur adverse et 1 pour la couleur actuelle) dans un tableau
-Puis après chaque direction, le tableau est vérifié puis les modifications au plateau sont effectuées,
-Si ne serait-ce qu'un pion a été pris, la fonction renvoit 1. 0 sinon.
+Puis après chaque direction, le tableau est verifie puis les modifications au plateau sont effectuees,
+Si ne serait-ce qu'un pion a ete pris, la fonction renvoit 1. 0 sinon.
 */
 int prendPion(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur, int estTest){
   int aPris = 0;
@@ -317,22 +317,22 @@ int aVoisins(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur){
 }
 
 /*
-Cette fonction vérifie la validité du coup
-Et renvoit un code d'erreur ou 0 si tout s'est bien passé.
+Cette fonction verifie la validite du coup
+Et renvoit un code d'erreur ou 0 si tout s'est bien passe.
 */
 int estInvalide(char * plat[TAILLE][TAILLE],int ligne, int colonne,char * couleur, int estTest){
   // coup dans le plateau.estInvalide
   if(ligne >= TAILLE || ligne < 0 || colonne >= TAILLE || colonne < 0) return 1;
   // coup dans une case vide.
   if((strcmp(plat[ligne][colonne], VIDE))) return 2;
-  // coup à côté d'une case adversaire
+  // coup a cote d'une case adversaire
   if(!aVoisins(plat,ligne,colonne,couleur)) return 3;
   // coup prend un pion adverse.
   if(!prendPion(plat,ligne,colonne,couleur,estTest)) return 4;
   return 0;
 }
 
-// coup aléatoire IA
+// coup aleatoire IA
 int coupAleatIA(char * plat[TAILLE][TAILLE],char * couleur){
   int coupInvalide = 1;
   int ligne = 0, colonne = 0;
@@ -344,7 +344,7 @@ int coupAleatIA(char * plat[TAILLE][TAILLE],char * couleur){
   plat[ligne][colonne] = couleur;
   system("clear");
   char ligneC = 'A';
-  printf("Coup précédent : %c%d\n\n",ligneC + ligne, colonne + 1);
+  printf("Coup precedent : %c%d\n\n",ligneC + ligne, colonne + 1);
 }
 
 // coup intelligent IA
@@ -359,7 +359,7 @@ void saisieCoupJcJD(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
   exit(EXIT_SUCCESS);
 }
 
-// Joueur contre Joueur local (également utilisé pour la saisie des coups d'un joueur quand ce n'est pas le tour de l'IA)
+// Joueur contre Joueur local (egalement utilise pour la saisie des coups d'un joueur quand ce n'est pas le tour de l'IA)
 void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
   int coupInvalide = 1;
   int colonne = -1,ligne = -1;
@@ -384,7 +384,7 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
         switch(coupInvalide){
           case 1:printf("\n\nLe coup est en dehors du plateau.\n");break;
           case 2:printf("\n\nLe coup est n'est pas dans une case vide.\n");break;
-          case 3:printf("\n\nLe coup n'est pas à côté d'une case adverse.\n");break;
+          case 3:printf("\n\nLe coup n'est pas a cote d'une case adverse.\n");break;
           case 4:printf("\n\nLe coup ne prend pas de pion adverse.\n");break;
         }
       }
@@ -393,7 +393,7 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
       char fileName[30];
       printf("Saisissez le nom du fichier pour enregistrer la partie : \n");
       scanf("%s",fileName);
-      printf("coucou");
+      getchar();
       fichier = fopen(strcat(fileName,".txt"),"w");
       savePartie(plat,fichier,nbTours);
       fclose(fichier);
@@ -402,7 +402,7 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
   plat[ligne][colonne] = couleur;
   system("clear");
   char ligneC = 'A';
-  printf("Coup précédent : %c%d\n\n",ligneC + ligne, colonne + 1);
+  printf("Coup precedent : %c%d\n\n",ligneC + ligne, colonne + 1);
 }
 
 // Joueur contre IA
@@ -427,7 +427,7 @@ void saisieCoupJcIA(char * plat[TAILLE][TAILLE], char * couleur, int nbTours, in
   0 -> la partie n'est pas encore finie
   1 -> les blancs
   2 -> les noirs
-  3 -> égalité
+  3 -> egalite
 */
 int estFinie(char * plat[TAILLE][TAILLE]){
   int done = 0;
@@ -437,7 +437,7 @@ int estFinie(char * plat[TAILLE][TAILLE]){
   int ligne,colonne;
   for(ligne = 0; ligne < TAILLE; ligne++){
     for(colonne = 0; colonne < TAILLE; colonne++){
-      // strcmp renvoit 0 en cas d'égalité des deux termes. Donc on cherche à savoir si
+      // strcmp renvoit 0 en cas d'egalite des deux termes. Donc on cherche a savoir si
       // Il y a encore au moins une case vide
       if(!(strcmp(plat[ligne][colonne], VIDE))) plein = 0;
       // Il y a encore au moins une case noire
@@ -451,7 +451,7 @@ int estFinie(char * plat[TAILLE][TAILLE]){
 }
 
 /*
-  Fonction qui renvoit si un coup est possible dans une situation donnée et pour un joueur donné
+  Fonction qui renvoit si un coup est possible dans une situation donnee et pour un joueur donne
 */
 int coupPossible(char * plat[TAILLE][TAILLE] ,char * couleur){
   int possible = 0;
