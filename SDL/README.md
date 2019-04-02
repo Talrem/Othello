@@ -32,10 +32,15 @@
          Liste des fonctions :
       </h3>
          <ul>
+            <li> ShowWindow : Créer la fenetre SDL
+            <li> creerBoutons : créer un nombre donné de bouton de menu, puis les ranges dans un tableau. Les boutons crées sont placés les uns en dessous des autres</li>
+            <li> getRes : Récupere la dimension actuelle de la fenetre, renvoie l'emplacement de cette résolution dans le tableau des résolutions disponible (la derniere case si la résolution n'est pas dans le tableau)</li>
+            <li> initBoutonMenu4 : crée les boutons du menu4. Fonction séparé de creerBoutons car la disposition du menu 4 est différent des autres</li>
             <li> Fonctions "SDL_Menu" : Gèrent chacune le menu auquel elles correspondent</li>
             <li> Fonctions "SDL_AfficherMenu" : Affichent le menu auquels elles correspondent</li>
             <li> AfficherErreur : Affiche l'erreur de coup donné</li>
             <li> AfficheJoueurTour : Affiche le joueur actuel</li>
+            <li> AfficherMenuPause : Affiche les boutons du menu de la pause en partie</li>
             <li> Fonctions "Jeu" : permettent de faire une partie</li>
          </ul>
 
