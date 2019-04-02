@@ -1,7 +1,7 @@
-all: main sdl
-
 main:
-	make -f makeMain all
+	read -p "Argument: " argument
+	make -f makeMain $(argument)
 
 sdl:
-	make -f makeSDL all
+	read -p "Argument: " argument
+	make -f makeSDL $(argument)
