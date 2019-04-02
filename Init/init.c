@@ -23,10 +23,11 @@ void initPlat(char * plat[TAILLE][TAILLE]){
    }
 }
 
-int initPlatFic(char * plat[TAILLE][TAILLE], FILE * fichier){
+int initPlatFic(char * plat[TAILLE][TAILLE], FILE * fichier, char ** tour){
   if(!fichier) return 1;
   int val;
   int nbTours;
+  char tourActuel;
   fscanf(fichier,"%d",&nbTours);
   for(int i = 0; i < TAILLE ; i++){
     for(int j = 0; j < TAILLE ; j++){
@@ -44,10 +45,16 @@ int initPlatFic(char * plat[TAILLE][TAILLE], FILE * fichier){
       }
     }
   }
+  fscanf(fichier,"%c",&tourActuel);
+  if(tourActuel == 'n'){
+    *tour = NOIR;
+  }else{
+    *tour = BLANC;
+  }
   return nbTours;
 }
 
-int savePartie(char * plat[TAILLE][TAILLE], FILE * fichier, int nbTours){
+int savePartie(char * plat[TAILLE][TAILLE], FILE * fichier, int nbTours, char * tour){
   if(!fichier) return 1;
   fprintf(fichier,"%d ",nbTours);
   for(int i = 0; i < TAILLE ; i++){
@@ -60,6 +67,11 @@ int savePartie(char * plat[TAILLE][TAILLE], FILE * fichier, int nbTours){
         fprintf(fichier,"%d ",0);
       }
     }
+  }
+  if(tour == NOIR){
+    fprintf(fichier,"n ");
+  }else{
+    fprintf(fichier,"b ");
   }
   return 0;
 }
