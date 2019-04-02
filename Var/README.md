@@ -2,7 +2,7 @@
   <head>
   </head>
   <body>
-    <p>Ici se trouvent les fonctions utilisée au cours du tour, à savoir :</p>
+    <p>Ici se trouvent les fonctions utilisée pour récupérer les variables importantes du main, à savoir :</p>
     <ul>
       <li> menu : Sélectionne le mode de jeu entre joueur contre joueur et joueur contre IA</li>
       <li> menuJcJ : Choisit si le joueur souhaite jouer en mode local ou distant</li>
