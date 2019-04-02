@@ -395,8 +395,10 @@ void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
       scanf("%s",fileName);
       getchar();
       fichier = fopen(strcat(fileName,".txt"),"w");
-      savePartie(plat,fichier,nbTours);
+      savePartie(plat,fichier,nbTours,couleur);
       fclose(fichier);
+      printf("Sauvegarde effectuée avec succès.\nAu revoir");
+      exit(EXIT_SUCCESS);
     }
   }
   plat[ligne][colonne] = couleur;
