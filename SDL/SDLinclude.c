@@ -71,6 +71,30 @@ int getRes(SDL_Window * pWindow, t_dimension resolution[], int nbRes){
 	return i;
 }
 
+void initBoutonMenu4(SDL_Window * pWindow, SDL_Rect * bouton, SDL_Rect * boutonDroite, SDL_Rect * boutonGauche, SDL_Rect * appliquer){
+	int window_w, window_h;
+	SDL_GetWindowSize(pWindow, &window_w, &window_h);
+
+	bouton->x = (window_w / 3);
+	bouton->y = (window_h / 3);
+	bouton->w = (window_w / 3);
+	bouton->h = (window_h / 8);
+
+	boutonDroite->x = (bouton->x + bouton->w + 5);
+	boutonDroite->y = (bouton->y);
+	boutonDroite->w = (bouton->h);
+	boutonDroite->h = (bouton->h);
+
+	boutonGauche->x = (bouton->x - bouton->h - 5);
+	boutonGauche->y = (bouton->y);
+	boutonGauche->w = (bouton->h);
+	boutonGauche->h = (bouton->h);
+
+	appliquer->x = (bouton->x);
+	appliquer->y = (bouton->y + bouton->h + 5);
+	appliquer->w = (bouton->w);
+	appliquer->h = (bouton->h);
+}
 
 int SDL_Menu1(SDL_Window * pWindow, SDL_Renderer * pRenderer){
    if(pWindow){
@@ -364,6 +388,11 @@ int SDL_AfficherMenu3(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Rect *
 
 int SDL_Menu4(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 	if(pWindow){
+		SDL_DisplayMode display;
+		SDL_GetDesktopDisplayMode(0, &display);
+		int w = display.w; //largeur et hauteur de l'écran (pas la fenetre)
+		int h = display.h;
+
 		int nbRes = 6;
 		t_dimension verylow = {"640*480", 640, 480};
 		t_dimension low = {"800*600", 800, 600};
@@ -378,12 +407,16 @@ int SDL_Menu4(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 		SDL_GetWindowSize(pWindow, &window_w, &window_h);
 
 		int nbBouton = 4;
-		SDL_Rect bouton = {window_w / 3, window_h / 8, window_w / 3, window_h / 8};
-		SDL_Rect boutonDroite = {(bouton.x + bouton.w + 3), bouton.y, bouton.y, bouton.y};
-		SDL_Rect boutonGauche = {(bouton.x - bouton.y - 3), bouton.y, bouton.y, bouton.y};
-		SDL_Rect appliquer = {bouton.x, bouton.y + bouton.h + 3, bouton.w, bouton.h};
+		SDL_Rect bouton;
+		SDL_Rect boutonDroite;
+		SDL_Rect boutonGauche;
+		SDL_Rect appliquer;
+
+		initBoutonMenu4(pWindow, &bouton, &boutonDroite, &boutonGauche, &appliquer);
 
 		SDL_Rect tabBouton[] = {bouton, boutonDroite, boutonGauche, appliquer};
+
+		SDL_AfficherMenu4(pWindow, pRenderer, tabBouton, nbBouton, resolution, nbRes, resAct);
 
 		int running = 1;
 		while(running){
@@ -400,6 +433,7 @@ int SDL_Menu4(SDL_Window * pWindow, SDL_Renderer * pRenderer){
                      case SDL_WINDOWEVENT_SIZE_CHANGED:
                      case SDL_WINDOWEVENT_RESIZED:
                      case SDL_WINDOWEVENT_SHOWN:
+								initBoutonMenu4(pWindow, &bouton, &boutonDroite, &boutonGauche, &appliquer);
 								SDL_AfficherMenu4(pWindow, pRenderer, tabBouton, nbBouton, resolution, nbRes, resAct);
                      break;
                   }
@@ -407,11 +441,20 @@ int SDL_Menu4(SDL_Window * pWindow, SDL_Renderer * pRenderer){
 						//on vérifie sur quel bouton on clique :
 						//puis on appel la fonction qui permet de changer de menu
 						if(posClick(e.button, boutonDroite.x, boutonDroite.y, (boutonDroite.x + boutonDroite.w), (boutonDroite.y + boutonDroite.h))){ //bouton Droite
-
+							if(resAct < nbRes - 2) //empecher la selection de CUSTOM via les fleches
+								resAct++;
+							SDL_AfficherMenu4(pWindow, pRenderer, tabBouton, nbBouton, resolution, nbRes, resAct);
 						} else if(posClick(e.button, boutonGauche.x, boutonGauche.y, (boutonGauche.x + boutonGauche.w), (boutonGauche.y + boutonGauche.h))){ //bouton Gauche
-
+							if(resAct > 0) //empeche d'aller plus bas que 0 dans tab
+								resAct--;
+							SDL_AfficherMenu4(pWindow, pRenderer, tabBouton, nbBouton, resolution, nbRes, resAct);
 						}else if(posClick(e.button, appliquer.x, appliquer.y, (appliquer.x + appliquer.w), (appliquer.y + appliquer.h))){ //bouton Retour
-							//Ce bouton sert a faire retour
+							//Ce bouton sert a faire appliquer la résolution et faire retour
+							if(resolution[resAct].w <= w && resolution[resAct].h <= h){
+								SDL_SetWindowSize(pWindow, resolution[resAct].w, resolution[resAct].h);
+							} else {
+								SDL_SetWindowSize(pWindow, w, h);
+							}
 							return 0;
 						}
             }
@@ -488,7 +531,7 @@ int SDL_AfficherMenuPause(SDL_Window * pWindow, SDL_Renderer * pRenderer, SDL_Re
 	int window_w; SDL_GetWindowSize(pWindow, &window_w, NULL); int policeSize = window_w / 22;
 	drawText(pRenderer, (tabBouton[0].x + tabBouton[0].x / 20), (tabBouton[0].y + tabBouton[0].y / 4), "Continuer", policeSize, COULEUR_NOIR);
 	drawText(pRenderer, (tabBouton[1].x + tabBouton[1].x / 20), (tabBouton[1].y + tabBouton[0].y / 4), "Sauvegarder", policeSize, COULEUR_NOIR);
-	drawText(pRenderer, (tabBouton[2].x + tabBouton[2].x / 20), (tabBouton[2].y + tabBouton[0].y / 4), "Quiter", policeSize, COULEUR_NOIR);
+	drawText(pRenderer, (tabBouton[2].x + tabBouton[2].x / 20), (tabBouton[2].y + tabBouton[0].y / 4), "Quitter", policeSize, COULEUR_NOIR);
 	SDL_RenderPresent(pRenderer);
 
 	return 0;

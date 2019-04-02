@@ -21,6 +21,8 @@ typedef struct s_dimension{
 SDL_Window* showWindow();
 int creerBoutons(SDL_Window * pWindow, int nbBouton, ...);
 int getRes(SDL_Window * pWindow, t_dimension resolution[], int nbRes);
+void initBoutonMenu4(SDL_Window * pWindow, SDL_Rect * bouton, SDL_Rect * boutonDroit, SDL_Rect * boutonGauche, SDL_Rect * appliquer);
+
 
 /*
 *  Fonctions d'affichage des menus
