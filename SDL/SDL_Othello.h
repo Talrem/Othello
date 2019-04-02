@@ -11,7 +11,6 @@
 #include "../SDL/definitionsSDL.h"
 
 void drawText (SDL_Renderer * renderer, int x, int y, char * string, int policeSize, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
-void drawImage (SDL_Renderer * renderer, int x, int y, char * string);
 int posClick(SDL_MouseButtonEvent b, int posA_x, int posA_y, int posB_x, int posB_y);
 void set_pixel(SDL_Renderer *rend, int x, int y, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
 void draw_circle(SDL_Renderer *surface, int n_cx, int n_cy, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a);

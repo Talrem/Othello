@@ -18,6 +18,7 @@ void drawText (SDL_Renderer * renderer, int x, int y, char * string, int policeS
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
 	SDL_Texture *texte_tex = SDL_CreateTextureFromSurface(renderer, texte);
 	SDL_FreeSurface(texte); /* on a la texture, plus besoin du texte */
+	texte = NULL;
 	/* Position ou sera mis le texte dans la fenêtre */
 	SDL_Rect txtDestRect;
 	txtDestRect.x = x;
@@ -25,19 +26,7 @@ void drawText (SDL_Renderer * renderer, int x, int y, char * string, int policeS
 	SDL_QueryTexture(texte_tex, NULL, NULL, &(txtDestRect.w), &(txtDestRect.h));
 	SDL_RenderCopy(renderer, texte_tex, NULL, &txtDestRect);
 	TTF_CloseFont(police);
-}
-
-void drawImage (SDL_Renderer * renderer, int x, int y, char * string){
-	// x et y les coordonnées,
-	SDL_RWops *rwop=SDL_RWFromFile(string, "rb");
-	SDL_Rect imgDestRect;
-	imgDestRect.x = x;
-	imgDestRect.y = y;
-	SDL_Surface *image=IMG_LoadPNG_RW(rwop);
-	SDL_Texture *image_tex = SDL_CreateTextureFromSurface(renderer, image);
-	SDL_FreeSurface(image); /* on a la texture, plus besoin de l'image */
-	SDL_QueryTexture(image_tex, NULL, NULL, &(imgDestRect.w), &(imgDestRect.h));
-	SDL_RenderCopy(renderer, image_tex, NULL, &imgDestRect);
+	police = NULL;
 }
 
 
