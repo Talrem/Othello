@@ -22,6 +22,8 @@
       </li>
       <li>* les pions sont retournés quand ils sont pris</li>
       <li>* On peut choisir de refaire une partie dans le même mode de jeu une fois la partie finie</li>
+      <li>* On peut charger une partie sauvegardée dans un fichier txt</li>
+      <li>* On peut sauvegarder une partie dans un fichier txt</li>
     </ul>
     <h3>* COUP VALIDE :</h3>
     <ul>
@@ -46,7 +48,7 @@
     </ul>
     <h3>- JEU CONTRE L'ORDINATEUR</h3>
     <ul>
-      <li>* l'IA a une couleur aléatoire</li>
+      <li>* On peut choisir la couleur de l'IA entre noire, blanche et aléatoire pour la première partie.</li>
       <li>* coup aléatoire tout les N tours en fonction de la difficulté</li>
       <li>- arbre de points</li>
       <li>- si égalité de gain potentiel : coup aléatoire</li>
