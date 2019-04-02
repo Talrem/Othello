@@ -35,15 +35,15 @@
     <h3>- INTERFACE GRAPHIQUE</h3>
     <ul>
       <li>- SDL2</li>
-      <li>- Menus de sélection</li>
+      <li>* Menus de sélection</li>
       <li>* saisie des coups</li>
       <li>* affichage du terminal et des scores</li>
     </ul>
     <h3>- JEU EN RESEAU</h3>
     <ul>
-      <li>- Socketv</li>
-      <li>- hébergement de partie</li>
-      <li>- connection à une partie</li>
+      <li>* Socketv</li>
+      <li>* hébergement de partie</li>
+      <li>* connection à une partie</li>
       <li>- échange des données de jeu</li>
     </ul>
     <h3>- JEU CONTRE L'ORDINATEUR</h3>
