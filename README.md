@@ -32,9 +32,9 @@
       <li>* la case est voisine à une case adverse</li>
       <li>* au moins un pion de l'adversaire est retourné</li>
     </ul>
-    <h3>- INTERFACE GRAPHIQUE</h3>
+    <h3>* INTERFACE GRAPHIQUE</h3>
     <ul>
-      <li>- SDL2</li>
+      <li>* SDL2</li>
       <li>* Menus de sélection</li>
       <li>* saisie des coups</li>
       <li>* affichage du terminal et des scores</li>
