@@ -1,7 +1,7 @@
 all: out clean
 
-out: main.o aff.o init.o tour.o
-	gcc main.o aff.o init.o tour.o -o othello.exe
+out: main.o aff.o init.o tour.o var.o
+	gcc main.o aff.o init.o tour.o var.o -o othello.exe
 main.o: main.c
 	gcc main.c -c
 aff.o: ./Aff/aff.c
@@ -10,6 +10,8 @@ init.o: ./Init/init.c
 	gcc ./Init/init.c -c
 tour.o: ./Tour/tour.c
 	gcc ./Tour/tour.c -c
+var.o: ./Var/var.c
+	gcc ./Var/var.c -c
 
 clean:
 	rm *.o
