@@ -1,5 +1,8 @@
 #include "./var.h"
-
+#include "../Reseau/reseau.h"
+#include "../Tour/tour.h"
+#include "../Aff/aff.h"
+#include "../Init/init.h"
 /*Choix du mode de jeu*/
 int menu(int choixMenu){
   while(choixMenu < 1 || choixMenu > 3){
@@ -43,18 +46,108 @@ int menuJD(int choixMenuJD){
     printf(" 1 - Heberger une partie\n");
     printf(" 2 - Rejoindre une partie\n");
     printf(" 3 - Quitter\n");
-    printf("Que choisissez vous ? : ");
+    printf("\nINFO: L'hébergeur de la partie joue les pions noir et le joueur adverse les pions blanc\n");
+    printf("\nQue choisissez vous ? : ");
     scanf("%i",&choixMenuJD);
     getchar();
   }
+  // socket réseau
+  SOCKET sock;
+  SOCKET ssock;
+  SOCKET csock;
+  // jeu
+  char * plat[TAILLE][TAILLE];
+  initPlat(plat);
+  int coupDonnee[2];
+  int coupLigne;
+  int coupColonne;
+  char * tour;
+  int nbTours = 1;
+
+  if(choixMenuJD == 1){
+    tour = NOIR;
+    if (ssock = serveur(sock) == 0){
+      printf("Vérifier que l'adresse IP de l'un de vos interfaces ethernet soit exact\n");
+      return 0;
+    }
+  }
+
+  if(choixMenuJD == 2){
+    tour = BLANC;
+    if (csock = client(sock) == 0){
+      printf("Vérifier que vous saissisez bien l'adresse IP du serveur\n");
+      printf("Vérifier que votre adresse IP soit sur le même réseau que celui du serveur\n");
+      return 0;
+    }
+  }
+
   if(choixMenuJD == 3){
     printf("\nAu revoir !\n\n");
     return 0;
   }
-  /*
-  C'est là qu'il faut mettre le code pour le reseau
-  */
-  return choixMenuJD;
+
+  while(!estFinie(plat)){
+    afficherPlateau(plat);
+    printf("Noir : %s / Blanc : %s\n",NOIR,BLANC);
+    printf("Tour: %d\n",nbTours);
+    if (choixMenuJD == 1){ // On est herbergeur SERVEUR
+        if (nbTours % 2 != 0){ //Si tour impair
+          if(coupPossible(plat,tour)){
+            saisieCoupJcJD(plat,tour,nbTours,coupDonnee);
+            if(send(ssock,&coupDonnee,sizeof(coupDonnee), 0) != SOCKET_ERROR){
+              nbTours++;}
+          }
+        }
+        else{ //Si le tour est pair
+          int coupRecu[2];
+          printf("En attente du joueur adverse...\n");
+          if(recv(ssock,&coupRecu,sizeof(coupRecu), 0) != SOCKET_ERROR){
+            system("clear");
+            coupLigne = coupRecu[0];
+            coupColonne = coupRecu[1];
+            estInvalide(plat,coupLigne,coupColonne,BLANC,0);
+            plat[coupLigne][coupColonne] = BLANC;
+            nbTours++;
+          }
+        }
+      }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    if (choixMenuJD == 2){ // On rejoint la partie CLIENT
+        if (nbTours % 2 == 0){ //Si tour pair
+          if(coupPossible(plat,tour)){
+            saisieCoupJcJD(plat,tour,nbTours,coupDonnee);
+            if(send(csock,&coupDonnee,sizeof(coupDonnee), 0) != SOCKET_ERROR){
+              nbTours++;}
+          }
+        }
+        else{ // Si tour est impair
+          int coupRecu[2];
+          printf("En attente du joueur adverse...\n");
+          if(recv(csock,&coupRecu,sizeof(coupRecu), 0) != SOCKET_ERROR) {
+            system("clear");
+            coupLigne = coupRecu[0];
+            coupColonne = coupRecu[1];
+            estInvalide(plat,coupLigne,coupColonne,NOIR,0);
+            plat[coupLigne][coupColonne] = NOIR;
+            nbTours++;
+          }
+        }
+      }
+    }
+if (choixMenuJD == 1){
+shutdown(ssock,2);
+deconnexion(ssock);
+}
+else{
+deconnexion(csock);
+}
+afficherPlateau(plat);
+afficheScore(plat);
+printf("Partie terminée\n");
+getchar();
+return choixMenuJD;
 }
 
 /*Menu Joueur contre IA*/
