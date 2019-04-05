@@ -28,7 +28,7 @@ int main(int argc, char * argv[]){
           choixMenuJD = menuJD(choixMenuJD);
           return 0;
         default:
-          return printf("Une erreur est survenue...");
+          return printf("\nUne erreur est survenue...\n");
       }
       break;
     case 2:
@@ -37,7 +37,7 @@ int main(int argc, char * argv[]){
       couleurIA = choixCouleurIA();
       break;
     default:
-      return printf("Une erreur est survenue...");
+      return printf("\nUne erreur est survenue...\n");
   }
   system("clear");
   while (cont) {
