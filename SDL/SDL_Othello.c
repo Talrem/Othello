@@ -168,11 +168,6 @@ void SDL_afficherPlateau(SDL_Renderer *renderer, int posXPlat, int posYPlat, SDL
 	SDL_SetRenderDrawColor(renderer, COULEUR_VERT);
 }
 
-void afficherPion(SDL_Renderer *renderer, int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a){
-	fill_circle(renderer, x, y, radius, r, g, b, a);
-	SDL_SetRenderDrawColor(renderer, COULEUR_VERT);
-};
-
 void afficherMatrice(char * plateau[TAILLE][TAILLE], SDL_Renderer *render, int posXPlat, int posYPlat, int tailleCase, int radius){
 	int i, j;
 	int posXpion, posYpion;
@@ -181,15 +176,15 @@ void afficherMatrice(char * plateau[TAILLE][TAILLE], SDL_Renderer *render, int p
 			if(!strcmp(plateau[i][j], NOIR)){
 				posXpion = posXPlat + (tailleCase * (j + 1)) - tailleCase / 2;
 				posYpion = posYPlat + (tailleCase * (i + 1)) - tailleCase / 2;
-				afficherPion(render, posXpion, posYpion, radius, HEXA_NOIR);
-			} else if(!strcmp(plateau[i][j], BLANC)){
+				fill_circle(render, posXpion, posYpion, radius, COULEUR_NOIR);
+			}
+			if(!strcmp(plateau[i][j], BLANC)){
 				posXpion = posXPlat + (tailleCase * (j + 1)) - tailleCase / 2;
 				posYpion = posYPlat + (tailleCase * (i + 1)) - tailleCase / 2;
-				afficherPion(render, posXpion, posYpion, radius, HEXA_BLANC);
+				fill_circle(render, posXpion, posYpion, radius, COULEUR_BLANC);
 			}
 		}
 	}
-	SDL_SetRenderDrawColor(render, COULEUR_VERT);
 };
 
 void placerPion(char *plateau[TAILLE][TAILLE], int x, int y, char * joueur){
