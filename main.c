@@ -2,7 +2,7 @@
 #include "./Init/init.h"
 #include "./Tour/tour.h"
 #include "./Var/var.h"
-/*#include "./Reseau/reseau.h"*/
+#include "./Reseau/reseau.h"
 #include "./definitions.h"
 
 int main(int argc, char * argv[]){
@@ -26,7 +26,7 @@ int main(int argc, char * argv[]){
         case 1:break;
         case 2:
           choixMenuJD = menuJD(choixMenuJD);
-          break;
+          return 0;
         default:
           return printf("Une erreur est survenue...");
       }
@@ -55,7 +55,7 @@ int main(int argc, char * argv[]){
         printf("Saisissez le nom du fichier pour charger la partie : ");
         scanf("%s",fileName);
         fichier = fopen(strcat(fileName,".txt"),"r");
-        nbTours = initPlatFic(plat,fichier);
+        //nbTours = initPlatFic(plat,fichier,);
         fclose(fichier);
         break;
       case 'n':
@@ -66,31 +66,18 @@ int main(int argc, char * argv[]){
     }
     system("clear");
     char * tour = NOIR;
-    switch(choixMenuJ){
-      case 2:
-        while(!estFinie(plat)){
-          printf("Noir : %s / Blanc : %s",NOIR,BLANC);
-          afficherPlateau(plat);
-          if(coupPossible(plat,tour)) saisieCoupJcJD(plat,tour,nbTours);
-          tour = (tour == NOIR ? BLANC : NOIR);
-          nbTours++;
+    while(!estFinie(plat)){
+      printf("Noir : %s / Blanc : %s",NOIR,BLANC);
+      afficherPlateau(plat);
+      if(coupPossible(plat,tour)){
+        if(choixMenu == 1){
+          saisieCoupJcJL(plat,tour,nbTours);
+        }else{
+          saisieCoupJcIA(plat,tour,nbTours,difficulte,couleurIA);
         }
-        break;
-      default:
-        while(!estFinie(plat)){
-          printf("Noir : %s / Blanc : %s",NOIR,BLANC);
-          afficherPlateau(plat);
-          if(coupPossible(plat,tour)){
-            if(choixMenu == 1){
-              saisieCoupJcJL(plat,tour,nbTours);
-            }else{
-              saisieCoupJcIA(plat,tour,nbTours,difficulte,couleurIA);
-            }
-          }
-          tour = (tour == NOIR ? BLANC : NOIR);
-          nbTours++;
-        }
-        break;
+      }
+      tour = (tour == NOIR ? BLANC : NOIR);
+      nbTours++;
     }
     afficherPlateau(plat);
     afficheScore(plat);
