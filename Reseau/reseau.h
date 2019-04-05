@@ -13,4 +13,4 @@ typedef struct sockaddr SOCKADDR;
 
 SOCKET serveur(SOCKET sock);
 SOCKET client(SOCKET sock);
-void deconnextion(SOCKET sock);
+void deconnexion(SOCKET sock);
