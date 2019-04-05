@@ -354,9 +354,42 @@ int coupIntellIA(char * plat[TAILLE][TAILLE],char * couleur){
 }
 
 // Joueur contre Joueur distant
-void saisieCoupJcJD(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
-  printf("Work In Progress\nAu Revoir\n");
-  exit(EXIT_SUCCESS);
+void saisieCoupJcJD(char * plat[TAILLE][TAILLE], char * couleur, int nbTours, int coupDonnee[2]){
+  int coupInvalide = 1;
+  int colonne = -1,ligne = -1;
+  char saisieLigne = ' ';
+  while(coupInvalide){
+    printf("\nJoueur %s\n",couleur);
+    printf("Saisissez votre coup (ligne colonne) : ");
+    scanf("%c%d",&saisieLigne,&colonne);
+    getchar();
+    // Transformation de la lettre en indice de ligne
+  if(saisieLigne != 'S' && saisieLigne != 's'){
+    if(saisieLigne >= 'A' && saisieLigne <= 'A' + TAILLE){
+        ligne = saisieLigne - 'A';
+      }else{
+        ligne = saisieLigne - 'a';
+      }
+      colonne--;
+      coupInvalide = estInvalide(plat,ligne,colonne,couleur,0);
+      if(coupInvalide){
+        system("clear");
+        afficherPlateau(plat);
+        switch(coupInvalide){
+          case 1:printf("\n\nLe coup est en dehors du plateau.\n");break;
+          case 2:printf("\n\nLe coup est n'est pas dans une case vide.\n");break;
+          case 3:printf("\n\nLe coup n'est pas a cote d'une case adverse.\n");break;
+          case 4:printf("\n\nLe coup ne prend pas de pion adverse.\n");break;
+        }
+      }
+    }
+  }
+  plat[ligne][colonne] = couleur;
+  coupDonnee[0] = ligne;
+  coupDonnee[1] = colonne;
+  system("clear");
+  char ligneC = 'A';
+  printf("Coup precedent : %c%d\n\n",ligneC + ligne, colonne + 1);
 }
 
 // Joueur contre Joueur local (egalement utilise pour la saisie des coups d'un joueur quand ce n'est pas le tour de l'IA)
