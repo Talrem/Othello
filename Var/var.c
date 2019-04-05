@@ -66,7 +66,7 @@ int menuJD(int choixMenuJD){
 
   if(choixMenuJD == 1){
     tour = NOIR;
-    if (ssock = serveur(sock) == 0){
+    if ((ssock = serveur(sock)) == 0){
       printf("Vérifier que l'adresse IP de l'un de vos interfaces ethernet soit exact\n");
       return 0;
     }
@@ -74,7 +74,7 @@ int menuJD(int choixMenuJD){
 
   if(choixMenuJD == 2){
     tour = BLANC;
-    if (csock = client(sock) == 0){
+    if ((csock = client(sock)) == 0){
       printf("Vérifier que vous saissisez bien l'adresse IP du serveur\n");
       printf("Vérifier que votre adresse IP soit sur le même réseau que celui du serveur\n");
       return 0;
@@ -147,7 +147,7 @@ afficherPlateau(plat);
 afficheScore(plat);
 printf("Partie terminée\n");
 getchar();
-return choixMenuJD;
+return 0;
 }
 
 /*Menu Joueur contre IA*/
