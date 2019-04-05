@@ -51,7 +51,6 @@
       <li>* On peut choisir la couleur de l'IA entre noire, blanche et aléatoire pour la première partie.</li>
       <li>* coup aléatoire tout les N tours en fonction de la difficulté</li>
       <li>- arbre de points</li>
-      <li>- si égalité de gain potentiel : coup aléatoire</li>
       <li>* quand la partie est finie, si on choisit de rejouer, l'IA change de couleur</li>
     </ul>
   </body>
