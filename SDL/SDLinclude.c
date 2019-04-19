@@ -587,6 +587,54 @@ int SDL_AfficherBoutonMenuPause(SDL_Window * pWindow, SDL_Renderer * pRenderer, 
 
 }
 
+int SDL_FinDePartie(SDL_Window * pWindow, SDL_Renderer * pRenderer, int aFini){
+	if(pWindow){
+		SDL_Rect zoneTexte;
+		int window_w, window_h;
+		SDL_GetWindowSize(pWindow, &window_w, &window_h);
+		zoneTexte.x = window_w / 10;
+		zoneTexte.y = window_h / 2.5;
+		zoneTexte.w = window_w - (zoneTexte.x * 2);
+		zoneTexte.h = window_h / 5;
+		SDL_SetRenderDrawColor(pRenderer, COULEUR_BOUTON);
+		SDL_RenderFillRect(pRenderer, &zoneTexte);
+		int policeSize = window_w / 22;
+		switch(aFini){
+			case 1:	drawText(pRenderer, (zoneTexte.x + zoneTexte.x * 2), (zoneTexte.y + zoneTexte.y / 6), "Victoire des Noirs", policeSize, COULEUR_NOIR);
+						break;
+			case 2:	drawText(pRenderer, (zoneTexte.x + zoneTexte.x * 2), (zoneTexte.y + zoneTexte.y / 6), "Victoire des Blanc", policeSize, COULEUR_NOIR);
+						break;
+			case 3:	drawText(pRenderer, (zoneTexte.x + zoneTexte.x * 3.5), (zoneTexte.y + zoneTexte.y / 6), "Egalite", policeSize, COULEUR_NOIR);
+						break;
+		}
+		SDL_RenderPresent(pRenderer);
+
+		int running = 1;
+		while(running){
+			SDL_Delay(1);
+
+			SDL_Event e;
+         while(SDL_PollEvent(&e)){
+            switch(e.type){
+					case SDL_QUIT: running = 0;
+                  return -1; break;
+					case SDL_WINDOWEVENT:
+                  switch(e.window.event){
+                     case SDL_WINDOWEVENT_EXPOSED:
+                     case SDL_WINDOWEVENT_SIZE_CHANGED:
+                     case SDL_WINDOWEVENT_RESIZED:
+                     case SDL_WINDOWEVENT_SHOWN:
+                     break;
+                  }
+					case SDL_MOUSEBUTTONDOWN:
+						return 0;
+            }
+         }
+		}
+	}
+	return 0;
+}
+
 //Fonctions de jeu
 int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer, char * plateauMat[TAILLE][TAILLE], char * joueur, int nbTours){
 	if(pWindow){
@@ -650,14 +698,6 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer, char * plateauMat[TAI
 		boutonMenuPause.w = window_w / 7;
 		boutonMenuPause.h = window_h / 10;
 
-		if(!coupPossible(plateauMat, joueur)){
-			valide = 5;
-			if(strcmp(joueur, NOIR))
-				joueur = NOIR;
-			else
-				joueur = BLANC;
-		}
-
 		SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
 		SDL_RenderClear(pRenderer);
 		/*On affiche la grille du plateau*/
@@ -668,13 +708,28 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer, char * plateauMat[TAI
 		SDL_AfficherErreur(pRenderer, error, valide, posXError, posYError, taillePolice);
 		/*On affiche le bouton du menu*/
 		SDL_AfficherBoutonMenuPause(pWindow, pRenderer, boutonMenuPause);
+		/*On affiche le joueur actuel du tour*/
+		SDL_AfficherJoueurTour(pRenderer, 10, 10, radius, taillePolice, COULEUR_NOIR);
 		/*On affiche le tout*/
 		SDL_RenderPresent(pRenderer);
 
-		SDL_AfficherJoueurTour(pRenderer, 10, 10, radius, taillePolice, COULEUR_NOIR);
-
 		while(!estFinie(plateauMat) && quitter != -2){
 			SDL_Delay(1);
+
+			if(!coupPossible(plateauMat, joueur)){
+				valide = 5;
+				SDL_AfficherErreur(pRenderer, error, valide, posXError, posYError, taillePolice);
+				if(strcmp(joueur, NOIR))
+					joueur = NOIR;
+				else
+					joueur = BLANC;
+			}
+			if(strcmp(joueur, NOIR)){
+				SDL_AfficherJoueurTour(pRenderer, 10, 10, radius, taillePolice, COULEUR_BLANC);
+			} else {
+				SDL_AfficherJoueurTour(pRenderer, 10, 10, radius, taillePolice, COULEUR_NOIR);
+			}
+			SDL_RenderPresent(pRenderer);
 
 			SDL_Event e;
 			while(SDL_PollEvent(&e)){
@@ -695,6 +750,16 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer, char * plateauMat[TAI
 								posXError = posXPlat;
 								posYError = window_h / 60;
 								SDL_afficherPlateau(pRenderer, posXPlat, posYPlat, casePlateau, tailleCase);
+								boutonMenuPause.x = window_w / 40;
+								boutonMenuPause.y = window_h - window_h / 7;
+								boutonMenuPause.w = window_w / 7;
+								boutonMenuPause.h = window_h / 10;
+								SDL_AfficherBoutonMenuPause(pWindow, pRenderer, boutonMenuPause);
+								if(strcmp(joueur, NOIR)){
+									SDL_AfficherJoueurTour(pRenderer, 10, 10, radius, taillePolice, COULEUR_BLANC);
+								} else {
+									SDL_AfficherJoueurTour(pRenderer, 10, 10, radius, taillePolice, COULEUR_NOIR);
+								}
 								SDL_RenderPresent(pRenderer);
 							case SDL_WINDOWEVENT_SHOWN:
 								/*On affiche la matrice a chaque tour*/
@@ -708,7 +773,14 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer, char * plateauMat[TAI
 						/*On teste si le click est sur le bouton du menu*/
 						if(posClick(e.button, boutonMenuPause.x, boutonMenuPause.y, (boutonMenuPause.x + boutonMenuPause.w), (boutonMenuPause.y + boutonMenuPause.h))){
 							t_donneeSave save = {nbTour, -1, -1, joueur};
-							quitter = SDL_MenuPause(pWindow, pRenderer, plateauMat, 0, save);
+							quitter = SDL_MenuPause(pWindow, pRenderer, plateauMat, 1, save);
+							SDL_SetRenderDrawColor(pRenderer, COULEUR_VERT);
+							SDL_RenderClear(pRenderer);
+							SDL_afficherPlateau(pRenderer, posXPlat, posYPlat, casePlateau, tailleCase);
+							afficherMatrice(plateauMat, pRenderer, posXPlat, posYPlat, tailleCase, radius);
+							SDL_AfficherBoutonMenuPause(pWindow, pRenderer, boutonMenuPause);
+							SDL_AfficherJoueurTour(pRenderer, 10, 10, radius, taillePolice, COULEUR_NOIR);
+							SDL_RenderPresent(pRenderer);
 						} else if(posClick(e.button, posXPlat, posYPlat, (posXPlat + taillePlat), (posYPlat + taillePlat))){
 							int caseX;
 							int caseY;
@@ -736,7 +808,9 @@ int jeuJCJ(SDL_Window * pWindow, SDL_Renderer * pRenderer, char * plateauMat[TAI
 		}
 
 	}
-
+	if(estFinie(plateauMat)){
+		SDL_FinDePartie(pWindow, pRenderer, estFinie(plateauMat));
+	}
 	return 0;
 }
 
