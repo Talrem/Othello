@@ -392,8 +392,41 @@ void saisieCoupJcJD(char * plat[TAILLE][TAILLE], char * couleur, int nbTours, in
   printf("Coup precedent : %c%d\n\n",ligneC + ligne, colonne + 1);
 }
 
+
+
 // Joueur contre Joueur local (egalement utilise pour la saisie des coups d'un joueur quand ce n'est pas le tour de l'IA)
 void saisieCoupJcJL(char * plat[TAILLE][TAILLE], char * couleur, int nbTours){
+
+// Ce code est une étape qui permet de réaliser l'IA, il permet de vérifier les case jouables ainsi que sa valeur de force
+// Décommentez le code et tester-le avec le menu joueur contre joueur local
+/*
+  int cp;
+  int cda1;
+  char * cda2;
+  cp = NbrcoupPossible(plat,couleur);
+  int case_a[MAX_C];
+  int case_o[MAX_C];
+  int eval[MAX_C];
+  printf("Les cases jouables sont :\t");
+  caseJouable(plat,couleur,case_a,case_o);
+  for (int p=0;p <cp;p++){
+    cda1 = case_a[p];
+    cda2 = malloc(sizeof(char *));
+    *cda2 = convertEtoL(cda1);
+    printf("%s%d\t",cda2,case_o[p]+1);
+    free(cda2);
+    cda2 = NULL;
+  }
+
+  evaluation(case_a,case_o,eval,cp);
+  printf("\nLes scores des cases :\t\t");
+  for (int z=0;z<cp;z++){
+    printf("%d\t",eval[z]);
+  }
+  int nbrPions;
+  nbrPions = NbrpionsPlat(nbTours);
+  printf("\nLe nombre de pions sur le plateau est %d\n",nbrPions);
+*/
   int coupInvalide = 1;
   int colonne = -1,ligne = -1;
   char saisieLigne = ' ';
@@ -497,4 +530,78 @@ int coupPossible(char * plat[TAILLE][TAILLE] ,char * couleur){
     }
   }
   return possible;
+}
+
+void caseJouable(char * plat[TAILLE][TAILLE] ,char * couleur,int abs[MAX_C],int ord[MAX_C]){
+  int k = 0;
+  for(int i = 0; i < TAILLE ; i++){
+    for(int j = 0; j < TAILLE ; j++){
+        if(strcmp(plat[i][j], VIDE) == 0){
+          if(aVoisins(plat,i,j,couleur)){
+            if(prendPion(plat,i,j,couleur,1)){
+              abs[k] = i;
+              ord[k] = j;
+              k++;
+            }
+          }
+        }
+      }
+    }
+
+}
+
+int NbrcoupPossible(char * plat[TAILLE][TAILLE] ,char * couleur){
+  int k = 0;
+  for(int i = 0; i < TAILLE ; i++){
+    for(int j = 0; j < TAILLE ; j++){
+        if(strcmp(plat[i][j], VIDE) == 0){
+          if(aVoisins(plat,i,j,couleur)){
+            if(prendPion(plat,i,j,couleur,1)){
+              k++;
+            }
+          }
+        }
+      }
+    }
+  return k;
+}
+
+int NbrpionsPlat(int nbTours){
+  int k = 4;
+  if (nbTours > 0){
+    k += nbTours-1;
+  }
+  return k;
+}
+
+char convertEtoL(int indice){
+
+  char * lettre[8] = {"A","B","C","D","E","F","G","H"};
+
+  switch(indice){
+    case 0:return *lettre[0];break;
+    case 1:return *lettre[1];break;
+    case 2:return *lettre[2];break;
+    case 3:return *lettre[3];break;
+    case 4:return *lettre[4];break;
+    case 5:return *lettre[5];break;
+    case 6:return *lettre[6];break;
+    case 7:return *lettre[7];break;
+  }
+}
+
+void evaluation(int abs[MAX_C],int ord[MAX_C],int eval[MAX_C],int nbrcp){
+
+  int plat_f[TAILLE][TAILLE]={ 1000,5,250,100,100,250,5,1000,
+                             5,0,50,50,50,50,0,5,
+                             250,50,60,70,70,60,50,250,
+                             100,50,70,200,200,70,50,100,
+                             100,50,70,200,200,70,50,100,
+                             250,50,60,70,70,60,50,250,
+                             5,0,50,50,50,50,0,5,
+                             1000,5,250,100,100,250,5,1000 };
+
+  for(int i = 0 ; i < nbrcp ; i++ ){
+    eval[i] = plat_f[abs[i]][ord[i]];
+  }
 }

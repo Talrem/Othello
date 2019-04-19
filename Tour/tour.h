@@ -13,3 +13,8 @@ void saisieCoupJcIA(char * plat[TAILLE][TAILLE], char * couleur, int nbTours, in
 void saisieCoupJcJD(char * plat[TAILLE][TAILLE], char * couleur, int nbTours, int coupDonnee[2]);
 int estFinie(char * plat[TAILLE][TAILLE]);
 int coupPossible(char * plat[TAILLE][TAILLE] ,char * couleur);
+void caseJouable(char * plat[TAILLE][TAILLE] ,char * couleur,int abs[MAX_C],int ord[MAX_C]);
+int NbrcoupPossible(char * plat[TAILLE][TAILLE] ,char * couleur);
+int NbrpionsPlat(int nbTours);
+char convertEtoL(int indice);
+void evaluation(int abs[MAX_C],int ord[MAX_C],int eval[MAX_C],int nbrcp);
