@@ -5,6 +5,7 @@
 #include <unistd.h>
 
 #define TAILLE 8
+#define MAX_C 20
 #define VIDE " "
 
 #if defined(WIN32)
